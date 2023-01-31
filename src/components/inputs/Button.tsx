@@ -1,18 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Colors} from '../../assets/colors';
+import {CsText} from '../data_displays';
 
 interface ButtonProps {
   type: keyof typeof type;
   size: keyof typeof size;
   label: string;
-  onPress?: () => void
+  onPress?: () => void;
 }
 
 function Button(props: ButtonProps) {
   return (
-    <TouchableOpacity onPress={props.onPress} style={[size[props.size].button, type[props.type].button, defaultStyle.button]}>
-      <Text style={[type[props.type].label]}>{props.label}</Text>
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={[
+        size[props.size].button,
+        type[props.type].button,
+        defaultStyle.button,
+      ]}>
+      <CsText size={size[props.size].label}>{props.label}</CsText>
+      {/* <Text style={[type[props.type].label]}></Text> */}
     </TouchableOpacity>
   );
 }
@@ -28,19 +36,22 @@ const defaultStyle = StyleSheet.create({
 });
 
 const size = {
-  sm: StyleSheet.create({
+  sm: {
+    label: 'sm' as 'sm',
     button: {
       width: 78,
       height: 24,
     },
-  }),
+  },
   md: {
+    label: 'md' as 'md',
     button: {
       width: 122,
       height: 36,
     },
   },
   lg: {
+    label: 'lg' as 'lg',
     button: {
       width: 300,
       height: 50,
@@ -57,9 +68,8 @@ const type = {
     },
     button: {
       backgroundColor: Colors.primary,
-      borderColor: Colors.primary
-    }
-    
+      borderColor: Colors.primary,
+    },
   }),
   secondary: StyleSheet.create({
     label: {
@@ -69,8 +79,8 @@ const type = {
     },
     button: {
       backgroundColor: Colors.secondary,
-      borderColor: Colors.basic
-    }
+      borderColor: Colors.basic,
+    },
   }),
   basic: StyleSheet.create({
     label: {
@@ -78,10 +88,10 @@ const type = {
       fontWeight: '700',
       fontSize: 15,
     },
-    button:{
+    button: {
       backgroundColor: Colors.secondary,
       borderColor: Colors.secondary,
-    }
+    },
   }),
 };
 
