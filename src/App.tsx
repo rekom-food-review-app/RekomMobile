@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Button} from './components';
+import {Button, SecureTextField, TextField} from './components';
 
 const App = () => {
   return (
@@ -16,7 +16,15 @@ const App = () => {
       <Button type={'primary'} size={'lg'} label={'lgpri'} />
       <Button type={'secondary'} size={'lg'} label={'lgse'} />
       <Button type={'basic'} size={'lg'} label={'lgba'} />
-
+      <TextField
+        type={'left'}
+        size={'sm'}
+        placeholder="hihi"
+        error="hahhahahah"
+      />
+      {/* <Text>akwjshdjk</Text> */}
+      <TextField error="dsahd" type={'center'} size={'lg'} placeholder="haha" />
+      <SecureTextField type={'left'} size={'lg'} placeholder="password" />
     </View>
   );
 };
@@ -24,6 +32,5 @@ const App = () => {
 export default App;
 
 const styles = StyleSheet.create({
-  s: {
-  }
+  s: {},
 });
