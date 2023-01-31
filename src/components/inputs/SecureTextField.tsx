@@ -6,17 +6,22 @@ interface SecureTextFieldProps {
   placeholder: string;
   type: keyof typeof type;
   size: keyof typeof size;
+  wrapperStyle?: any;
+  error?: string;
 }
 const SecureTextField = (props: SecureTextFieldProps) => {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   return (
-    <View style={[defaultStyle.textField, size[props.size]]}>
+    <View
+      style={[defaultStyle.textField, size[props.size], props.wrapperStyle]}>
       <TextInput
         secureTextEntry={true}
         style={type[props.type].placeholder}
         placeholder={props.placeholder}
       />
-      <Text>error pass</Text>
+      {props.error ? (
+        <Text style={defaultStyle.error}>{props.error}</Text>
+      ) : null}
     </View>
   );
 };
@@ -26,15 +31,19 @@ const defaultStyle = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.basic,
   },
+  error: {
+    color: 'red',
+    fontSize: 11,
+    textAlign: 'right',
+    marginRight: 10,
+  },
 });
 const size = {
   sm: {
     width: 155,
-    height: 45,
   },
   lg: {
     width: 331,
-    height: 45,
   },
 };
 const type = {

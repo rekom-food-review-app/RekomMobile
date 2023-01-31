@@ -7,6 +7,7 @@ interface TextFieldProps {
   type: keyof typeof type;
   size: keyof typeof size;
   wrapperStyle?: any;
+  keyboardType?: any;
   error?: string;
 }
 const TextField = (props: TextFieldProps) => {
@@ -15,8 +16,11 @@ const TextField = (props: TextFieldProps) => {
       <TextInput
         style={[defaultStyle.textField, type[props.type].placeholder]}
         placeholder={props.placeholder}
+        keyboardType={props.keyboardType}
       />
-      <Text style={defaultStyle.error}>{props.error}</Text>
+      {props.error ? (
+        <Text style={defaultStyle.error}>{props.error}</Text>
+      ) : null}
     </View>
   );
 };
@@ -25,7 +29,6 @@ const defaultStyle = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 1,
     borderColor: Colors.basic,
-    height: 45,
   },
   error: {
     color: 'red',

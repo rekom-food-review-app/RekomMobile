@@ -7,6 +7,7 @@ interface ButtonProps {
   type: keyof typeof type;
   size: keyof typeof size;
   label: string;
+  wrapperStyle?: any;
   onPress?: () => void;
 }
 
@@ -15,12 +16,12 @@ function Button(props: ButtonProps) {
     <TouchableOpacity
       onPress={props.onPress}
       style={[
+        props.wrapperStyle,
         size[props.size].button,
         type[props.type].button,
         defaultStyle.button,
       ]}>
       <CsText size={size[props.size].label}>{props.label}</CsText>
-      {/* <Text style={[type[props.type].label]}></Text> */}
     </TouchableOpacity>
   );
 }
@@ -29,32 +30,31 @@ const defaultStyle = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 10,
     borderRadius: 100,
     borderWidth: 1,
   },
 });
 
 const size = {
-  sm: {
-    label: 'sm' as 'sm',
+  sm: StyleSheet.create<any>({
+    label: 'xs' as 'xs',
     button: {
-      width: 78,
-      height: 24,
+      paddingHorizontal: 30,
+      paddingVertical: 8,
     },
-  },
+  }),
   md: {
     label: 'md' as 'md',
     button: {
-      width: 122,
-      height: 36,
+      paddingHorizontal: 45,
+      paddingVertical: 10,
     },
   },
   lg: {
     label: 'lg' as 'lg',
     button: {
-      width: 300,
-      height: 50,
+      paddingHorizontal: 60,
+      paddingVertical: 10,
     },
   },
 };
@@ -63,8 +63,6 @@ const type = {
   primary: StyleSheet.create({
     label: {
       color: Colors.secondary,
-      fontWeight: '700',
-      fontSize: 15,
     },
     button: {
       backgroundColor: Colors.primary,
@@ -74,8 +72,6 @@ const type = {
   secondary: StyleSheet.create({
     label: {
       color: Colors.dark,
-      fontWeight: '700',
-      fontSize: 15,
     },
     button: {
       backgroundColor: Colors.secondary,
@@ -85,8 +81,6 @@ const type = {
   basic: StyleSheet.create({
     label: {
       color: Colors.dark,
-      fontWeight: '700',
-      fontSize: 15,
     },
     button: {
       backgroundColor: Colors.secondary,
