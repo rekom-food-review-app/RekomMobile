@@ -1,10 +1,10 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {Colors} from '../assets/colors';
 import {Button, SecureTextField, TextField} from '../components';
-import { Colors } from '../assets/colors';
 
 function RegisterNewAccount() {
   return (
-    <View style={{width: '100%', height: '100%',backgroundColor: Colors.secondary}}>
+    <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
       <View
         style={{
           paddingHorizontal: 10,

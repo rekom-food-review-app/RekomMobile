@@ -1,11 +1,11 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import {Colors} from '../assets/colors';
 import {Button, TextField} from '../components';
-import { Colors } from '../assets/colors';
 
 const SecondRegister = () => {
   return (
-    <View style={{width: '100%', height: '100%',backgroundColor: Colors.secondary}}>
+    <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
       <View
         style={{
           paddingHorizontal: 10,
@@ -30,7 +30,7 @@ const SecondRegister = () => {
             type={'center'}
             size={'lg'}
             placeholder="OTP"
-            keyboardType='numeric'
+            keyboardType="numeric"
           />
           <Button
             wrapperStyle={{alignSelf: 'flex-end'}}
@@ -51,7 +51,7 @@ const SecondRegister = () => {
             The OTP only work in 60s left, can't see your OTP?
           </Text>
         </View>
-        <Button type={'basic'} size={'sm'} label={'Resend'}/>
+        <Button type={'basic'} size={'sm'} label={'Resend'} />
       </View>
     </View>
   );

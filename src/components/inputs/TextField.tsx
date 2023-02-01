@@ -28,7 +28,7 @@ const defaultStyle = StyleSheet.create({
   textField: {
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: Colors.basic,
+    borderColor: Colors.C,
   },
   error: {
     color: 'red',

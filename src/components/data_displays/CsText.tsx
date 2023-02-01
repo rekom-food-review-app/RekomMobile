@@ -1,13 +1,24 @@
-import {StyleSheet, Text} from 'react-native';
-
+import {StyleProp, StyleSheet, Text} from 'react-native';
+import {Colors} from '../../assets/colors';
 interface CsTextProps {
   size: keyof typeof size;
-  // weight: keyof typeof size;
+  weight: any;
   children: string;
+  style?: StyleProp<any>;
+  color?: keyof typeof Colors;
 }
 
 function CsText(props: CsTextProps) {
-  return <Text style={[size[props.size].text]}>{props.children}</Text>;
+  return (
+    <Text
+      style={[
+        size[props.size].text,
+        props.style,
+        {fontWeight: props.weight, color: Colors[props.color || 'E']},
+      ]}>
+      {props.children}
+    </Text>
+  );
 }
 
 const defaultStyle = {};

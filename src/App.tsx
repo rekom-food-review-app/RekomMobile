@@ -5,9 +5,9 @@ import {RegisterNewAccount, SecondRegister, ThirdRegister} from './screens';
 const App = () => {
   return (
     <View>
-      <RegisterNewAccount />
+      {/* <RegisterNewAccount /> */}
       {/* <SecondRegister /> */}
-      {/* <ThirdRegister /> */}
+      <ThirdRegister />
     </View>
   );
 };

@@ -16,18 +16,24 @@ function Button(props: ButtonProps) {
     <TouchableOpacity
       onPress={props.onPress}
       style={[
-        props.wrapperStyle,
         size[props.size].button,
         type[props.type].button,
         defaultStyle.button,
+        props.wrapperStyle,
       ]}>
-      <CsText size={size[props.size].label}>{props.label}</CsText>
+      <CsText
+        weight={'bold'}
+        color={type[props.type].label}
+        size={size[props.size].label}>
+        {props.label}
+      </CsText>
     </TouchableOpacity>
   );
 }
 
 const defaultStyle = StyleSheet.create({
   button: {
+    alignSelf: 'flex-start',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
@@ -60,31 +66,25 @@ const size = {
 };
 
 const type = {
-  primary: StyleSheet.create({
-    label: {
-      color: Colors.secondary,
-    },
+  primary: StyleSheet.create<any>({
+    label: 'B' as 'B',
     button: {
-      backgroundColor: Colors.primary,
-      borderColor: Colors.primary,
+      backgroundColor: Colors.A,
+      borderColor: Colors.A,
     },
   }),
-  secondary: StyleSheet.create({
-    label: {
-      color: Colors.dark,
-    },
+  secondary: StyleSheet.create<any>({
+    label: 'E' as 'E',
     button: {
-      backgroundColor: Colors.secondary,
-      borderColor: Colors.basic,
+      backgroundColor: Colors.B,
+      borderColor: Colors.C,
     },
   }),
-  basic: StyleSheet.create({
-    label: {
-      color: Colors.dark,
-    },
+  basic: StyleSheet.create<any>({
+    label: 'C' as 'C',
     button: {
-      backgroundColor: Colors.secondary,
-      borderColor: Colors.secondary,
+      backgroundColor: Colors.B,
+      borderColor: Colors.B,
     },
   }),
 };
