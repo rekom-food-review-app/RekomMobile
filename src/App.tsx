@@ -1,13 +1,13 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {RegisterNewAccount, SecondRegister, ThirdRegister} from './screens';
+import {RegisterNewAccount, RegisterOTP, RegisterUpdateProfile} from './screens';
 
 const App = () => {
   return (
     <View>
       {/* <RegisterNewAccount /> */}
-      {/* <SecondRegister /> */}
-      <ThirdRegister />
+      {/* <RegisterOTP /> */}
+      <RegisterUpdateProfile />
     </View>
   );
 };

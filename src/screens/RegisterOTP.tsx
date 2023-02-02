@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {Colors} from '../assets/colors';
 import {Button, TextField} from '../components';
 
-const SecondRegister = () => {
+const RegisterOTP = () => {
   return (
     <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
       <View
@@ -51,7 +51,12 @@ const SecondRegister = () => {
             The OTP only work in 60s left, can't see your OTP?
           </Text>
         </View>
-        <Button type={'basic'} size={'sm'} label={'Resend'} />
+        <Button
+          wrapperStyle={{alignSelf: 'center'}}
+          type={'basic'}
+          size={'sm'}
+          label={'Resend'}
+        />
       </View>
     </View>
   );
@@ -72,4 +77,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
-export {SecondRegister};
+export {RegisterOTP};

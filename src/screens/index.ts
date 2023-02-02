@@ -1,3 +1,3 @@
 export {RegisterNewAccount} from "./RegisterNewAccount"
-export {SecondRegister} from "./RecondRegister"
-export {ThirdRegister} from "./ThirdRegister"
+export {RegisterOTP} from "./RegisterOTP"
+export {RegisterUpdateProfile} from "./RegisterUpdateProfile"
