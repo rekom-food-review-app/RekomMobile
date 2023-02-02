@@ -1,8 +1,10 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Colors} from '../assets/colors';
 import {Button, CsText, Select, TextField} from '../components';
+import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
+
 
 const RegisterUpdateProfile = () => {
   const [selected, setSelected] = React.useState('');
@@ -25,7 +27,8 @@ const RegisterUpdateProfile = () => {
     } catch (error) {}
   };
   return (
-    <View
+   <TouchableWithoutFeedback onPress={dismissKeyboard}>
+     <View
       style={{
         width: '100%',
         height: '100%',
@@ -51,7 +54,7 @@ const RegisterUpdateProfile = () => {
         <Text style={{marginBottom: 15, textAlign: 'center'}}>
           Let's update your profile
         </Text>
-        <TouchableOpacity onPress={LoadLib} style={{width: 100, alignSelf:'center'}}>
+        <TouchableOpacity onPress={LoadLib} style={{alignSelf: 'center'}}>
           <Image
             style={styles.setAvt}
             source={require('../assets/image/avt.png')}
@@ -97,6 +100,7 @@ const RegisterUpdateProfile = () => {
         />
       </View>
     </View>
+   </TouchableWithoutFeedback>
   );
 };
 const styles = StyleSheet.create({
