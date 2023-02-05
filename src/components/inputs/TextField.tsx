@@ -4,17 +4,17 @@ import {Colors} from '../../assets/colors';
 
 interface TextFieldProps {
   placeholder: string;
-  type: keyof typeof type;
-  size: keyof typeof size;
+  type?: keyof typeof type;
+  size?: keyof typeof size;
   wrapperStyle?: any;
   keyboardType?: any;
   error?: string;
 }
 const TextField = (props: TextFieldProps) => {
   return (
-    <View style={[size[props.size].contain, props.wrapperStyle]}>
+    <View style={[size[props.size ?? 'sm'].contain, props.wrapperStyle]}>
       <TextInput
-        style={[defaultStyle.textField, type[props.type].placeholder]}
+        style={[defaultStyle.textField, type[props.type ?? 'left'].placeholder]}
         placeholder={props.placeholder}
         keyboardType={props.keyboardType}
       />
@@ -26,6 +26,7 @@ const TextField = (props: TextFieldProps) => {
 };
 const defaultStyle = StyleSheet.create({
   textField: {
+
     borderRadius: 100,
     borderWidth: 1,
     borderColor: Colors.C,

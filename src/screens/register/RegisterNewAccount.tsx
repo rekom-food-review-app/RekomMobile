@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {Colors} from '../assets/colors';
-import {Button, SecureTextField, TextField} from '../components';
+import {Colors} from '../../assets/colors';
+import {Button, SecureTextField, TextField} from '../../components';
 
 function RegisterNewAccount() {
   return (
@@ -13,7 +13,7 @@ function RegisterNewAccount() {
         }}>
         <Image
           style={styles.logo}
-          source={require('../assets/image/thelogo.png')}
+          source={require('../../assets/image/thelogo.png')}
         />
         <Text style={styles.title}>Be A "Rekomer" Right Now!</Text>
 

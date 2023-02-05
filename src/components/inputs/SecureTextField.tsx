@@ -4,8 +4,8 @@ import {Colors} from '../../assets/colors';
 
 interface SecureTextFieldProps {
   placeholder: string;
-  type: keyof typeof type;
-  size: keyof typeof size;
+  type?: keyof typeof type;
+  size?: keyof typeof size;
   wrapperStyle?: any;
   error?: string;
 }
@@ -13,10 +13,10 @@ const SecureTextField = (props: SecureTextFieldProps) => {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   return (
     <View
-      style={[defaultStyle.textField, size[props.size], props.wrapperStyle]}>
+      style={[defaultStyle.textField, size[props.size || 'lg'], props.wrapperStyle]}>
       <TextInput
         secureTextEntry={true}
-        style={type[props.type].placeholder}
+        style={type[props.type || 'left'].placeholder}
         placeholder={props.placeholder}
       />
       {props.error ? (

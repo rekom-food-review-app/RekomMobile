@@ -4,8 +4,8 @@ import {Colors} from '../../assets/colors';
 import {CsText} from '../data_displays';
 
 interface ButtonProps {
-  type: keyof typeof type;
-  size: keyof typeof size;
+  type?: keyof typeof type;
+  size?: keyof typeof size;
   label: string;
   wrapperStyle?: any;
   onPress?: () => void;
@@ -16,15 +16,16 @@ function Button(props: ButtonProps) {
     <TouchableOpacity
       onPress={props.onPress}
       style={[
-        size[props.size].button,
-        type[props.type].button,
+        size[props.size || 'md'].button,
+        type[props.type || 'primary'].button,
         defaultStyle.button,
         props.wrapperStyle,
       ]}>
       <CsText
+        style={{alignSelf: 'center'}}
         weight={'bold'}
-        color={type[props.type].label}
-        size={size[props.size].label}>
+        color={type[props.type || 'primary'].label}
+        size={size[props.size || 'md'].label}>
         {props.label}
       </CsText>
     </TouchableOpacity>

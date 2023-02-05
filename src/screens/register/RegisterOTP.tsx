@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {Colors} from '../assets/colors';
-import {Button, TextField} from '../components';
+import {Colors} from '../../assets/colors';
+import {Button, TextField} from '../../components';
 
 const RegisterOTP = () => {
   return (
@@ -14,7 +14,7 @@ const RegisterOTP = () => {
         }}>
         <Image
           style={styles.logo}
-          source={require('../assets/image/thelogo.png')}
+          source={require('../../assets/image/thelogo.png')}
         />
         <Text style={styles.title}>Be A "Rekomer" Right Now!</Text>
 

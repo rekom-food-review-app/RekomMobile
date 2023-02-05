@@ -1,3 +1,3 @@
-export {RegisterNewAccount} from "./RegisterNewAccount"
-export {RegisterOTP} from "./RegisterOTP"
-export {RegisterUpdateProfile} from "./RegisterUpdateProfile"
+export * from "./register"
+export * from "./login"
+export * from "./home"

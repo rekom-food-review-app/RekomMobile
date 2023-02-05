@@ -1,8 +1,8 @@
 import {StyleProp, StyleSheet, Text} from 'react-native';
 import {Colors} from '../../assets/colors';
 interface CsTextProps {
-  size: keyof typeof size;
-  weight: any;
+  size?: keyof typeof size;
+  weight?: any;
   children: string;
   style?: StyleProp<any>;
   color?: keyof typeof Colors;
@@ -12,9 +12,9 @@ function CsText(props: CsTextProps) {
   return (
     <Text
       style={[
-        size[props.size].text,
+        size[props.size || 'sm'].text,
+        {fontWeight: props.weight || 'normal', color: Colors[props.color || 'E'], alignSelf: 'baseline'},
         props.style,
-        {fontWeight: props.weight, color: Colors[props.color || 'E']},
       ]}>
       {props.children}
     </Text>

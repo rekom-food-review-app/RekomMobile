@@ -1,19 +1,21 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {RegisterNewAccount, RegisterOTP, RegisterUpdateProfile} from './screens';
+import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {RegisterNewAccount, RegisterOTP, RegisterUpdateProfile, Login, Home} from './screens';
+// @ts-ignore
+import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 
 const App = () => {
   return (
-    <View>
-      {/* <RegisterNewAccount /> */}
-      {/* <RegisterOTP /> */}
-      <RegisterUpdateProfile />
-    </View>
+    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+      <View>
+        {/* <RegisterNewAccount /> */}
+        {/* <RegisterOTP /> */}
+        {/* <RegisterUpdateProfile /> */}
+        <Login /> 
+        {/* <Home/> */}
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  s: {},
-});

@@ -1,9 +1,8 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import {Colors} from '../assets/colors';
-import {Button, CsText, Select, TextField} from '../components';
-import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
+import {Colors} from '../../assets/colors';
+import {Button, CsText, Select, TextField} from '../../components';
 
 
 const RegisterUpdateProfile = () => {
@@ -24,10 +23,10 @@ const RegisterUpdateProfile = () => {
         height: 400,
         cropping: true,
       });
-    } catch (error) {}
+    } catch (error) {console.log(error);
+    }
   };
   return (
-   <TouchableWithoutFeedback onPress={dismissKeyboard}>
      <View
       style={{
         width: '100%',
@@ -42,7 +41,7 @@ const RegisterUpdateProfile = () => {
         }}>
         <Image
           style={styles.logo}
-          source={require('../assets/image/thelogo.png')}
+          source={require('../../assets/image/thelogo.png')}
         />
 
         <CsText size="lg" weight="bold">
@@ -57,11 +56,11 @@ const RegisterUpdateProfile = () => {
         <TouchableOpacity onPress={LoadLib} style={{alignSelf: 'center'}}>
           <Image
             style={styles.setAvt}
-            source={require('../assets/image/avt.png')}
+            source={require('../../assets/image/avt.png')}
           />
         </TouchableOpacity>
         <TextField
-          wrapperStyle={{marginVertical: 15}}
+          wrapperStyle={{marginVertical: 15, width: '100%'}}
           placeholder={'Your full name'}
           type={'left'}
           size={'lg'}
@@ -100,7 +99,6 @@ const RegisterUpdateProfile = () => {
         />
       </View>
     </View>
-   </TouchableWithoutFeedback>
   );
 };
 const styles = StyleSheet.create({
