@@ -12,7 +12,7 @@ interface TextFieldProps {
 }
 const TextField = (props: TextFieldProps) => {
   return (
-    <View style={[size[props.size ?? 'sm'].contain, props.wrapperStyle]}>
+    <View style={[size[props.size ?? 'sm'].contain, defaultStyle.wrapper, props.wrapperStyle]}>
       <TextInput
         style={[defaultStyle.textField, type[props.type ?? 'left'].placeholder]}
         placeholder={props.placeholder}
@@ -25,11 +25,14 @@ const TextField = (props: TextFieldProps) => {
   );
 };
 const defaultStyle = StyleSheet.create({
+  wrapper: {
+    height: 50
+  },
   textField: {
-
     borderRadius: 100,
     borderWidth: 1,
     borderColor: Colors.C,
+    height: "100%"
   },
   error: {
     color: 'red',
