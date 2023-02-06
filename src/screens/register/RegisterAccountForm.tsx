@@ -11,7 +11,7 @@ function RegisterAccountForm(props: RegisterAccountFormProps) {
   return (
     <View style={styles.containInput}>
       <Text style={{textAlign: 'center', marginBottom: 10}}>
-        let's create a new account
+        Let's create a new account
       </Text>
 
       <TextField

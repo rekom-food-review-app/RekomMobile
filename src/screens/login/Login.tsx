@@ -2,7 +2,7 @@ import {View, TouchableOpacity, StyleSheet, Image} from "react-native"
 import {Colors} from "../../assets/colors"
 import {TextField, SecureTextField, Button, CsText} from "../../components"
 
-function Login()
+function Login({navigation}: {navigation : any})
 {
   return (
     <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
@@ -20,7 +20,7 @@ function Login()
         <TouchableOpacity style={{alignSelf: 'center'}}>
           <CsText>forgot your password?</CsText>
         </TouchableOpacity>
-        <Button wrapperStyle={{alignSelf: 'center', marginTop: 80}} type={'secondary'} size={'sm'} label={'create new account'} />
+        <Button onPress={() => navigation.navigate('Register')} wrapperStyle={{alignSelf: 'center', marginTop: 80}} type={'secondary'} size={'sm'} label={'create new account'} />
       </View>
     </View>
   )
@@ -29,9 +29,7 @@ function Login()
 const styles = StyleSheet.create({
   header: {
     width: '100%',
-    // maxWidth: 'auto',
-    // height: '40%',
-    maxHeight: 'auto',
+    height: 253,
     marginBottom: 50,
   }
 })

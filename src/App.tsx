@@ -14,8 +14,9 @@ const App = () => {
     <NavigationContainer>
 
       <RootStack.Navigator>
+        <RootStack.Screen options={{title: "", headerShown: false}} name='Intro'  component={Intro}/>
         <RootStack.Screen options={{title: ""}} name='Register' component={RegisterLayout}/>
-        <RootStack.Screen options={{title: ""}} name='Intro' component={Intro}/>
+        <RootStack.Screen name='Login' component={Login} />
         {/* <RootStack.Screen name='Register2' component={RegisterNav}/> */}
         {/* <RootStack.Screen options={{headerShown: false}} name="RegisterNewAccount" component={RegisterAccountForm}/> */}
         {/* <RootStack.Screen options={{headerShown: false}} name="RegisterOTP" component={ConfirmOtpForm}/> */}
