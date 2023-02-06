@@ -44,24 +44,24 @@ const defaultStyle = StyleSheet.create({
 
 const size = {
   sm: StyleSheet.create<any>({
-    label: 'xs' as 'xs',
+    label: 'sm' as 'sm',
     button: {
       paddingHorizontal: 30,
-      paddingVertical: 8,
+      height: 40
     },
   }),
   md: {
     label: 'md' as 'md',
     button: {
       paddingHorizontal: 45,
-      paddingVertical: 10,
+      height: 45
     },
   },
   lg: {
     label: 'lg' as 'lg',
     button: {
       paddingHorizontal: 60,
-      paddingVertical: 10,
+      height: 45
     },
   },
 };
