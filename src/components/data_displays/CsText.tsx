@@ -3,7 +3,7 @@ import {Colors} from '../../assets/colors';
 interface CsTextProps {
   size?: keyof typeof size;
   weight?: any;
-  children: string;
+  children: any;
   style?: StyleProp<any>;
   color?: keyof typeof Colors;
 }
