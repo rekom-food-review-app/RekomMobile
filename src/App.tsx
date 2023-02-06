@@ -1,20 +1,28 @@
 import React from 'react';
 import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
-import {RegisterNewAccount, RegisterOTP, RegisterUpdateProfile, Login, Home} from './screens';
+import { NavigationContainer } from '@react-navigation/native';
 // @ts-ignore
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {RegisterAccountForm, UpdateProfileForm, ConfirmOtpForm, Login, Home, RegisterLayout, Intro} from './screens';
+import {RegisterNav} from "./navigations"
+
+export const RootStack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
-      <View>
-        {/* <RegisterNewAccount /> */}
-        {/* <RegisterOTP /> */}
-        {/* <RegisterUpdateProfile /> */}
-        <Login /> 
-        {/* <Home/> */}
-      </View>
-    </TouchableWithoutFeedback>
+    <NavigationContainer>
+
+      <RootStack.Navigator>
+        <RootStack.Screen options={{title: ""}} name='Register' component={RegisterLayout}/>
+        <RootStack.Screen options={{title: ""}} name='Intro' component={Intro}/>
+        {/* <RootStack.Screen name='Register2' component={RegisterNav}/> */}
+        {/* <RootStack.Screen options={{headerShown: false}} name="RegisterNewAccount" component={RegisterAccountForm}/> */}
+        {/* <RootStack.Screen options={{headerShown: false}} name="RegisterOTP" component={ConfirmOtpForm}/> */}
+        {/* <RootStack.Screen options={{headerShown: false}} name="RegisterUpdateProfile" component={UpdateProfileForm}/> */}
+      </RootStack.Navigator>
+      
+    </NavigationContainer> 
   );
 };
 
