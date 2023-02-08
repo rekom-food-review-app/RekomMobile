@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -7,11 +8,11 @@ import {Button, CsText, Select, TextField} from '../../components';
 
 interface UpdateProfileFormProps
 {
-  onSubmit?: () => void
 }
 
 
 const UpdateProfileForm = (props: UpdateProfileFormProps) => {
+  const nav = useNavigation<any>()
   const [selected, setSelected] = React.useState('');
   const data = [
     {key: '1', value: 'Mobiles', disabled: true},
@@ -32,6 +33,11 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
     } catch (error) {console.log(error);
     }
   };
+
+  const submit = () => {
+    nav.navigate("IntroScreen")
+  }
+
   return (
      <View>
         <Text style={{marginBottom: 15, textAlign: 'center'}}>
@@ -80,7 +86,7 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
         </View>
 
         <Button
-          onPress={props.onSubmit}
+          onPress={submit}
           wrapperStyle={{width: '100%', zIndex: -1}}
           type={'primary'}
           size={'lg'}

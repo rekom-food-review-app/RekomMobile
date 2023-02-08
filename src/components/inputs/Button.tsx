@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Colors} from '../../assets/colors';
 import {CsText} from '../data_displays';
@@ -9,9 +9,16 @@ interface ButtonProps {
   label: string;
   wrapperStyle?: any;
   onPress?: () => void;
+  isLoading?: boolean
 }
 
 function Button(props: ButtonProps) {
+  const [isLoading, setIsLoading] = useState<boolean>(props.isLoading as boolean)
+
+  useEffect(() => {
+    setIsLoading(props.isLoading as boolean)
+  }, [props.isLoading])
+
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -26,7 +33,9 @@ function Button(props: ButtonProps) {
         weight={'bold'}
         color={type[props.type || 'primary'].label}
         size={size[props.size || 'md'].label}>
-        {props.label}
+        {
+          isLoading ? "Loading..." : props.label
+        }
       </CsText>
     </TouchableOpacity>
   );

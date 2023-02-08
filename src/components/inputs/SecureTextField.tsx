@@ -4,6 +4,7 @@ import {Colors} from '../../assets/colors';
 
 interface SecureTextFieldProps {
   placeholder: string;
+  onChangeText ?: (text: string) => void;
   type?: keyof typeof type;
   size?: keyof typeof size;
   wrapperStyle?: any;
@@ -18,6 +19,7 @@ const SecureTextField = (props: SecureTextFieldProps) => {
         secureTextEntry={true}
         style={type[props.type || 'left'].placeholder}
         placeholder={props.placeholder}
+        onChangeText={props.onChangeText}
       />
       {props.error ? (
         <Text style={defaultStyle.error}>{props.error}</Text>

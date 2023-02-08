@@ -1,15 +1,18 @@
+import { useNavigation } from "@react-navigation/native"
 import { View, Text, Image, StyleSheet } from "react-native"
 import { Button } from "../../components"
 
-function Intro({navigation}: {navigation: any})
+function Intro()
 {
+  const nav = useNavigation<any>()
+
   return (
     <View>
       <Image source={require('../../assets/image/Intro.png')}
       style={styles.intro}/>
       <View style={{gap: 10}}>
-        <Button onPress={() => navigation.navigate('Register')} wrapperStyle={{width: '90%', alignSelf: 'center'}} type={'primary'} size={'md'} label={'Create New Account'}/>
-        <Button onPress={() => navigation.navigate('Login')} wrapperStyle={{width: '90%', alignSelf: 'center'}} type={'secondary'} size={'md'} label={'Sign in'}/>
+        <Button onPress={() => nav.navigate('Register')} wrapperStyle={{width: '90%', alignSelf: 'center'}} type={'primary'} size={'md'} label={'Create New Account'}/>
+        <Button onPress={() => nav.navigate('Login')} wrapperStyle={{width: '90%', alignSelf: 'center'}} type={'secondary'} size={'md'} label={'Sign in'}/>
       </View>
     </View>
   )
