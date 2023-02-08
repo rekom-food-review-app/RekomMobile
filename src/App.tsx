@@ -1,29 +1,36 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Button} from './components';
+import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+// @ts-ignore
+import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {Login, Home, RegisterLayout, Intro} from './screens';
+import {RegisterNav} from "./navigations"
+import { store } from './app/store'
+import { Provider } from 'react-redux'
+
+// export type RootStackParams = {
+//   IntroScreen: any
+//   RegisterScreen: any
+// }
+
+export const RootStack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <View>
-      <Button type={'primary'} size={'sm'} label={'smpri'} />
-      <Button type={'secondary'} size={'sm'} label={'smse'} />
-      <Button type={'basic'} size={'sm'} label={'smba'} />
+    <Provider store={store}>
+      <NavigationContainer>
 
-      <Button type={'primary'} size={'md'} label={'mdpri'} />
-      <Button type={'secondary'} size={'md'} label={'mdse'} />
-      <Button type={'basic'} size={'md'} label={'mdba'} />
-
-      <Button type={'primary'} size={'lg'} label={'lgpri'} />
-      <Button type={'secondary'} size={'lg'} label={'lgse'} />
-      <Button type={'basic'} size={'lg'} label={'lgba'} />
-
-    </View>
+        <RootStack.Navigator>
+          <RootStack.Screen options={{title: "", headerShown: false}} name='LoginScreen' component={Login}/>
+          <RootStack.Screen options={{title: ""}} name='RegisterScreen' component={RegisterLayout}/>
+          <RootStack.Screen options={{title: ""}} name='IntroScreen' component={Intro}/>
+          <RootStack.Screen options={{title: ""}} name='HomeScreen' component={Home}/>
+        </RootStack.Navigator>
+        
+      </NavigationContainer> 
+    </Provider>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  s: {
-  }
-});
