@@ -28,8 +28,8 @@ const App = () => {
           {/* <RootStack.Screen options={{title: ""}} name='IntroScreen' component={Intro}/> */}
           {/* <RootStack.Screen options={{title: ""}} name='HomeScreen' component={Home}/> */}
         </RootStack.Navigator>
-        
-      </NavigationContainer> 
+
+      </NavigationContainer>
     </Provider>
   );
 };

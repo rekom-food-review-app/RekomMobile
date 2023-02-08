@@ -49,11 +49,11 @@ function Login()
 
         <TextField onChangeText={(text: string) => {
           setUsername({value: text, error: ''})
-        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="username"/>   
+        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="username"/>
 
         <SecureTextField onChangeText={(text) => {
           setPassword({value: text, error: ''})
-        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="password"/> 
+        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="password"/>
 
         <Button onPress={submmit} isLoading={isLoading} wrapperStyle={{width: '100%', marginBottom: 20}} label="Sign In"/>
 
@@ -70,9 +70,7 @@ function Login()
 const styles = StyleSheet.create({
   header: {
     width: '100%',
-    // maxWidth: 'auto',
-    // height: '40%',
-    maxHeight: 'auto',
+    height: 253,
     marginBottom: 50,
   }
 })
