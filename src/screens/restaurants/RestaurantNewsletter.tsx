@@ -7,10 +7,6 @@ const RestaurantNewsletter = () => {
         <ReviewCard />
         <ReviewCard />
         <ReviewCard />
-        <ReviewCard />
-        <ReviewCard />
-        <ReviewCard />
-        <ReviewCard />
       </View>
   )
 }
