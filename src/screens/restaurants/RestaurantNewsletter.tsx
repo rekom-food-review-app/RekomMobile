@@ -1,8 +1,17 @@
-import {View, Text} from "react-native"
+import {View, ScrollView, } from "react-native"
+import { ReviewCard } from "../../components"
 
 const RestaurantNewsletter = () => {
   return(
-    <View><Text>RestaurantNewsletter</Text></View>
+      <View>
+        <ReviewCard />
+        <ReviewCard />
+        <ReviewCard />
+        <ReviewCard />
+        <ReviewCard />
+        <ReviewCard />
+        <ReviewCard />
+      </View>
   )
 }
 export {RestaurantNewsletter}

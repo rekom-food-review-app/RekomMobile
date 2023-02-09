@@ -12,7 +12,8 @@ interface NavigateBarProps {
 const NavigateBar = (props: NavigateBarProps) => {
   const dispatch = useDispatch()
   return (
-    <View style={[defaultStyle.navBar, props.wrapperStyle]}>
+    <View style={{margin: 20}}>
+      <View style={[defaultStyle.navBar, props.wrapperStyle]}>
       <TouchableOpacity onPress={() => {dispatch(setResTab(1))}}>
         <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iOne]}/>
       </TouchableOpacity>
@@ -26,6 +27,7 @@ const NavigateBar = (props: NavigateBarProps) => {
         <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iFour]}/>
       </TouchableOpacity>
     </View>
+    </View>
   )
 }
 const defaultStyle = StyleSheet.create({
@@ -34,7 +36,6 @@ const defaultStyle = StyleSheet.create({
     borderWidth: 1, 
     borderRadius: 20, 
     width: '100%', 
-    marginTop: 20, 
     justifyContent: 'center', 
     flexDirection: 'row', 
     gap: 30

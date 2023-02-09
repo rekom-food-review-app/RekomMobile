@@ -1,4 +1,4 @@
-import {Image, StyleSheet, View, Text} from 'react-native'
+import {Image, StyleSheet, View, Text, ScrollView} from 'react-native'
 import { Colors } from '../../assets/colors'
 import { Button, CsText, NavigateBar } from '../../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -25,9 +25,9 @@ const RestaurantLayout = () => {
   }, [])
 
   return(
-    <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
+    <ScrollView style={{width: '100%', backgroundColor: Colors.B}}>
       <Image source={require('../../assets/image/res-cover.png')}
-      style={styles.cover}/>
+        style={styles.cover}/>
       <View style={styles.content}>
         <Text style={styles.resName}>Dong Phuong Restaurant</Text>
         <Text>Lorem, ipsum dolor sit amet consectetur adipisicing.</Text>
@@ -55,7 +55,8 @@ const RestaurantLayout = () => {
             <StarLine point={10}>1</StarLine>
           </View>
         </View>
-        <NavigateBar tab={tabRes}/>
+      </View>
+      <NavigateBar tab={tabRes}/>
       {
         tabRes == 1 ? <RestaurantNewsletter /> : null
       }
@@ -68,15 +69,13 @@ const RestaurantLayout = () => {
       {
         tabRes == 4 ? <RestaurantInfo /> : null
       }
-      </View>
-    
-    </View>
+    </ScrollView>
   )
 }
 const styles = StyleSheet.create({
   cover: {
     width: '100%',
-    height: '25%',
+    height: 200,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
   },
