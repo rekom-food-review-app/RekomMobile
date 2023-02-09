@@ -1,20 +1,31 @@
-import { StyleSheet, View } from "react-native";
+import { useState } from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { useDispatch } from "react-redux";
 import { Colors } from "../../assets/colors";
+import { setResTab } from "../../global-states";
 
 interface NavigateBarProps {
   wrapperStyle ?: any
   tab: 1 | 2 | 3 | 4
 }
-
 const NavigateBar = (props: NavigateBarProps) => {
+  const dispatch = useDispatch()
   return (
     <View style={[defaultStyle.navBar, props.wrapperStyle]}>
-      <Icon name="smile-o" size={20} style={tabStyle[props.tab].iOne}/>
-      <Icon name="smile-o" size={20} style={tabStyle[props.tab].iTwo}/>
-      <Icon name="smile-o" size={20} style={tabStyle[props.tab].iThree}/>
-      <Icon name="smile-o" size={20} style={tabStyle[props.tab].iFour}/>
-  </View>
+      <TouchableOpacity onPress={() => {dispatch(setResTab(1))}}>
+        <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iOne]}/>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => {dispatch(setResTab(2))}}>
+        <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iTwo]}/>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => {dispatch(setResTab(3))}}>
+        <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iThree]}/>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => {dispatch(setResTab(4))}}>
+        <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iFour]}/>
+      </TouchableOpacity>
+    </View>
   )
 }
 const defaultStyle = StyleSheet.create({
@@ -22,12 +33,15 @@ const defaultStyle = StyleSheet.create({
     borderColor: Colors.C, 
     borderWidth: 1, 
     borderRadius: 20, 
-    padding: 10, 
     width: '100%', 
     marginTop: 20, 
     justifyContent: 'center', 
     flexDirection: 'row', 
-    gap: 50
+    gap: 30
+  },  
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 15
   }
 })
 
@@ -62,7 +76,7 @@ const tabStyle ={
   }),
   3: StyleSheet.create({
     iOne: {
-      color: Colors.A
+      color: Colors.C
     },
     iTwo: {
       color: Colors.C
@@ -76,7 +90,7 @@ const tabStyle ={
   }),
   4: StyleSheet.create({
     iOne: {
-      color: Colors.A
+      color: Colors.C
     },
     iTwo: {
       color: Colors.C
