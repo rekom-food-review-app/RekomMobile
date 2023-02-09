@@ -15,8 +15,6 @@ function Login()
   const [username, setUsername] = useState<InputStateType>(inputInitState)
   const [password, setPassword] = useState<InputStateType>(inputInitState)
 
-  console.log("yesh")
-
   function submmit()
   {
     const data = {

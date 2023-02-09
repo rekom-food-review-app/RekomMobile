@@ -3,15 +3,27 @@ import { Colors } from '../../assets/colors'
 import { Button, CsText, NavigateBar } from '../../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from "axios"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
+import { RootState } from '../../app/store'
 import { RestaurantNewsletter } from './RestaurantNewsletter'
 import { RestaurantMenu } from './RestaurantMenu'
 import { RestaurantGallery } from './RestaurantGallery'
-import { RestaurantInfo } from './Restaurant.Info'
+import { RestaurantInfo } from './RestaurantInfo'
+import { setResTab } from '../../global-states'
+import { StarLine } from '../../components/data_displays/StartLine'
+
 
 const RestaurantLayout = () => {
-  const tab = useSelector()
+  const tabRes = useSelector((state: RootState) => state.restaurantTab.tabRes)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    return() => {
+      dispatch(setResTab(1))
+    }
+  }, [])
+
   return(
     <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
       <Image source={require('../../assets/image/res-cover.png')}
@@ -36,42 +48,28 @@ const RestaurantLayout = () => {
             <Text>2611 ratings</Text>
           </View>
           <View style={{width:'55%'}}>
-            <View style={styles.containStarLine}>
-              <Text style={{width:'10%'}}>5</Text>
-              <View style={styles.starLine}></View>
-            </View>
-            <View style={styles.containStarLine}>
-              <Text style={{width:'10%'}}>4</Text>
-              <View style={styles.starLine}></View>
-            </View>
-            <View style={styles.containStarLine}>
-              <Text style={{width:'10%'}}>3</Text>
-              <View style={styles.starLine}></View>
-            </View>
-            <View style={styles.containStarLine}>
-              <Text style={{width:'10%'}}>2</Text>
-              <View style={styles.starLine}></View>
-            </View>
-            <View style={styles.containStarLine}>
-              <Text style={{width:'10%'}}>1</Text>
-              <View style={styles.starLine}></View>
-            </View>
+            <StarLine point={80}>5</StarLine>
+            <StarLine point={20}>4</StarLine>
+            <StarLine point={30}>3</StarLine>
+            <StarLine point={50}>2</StarLine>
+            <StarLine point={10}>1</StarLine>
           </View>
         </View>
+        <NavigateBar tab={tabRes}/>
+      {
+        tabRes == 1 ? <RestaurantNewsletter /> : null
+      }
+      {
+        tabRes == 2 ? <RestaurantMenu /> : null
+      }
+      {
+        tabRes == 3 ? <RestaurantGallery /> : null
+      }
+      {
+        tabRes == 4 ? <RestaurantInfo /> : null
+      }
       </View>
-      <NavigateBar tab={tab}/>
-      {
-        tab == 1 ? <RestaurantNewsletter /> : null
-      }
-      {
-        tab == 2 ? <RestaurantMenu /> : null
-      }
-      {
-        tab == 3 ? <RestaurantGallery /> : null
-      }
-      {
-        tab == 4 ? <RestaurantInfo /> : null
-      }
+    
     </View>
   )
 }
@@ -87,9 +85,10 @@ const styles = StyleSheet.create({
   },
   resName: {
     fontWeight: 'bold',
-    fontSize: 21,
-    color: Colors.F,
-    paddingVertical: 10,
+    fontSize: 24,
+    color: Colors.E,
+    marginTop: 10,
+    marginBottom: 3,
     alignItems: 'center'
   },
   containStarLine:{
