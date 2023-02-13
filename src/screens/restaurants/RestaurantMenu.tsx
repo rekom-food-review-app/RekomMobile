@@ -5,7 +5,7 @@ import { FlatList, View, Dimensions, StyleSheet } from 'react-native';
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
-type ItemData = {
+interface ItemData {
   id: string
   price: number
   foodName: string
@@ -23,7 +23,7 @@ const DATA: ItemData[] = [
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     price: 300,
     foodName: 'Slililili',
-    des: 'hai con vit'
+    des: 'mot con vit'
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
