@@ -5,8 +5,9 @@ import { InputStateType } from '../../@types/InputStateType';
 import { inputInitState } from '../../constant/inputInitState';
 import axios from 'axios';
 import { API_URL_OTP } from '../../constant/api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTab } from '../../global-states';
+import { RootState } from '../../app/store';
 
 interface ConfirmOtpFormProps
 {
@@ -15,20 +16,25 @@ interface ConfirmOtpFormProps
 
 const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
   const [otpInput, setOtpInput] = useState<InputStateType>(inputInitState)
+  const auth = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
 
   const submit = async () => {
     let data = {
       "otp": otpInput.value
     }
-    dispatch(setTab(3))
-    // axios.post(API_URL_OTP, data).
-    // then((res) => {
-    //   console.log(res.data)
-    //   dispatch(setTab(3))
-    // }).catch((error) => {
-    //   console.log(error)
-    // })
+    let config = {
+      headers: {
+        Authorization: `bearer ${auth.authToken.accessToken}`
+      }
+    }
+    axios.post(API_URL_OTP, data, config).
+      then((res) => {
+        console.log(res.data)
+        dispatch(setTab(3))
+      }).catch((error) => {
+        console.log(error)
+      })
   }
   return (
     <View>

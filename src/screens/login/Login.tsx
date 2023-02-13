@@ -7,26 +7,28 @@ import { InputStateType } from '../../@types/InputStateType';
 import { inputInitState } from '../../constant/inputInitState';
 import { API_AUTH } from '../../constant/api';
 import axios from "axios"
+import { useDispatch } from 'react-redux'
+import {setAuth} from "../../global-states"
 
 function Login()
 {
   const nav = useNavigation<any>()
+  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [username, setUsername] = useState<InputStateType>(inputInitState)
   const [password, setPassword] = useState<InputStateType>(inputInitState)
 
-  function submmit()
-  {
+  function submmit() {
+    setIsLoading(true)
     const data = {
       email: username.value,
       password: password.value
     }
-    setIsLoading(true)
+    // nav.replace("RestaurantScreen")
     axios.post(API_AUTH, data)
     .then((res) => {
-      setIsLoading(false)
-      nav.replace("HomeScreen")
-      console.log(res.data)
+      dispatch(setAuth({authToken: res.data.accessToken})) // bug here
+      nav.replace("RestaurantScreen")
     })
     .catch((error) => {
       setIsLoading(false)
@@ -47,7 +49,7 @@ function Login()
 
         <TextField onChangeText={(text: string) => {
           setUsername({value: text, error: ''})
-        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="username"/>
+        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="email"/>
 
         <SecureTextField onChangeText={(text) => {
           setPassword({value: text, error: ''})

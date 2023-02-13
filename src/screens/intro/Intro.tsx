@@ -6,13 +6,17 @@ function Intro()
 {
   const nav = useNavigation<any>()
 
+  const submit = () => {
+    
+  }
+
   return (
     <View>
       <Image source={require('../../assets/image/Intro.png')}
       style={styles.intro}/>
       <View style={{gap: 10}}>
         <Button onPress={() => nav.navigate('Register')} wrapperStyle={{width: '90%', alignSelf: 'center'}} type={'primary'} size={'md'} label={'Create New Account'}/>
-        <Button onPress={() => nav.navigate('Login')} wrapperStyle={{width: '90%', alignSelf: 'center'}} type={'secondary'} size={'md'} label={'Sign in'}/>
+        <Button onPress={submit} wrapperStyle={{width: '90%', alignSelf: 'center'}} type={'secondary'} size={'md'} label={'Sign in'}/>
       </View>
     </View>
   )

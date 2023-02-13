@@ -1,21 +1,20 @@
 import { TouchableOpacity, Image, Text, StyleSheet } from "react-native"
 import { Colors } from "../../assets/colors"
 
-
 interface IconButtonProps {
   wrapperStyle ?: any
   children: number
   source: string
   size: keyof typeof size
   typeBtn: keyof typeof typeBtn
-  typeText: keyof typeof typeText
   onPress ?: () => void
 }
+
 const IconButton = (props: IconButtonProps) => {
   return (
     <TouchableOpacity onPress={props.onPress} style={[defaultStyle.containEmoij, props.wrapperStyle, size[props.size].contain, typeBtn[props.typeBtn].status]}>
       <Image source={{uri:(props.source)}} style={defaultStyle.emoij}/>
-      <Text style={typeText[props.typeText].status}>{props.children}</Text>
+      <Text style={[typeBtn[props.typeBtn].status, {fontWeight: '600', backgroundColor: 'rgba(52, 52, 52, 0)'}]}>{props.children}</Text>
     </TouchableOpacity>
   )
 }
@@ -24,7 +23,7 @@ const defaultStyle = StyleSheet.create({
   containEmoij: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 15,
+    gap: 4,
     alignItems: 'center',
     borderRadius: 100,
   },
@@ -40,7 +39,7 @@ const size = {
   sm : StyleSheet.create<any>({
     contain: {
       height: 30,
-      paddingHorizontal: 15,
+      paddingHorizontal: 10,
     }
   }),
   md : StyleSheet.create({
@@ -60,22 +59,12 @@ const typeBtn = {
   active : StyleSheet.create({
     status: {
       backgroundColor: Colors.A,
-    }
-  }),
-  inactive : StyleSheet.create({
-    status: {
-      backgroundColor: Colors.F,
-    }
-  }),
-}
-const typeText = {
-  active : StyleSheet.create({
-    status: {
       color: Colors.B
     }
   }),
   inactive : StyleSheet.create({
     status: {
+      backgroundColor: Colors.F,
       color: Colors.D
     }
   }),

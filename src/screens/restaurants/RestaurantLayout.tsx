@@ -32,7 +32,7 @@ const RestaurantLayout = () => {
         <Text style={styles.resName}>Dong Phuong Restaurant</Text>
         <Text>Lorem, ipsum dolor sit amet consectetur adipisicing.</Text>
         <View style={{width: '100%', flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15}}>
-          <Text style={{alignSelf: 'center', fontWeight: '600'}}>Awwward</Text>
+          <Text style={{alignSelf: 'center', fontWeight: '900', fontSize: 20}}>Awwward</Text>
           <Button wrapperStyle={{height: 35}} type={'primary'} size={'sm'} label={'new review'}/>
         </View>
         <View style={styles.rating}>
@@ -57,6 +57,7 @@ const RestaurantLayout = () => {
         </View>
       </View>
       <NavigateBar tab={tabRes}/>
+      <View style={styles.dashedLine}></View>
       {
         tabRes == 1 ? <RestaurantNewsletter /> : null
       }
@@ -69,13 +70,14 @@ const RestaurantLayout = () => {
       {
         tabRes == 4 ? <RestaurantInfo /> : null
       }
+      {/* <View><Text>this is footer</Text></View> */}
     </ScrollView>
   )
 }
 const styles = StyleSheet.create({
   cover: {
     width: '100%',
-    height: 200,
+    height: 160,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
   },
@@ -109,6 +111,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'space-between'
   },
-  
+  dashedLine: {
+    borderBottomColor: Colors.C,
+    borderStyle: 'dashed',
+    borderBottomWidth: 1,
+    width: '40%',
+    alignSelf: 'center',
+    marginVertical: 10,
+    marginBottom: 30
+  }
 })
 export {RestaurantLayout}

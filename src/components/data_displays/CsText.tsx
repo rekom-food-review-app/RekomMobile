@@ -6,11 +6,13 @@ interface CsTextProps {
   children: any;
   style?: StyleProp<any>;
   color?: keyof typeof Colors;
+  numberOfLines?: number
 }
 
 function CsText(props: CsTextProps) {
   return (
     <Text
+      numberOfLines={props.numberOfLines}
       style={[
         size[props.size || 'sm'].text,
         {fontWeight: props.weight || 'normal', color: Colors[props.color || 'E'], alignSelf: 'baseline'},

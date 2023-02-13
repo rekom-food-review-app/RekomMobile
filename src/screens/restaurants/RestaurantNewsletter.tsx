@@ -3,11 +3,11 @@ import { ReviewCard } from "../../components"
 
 const RestaurantNewsletter = () => {
   return(
-      <View>
-        <ReviewCard />
-        <ReviewCard />
-        <ReviewCard />
-      </View>
+    <View style={{gap: 20}}>
+      <ReviewCard />
+      <ReviewCard />
+      <ReviewCard />
+    </View>
   )
 }
 export {RestaurantNewsletter}
