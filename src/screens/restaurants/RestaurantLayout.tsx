@@ -1,5 +1,6 @@
-import {Image, StyleSheet, View, Text, ScrollView} from 'react-native'
+import {Image, StyleSheet, View, Text} from 'react-native'
 import { Colors } from '../../assets/colors'
+import { ScrollView } from 'react-native-virtualized-view';
 import { Button, CsText, NavigateBar } from '../../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from "axios"
@@ -32,7 +33,7 @@ const RestaurantLayout = () => {
         <Text style={styles.resName}>Dong Phuong Restaurant</Text>
         <Text>Lorem, ipsum dolor sit amet consectetur adipisicing.</Text>
         <View style={{width: '100%', flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15}}>
-          <Text style={{alignSelf: 'center', fontWeight: '900', fontSize: 20}}>Awwward</Text>
+          <Text style={{alignSelf: 'center', fontWeight: '900', fontSize: 17}}>Awwward</Text>
           <Button wrapperStyle={{height: 35}} type={'primary'} size={'sm'} label={'new review'}/>
         </View>
         <View style={styles.rating}>

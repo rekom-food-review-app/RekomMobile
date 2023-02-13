@@ -32,6 +32,12 @@ const size = {
       height: 50
     }
   }),
+  lg: StyleSheet.create<any>({
+    img: {
+      width: 120,
+      height: 120
+    }
+  }),
   xl: StyleSheet.create<any>({
     img: {
       width: 150,

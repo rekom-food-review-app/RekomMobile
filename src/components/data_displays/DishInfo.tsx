@@ -13,9 +13,11 @@ const DishInfo = (props: DishInfoProps) => {
   return(
     <View style={[defaultStyle.contain, props.wrapperStyle]}>
       <Image source={{uri: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1980&q=80"}} style={defaultStyle.img}/>
-      <CsText weight={400} size={'md'}>{props.foodName}</CsText>
-      <CsText>{props.des}</CsText>
-      <CsText weight={500} size={'md'}>{props.price}K</CsText>
+      <View style={{paddingLeft: 1}}>
+        <CsText weight={"bold"} style={{marginTop: 8}} color={'A'} size={'md'}>{props.foodName}</CsText>
+        <CsText numberOfLines={1}>{props.des}</CsText>
+        <CsText weight={900} style={{marginTop: 5}} size={'md'}>{props.price}K</CsText>
+      </View>
     </View>
   )
 }
