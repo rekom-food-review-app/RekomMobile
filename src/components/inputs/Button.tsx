@@ -56,7 +56,7 @@ const size = {
     label: 'xs' as 'xs',
     button: {
       paddingHorizontal: 15,
-      height: 35
+      height: 30
     },
   }),
   sm: StyleSheet.create<any>({

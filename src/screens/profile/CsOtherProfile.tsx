@@ -10,7 +10,9 @@ const CsOtherProfile = () => {
     <View style={defaultStyle.contain}>
       <View>
         <Avatar wrapperStyle={{marginBottom: 20}} size={'lg'}/>
-        <Button size={'xs'} type={'primary'} label={'Follow'} wrapperStyle={{position: 'absolute', bottom: 20, right: -15, borderWidth: 5, borderColor: Colors.B}}/>
+        <View style={{backgroundColor: Colors.B, position: 'absolute', bottom: 20, right: -15, padding: 5, borderRadius: 100}}>
+          <Button size={'xs'} type={'primary'} label={'Follow'} wrapperStyle={{}}/>
+        </View>
       </View>
       <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{'Pham Le Thanh Vu'}</CsText>
       <CsText style={{alignSelf: 'center', marginBottom: 10, textAlign: 'center'}} >{'Nguoi dan ba co cay ca lem si cu la'}</CsText>
