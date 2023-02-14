@@ -52,6 +52,13 @@ const defaultStyle = StyleSheet.create({
 });
 
 const size = {
+  xs: StyleSheet.create<any>({
+    label: 'xs' as 'xs',
+    button: {
+      paddingHorizontal: 15,
+      height: 35
+    },
+  }),
   sm: StyleSheet.create<any>({
     label: 'sm' as 'sm',
     button: {

@@ -1,9 +1,9 @@
 import {Image, View, StyleSheet} from 'react-native'
-import { Avatar } from './Avatar'
-import { CsText } from './CsText'
+import { Avatar } from '../../components/data_displays/Avatar'
+import { CsText } from '../../components/data_displays/CsText'
 import { Colors } from '../../assets/colors'
-import { Hi } from './Hi'
-const Profile = () => {
+import { Hi } from '../../components/data_displays/Hi'
+const CsMyProfile = () => {
   return(
     <View style={defaultStyle.contain}>
       <Avatar wrapperStyle={{marginBottom: 20}} size={'lg'}/>
@@ -23,7 +23,7 @@ const defaultStyle = StyleSheet.create({
     flexDirection: 'column', 
     justifyContent: 'center', 
     alignItems: 'center', 
-    marginTop: 20
+    marginTop: 20,
   },
   dashedLine: {
     borderBottomColor: Colors.C,
@@ -36,4 +36,4 @@ const defaultStyle = StyleSheet.create({
     marginTop: 40
   }
 })
-export {Profile}
+export {CsMyProfile}

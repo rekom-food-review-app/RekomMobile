@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 // @ts-ignore
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Login, Home, RegisterLayout, Intro, RestaurantLayout, MyProfile} from './screens';
+import {Login, Home, RegisterLayout, Intro, RestaurantLayout, MyProfile, OtherProfile} from './screens';
 import {RegisterNav} from "./navigations"
 import { store } from './app/store'
 import { Provider } from 'react-redux'
@@ -26,7 +26,8 @@ const App = () => {
           {/* <RootStack.Screen options={{title: ""}} name='RegisterScreen' component={RegisterLayout}/> */}
           {/* <RootStack.Screen options={{headerShown: false}} name='RestaurantScreen' component={RestaurantLayout} /> */}
           {/* <RootStack.Screen options={{title: ""}} name='IntroScreen' component={Intro}/> */}
-          <RootStack.Screen options={{headerShown: false}} name='MyProfileScreen' component={MyProfile} />
+          {/* <RootStack.Screen options={{headerShown: false}} name='MyProfileScreen' component={MyProfile} /> */}
+          <RootStack.Screen options={{headerShown: false}} name='OtherProfileScreen' component={OtherProfile} />
           {/* <RootStack.Screen options={{title: ""}} name='HomeScreen' component={Home}/> */}
         </RootStack.Navigator>
 

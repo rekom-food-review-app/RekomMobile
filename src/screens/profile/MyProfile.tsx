@@ -1,11 +1,12 @@
 import {View, Text} from "react-native"
 import { ScrollView } from "react-native-virtualized-view"
-import { Profile, ReviewCard } from "../../components"
+import { Colors } from '../../assets/colors'
+import { CsMyProfile, ReviewCard } from "../../components"
 
 const MyProfile = () => {
   return(
-    <ScrollView>
-      <Profile />
+    <ScrollView style={{backgroundColor: Colors.B}}>
+      <CsMyProfile />
       <ReviewCard />
       <ReviewCard />
       <ReviewCard />
