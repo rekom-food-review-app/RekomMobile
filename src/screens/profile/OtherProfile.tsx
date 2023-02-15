@@ -7,7 +7,7 @@ const OtherProfile = () => {
   return(
     <ScrollView style={{backgroundColor: Colors.B}}>
       <CsOtherProfile />
-      <ReviewCard isEmoijDisplay={false}/>
+      <ReviewCard />
       <ReviewCard />
       <ReviewCard />
     </ScrollView>
