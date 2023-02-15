@@ -44,9 +44,19 @@ const defaultStyle = StyleSheet.create({
   },
 });
 const size = {
+  xs: StyleSheet.create({
+    contain: {
+      width: 65,
+    },
+  }),
   sm: StyleSheet.create({
     contain: {
       width: 155,
+    },
+  }),
+  md: StyleSheet.create({
+    contain: {
+      width: 270,
     },
   }),
   lg: StyleSheet.create({

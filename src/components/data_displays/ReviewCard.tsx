@@ -37,17 +37,20 @@ function ReviewCard(props: ReviewCardProps)
           {
             props.isEmoijDisplay === undefined || props.isEmoijDisplay
             ? (
+              <>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flexDirection: 'row', gap: 10}}>
-                  <IconButton onPress={() => react('A')} size={'sm'} typeBtn={reactIcon == 'A' ? 'active' : 'inactive'} source={'https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f499.png'}>{100}</IconButton>
-                  <IconButton onPress={() => react('B')} size={'sm'} typeBtn={reactIcon == 'B' ? 'active' : 'inactive'} source={'https://vnreview.vn/image/19/45/88/1945885.jpg?t=1559311281453'}>{10}</IconButton>
-                  <IconButton onPress={() => react('C')} size={'sm'} typeBtn={reactIcon == 'C' ? 'active' : 'inactive'} source={'https://vnreview.vn/image/19/45/89/1945894.jpg?t=1559311281453'}>{10}</IconButton>
+                  <IconButton onPress={() => react('A')} size={'sm'} typeBtn={reactIcon == 'A' ? 'active' : 'inactive'} source={{uri: 'https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f499.png'}}>{100}</IconButton>
+                  <IconButton onPress={() => react('B')} size={'sm'} typeBtn={reactIcon == 'B' ? 'active' : 'inactive'} source={{uri: 'https://vnreview.vn/image/19/45/88/1945885.jpg?t=1559311281453'}}>{10}</IconButton>
+                  <IconButton onPress={() => react('C')} size={'sm'} typeBtn={reactIcon == 'C' ? 'active' : 'inactive'} source={{uri: 'https://vnreview.vn/image/19/45/89/1945894.jpg?t=1559311281453'}}>{10}</IconButton>
                 </View>
-                <IconButton size={'sm'} typeBtn={'inactive'} source={'https://cdn-icons-png.flaticon.com/512/1380/1380338.png'}>{10}</IconButton>
+                <IconButton size={'sm'} typeBtn={'inactive'} source={require('../../assets/image/cmt.png')}>{10}</IconButton>
               </View>
+              <View style={defaultStyle.dashedLine}></View>
+              </>
             ) : null
           }
-          <View style={defaultStyle.dashedLine}></View>
+          
         </View>
       </View>
     </View>

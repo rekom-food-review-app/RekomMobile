@@ -20,6 +20,12 @@ const defaultStyle = StyleSheet.create({
 })
 
 const size = {
+  xs: StyleSheet.create<any>({
+    img: {
+      width: 35,
+      height: 35    
+    }
+  }),
   sm: StyleSheet.create<any>({
     img: {
       width: 40,
