@@ -1,10 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit'
-import {AuthReducer, RegisterTabReducer} from "../global-states"
+import {AuthReducer, RegisterTabReducer, RestaurantTabReducer} from "../global-states"
 
 export const store = configureStore({
   reducer: {
     auth: AuthReducer,
-    registerTab: RegisterTabReducer
+    registerTab: RegisterTabReducer,
+    restaurantTab: RestaurantTabReducer,
   },
 })
 

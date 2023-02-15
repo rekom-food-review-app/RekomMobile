@@ -20,7 +20,7 @@ function RegisterLayout()
   }, [])
 
   return (
-    <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
+    <View style={{width: '100%', height: '100%', backgroundColor: Colors.B, position: 'relative'}}>
 
       <View style={styles.layout}>
 

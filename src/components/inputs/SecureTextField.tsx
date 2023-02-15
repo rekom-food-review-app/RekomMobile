@@ -14,10 +14,10 @@ const SecureTextField = (props: SecureTextFieldProps) => {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   return (
     <View
-      style={[defaultStyle.textField, size[props.size || 'lg'], defaultStyle.wrapper, props.wrapperStyle]}>
+      style={[defaultStyle.wrapper, size[props.size || 'lg'], defaultStyle.wrapper, props.wrapperStyle]}>
       <TextInput
         secureTextEntry={true}
-        style={type[props.type || 'left'].placeholder}
+        style={[defaultStyle.textField, type[props.type || 'left'].placeholder]}
         placeholder={props.placeholder}
         onChangeText={props.onChangeText}
       />
@@ -29,13 +29,14 @@ const SecureTextField = (props: SecureTextFieldProps) => {
 };
 const defaultStyle = StyleSheet.create({
   wrapper: {
-    height: 50
+    // height: 50
   },
   textField: {
     borderRadius: 100,
     borderWidth: 1,
     borderColor: Colors.C,
-    height: "100%"
+    paddingHorizontal: 15,
+    // height: "100%"
   },
   error: {
     color: 'red',
@@ -56,7 +57,6 @@ const type = {
   left: StyleSheet.create({
     placeholder: {
       textAlign: 'left',
-      paddingHorizontal: 15,
     },
   }),
   center: StyleSheet.create({

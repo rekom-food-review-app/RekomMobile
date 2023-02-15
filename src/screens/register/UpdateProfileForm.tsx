@@ -23,6 +23,7 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
     {key: '6', value: 'Diary Products'},
     {key: '7', value: 'Drinks'},
   ];
+  
   const LoadLib = async () => {
     try {
       const chooseImg = await ImagePicker.openPicker({
@@ -35,7 +36,7 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
   };
 
   const submit = () => {
-    nav.navigate("IntroScreen")
+    nav.navigate("RestaurantScreen")
   }
 
   return (

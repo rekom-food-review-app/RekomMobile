@@ -3,5 +3,6 @@ export const Colors = Object.freeze({
   B: '#fff',
   C: '#959595',
   D: '#000',
-  E: '#5A5A5A'
+  E: '#5A5A5A',
+  F: '#E4E4E4'
 });
