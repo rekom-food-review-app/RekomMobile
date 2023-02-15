@@ -1,6 +1,6 @@
 import {Image, StyleSheet, View, Text, ScrollView} from 'react-native'
 import { Colors } from '../../assets/colors'
-import { Button, CsText, NavigateBar } from '../../components'
+import { Button, CsText, HeaderBack, NavigateBar } from '../../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from "axios"
 import { useEffect, useState } from 'react'
@@ -25,7 +25,10 @@ const RestaurantLayout = () => {
   }, [])
 
   return(
-    <ScrollView style={{width: '100%', backgroundColor: Colors.B}}>
+    <ScrollView style={{position: 'relative', width: '100%', backgroundColor: Colors.B}}>
+
+      <HeaderBack type='primary' wrapperStyle={{position: 'absolute', padding: 20}}/>
+
       <Image source={require('../../assets/image/res-cover.png')}
         style={styles.cover}/>
       <View style={styles.content}>
@@ -65,7 +68,7 @@ const RestaurantLayout = () => {
         tabRes == 2 ? <RestaurantMenu /> : null
       }
       {
-        tabRes == 3 ? <RestaurantGallery /> : null
+        tabRes == 3 ? <RestaurantGallery ImageList={[]} /> : null
       }
       {
         tabRes == 4 ? <RestaurantInfo /> : null

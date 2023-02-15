@@ -1,6 +1,11 @@
 import {View, FlatList} from "react-native"
 import { ImgGallery } from "../../components"
 
+interface RestaurantGalleryProps
+{
+  ImageList: ImgData[]
+}
+
 interface ImgData {
   id: string
   img: string
@@ -44,7 +49,7 @@ const DATA: ImgData[] = [
     img: 'https://i.pinimg.com/564x/18/ab/67/18ab67787ffa205cb5fae8a57f0d7541.jpg'
   }, 
 ]
-const RestaurantGallery = (props: ImgData) => {
+const RestaurantGallery = (props: RestaurantGalleryProps) => {
   return(
     <FlatList 
       style={{width: '100%'}}
