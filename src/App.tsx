@@ -24,7 +24,7 @@ const App = () => {
         <RootStack.Navigator>
           {/* <RootStack.Screen options={{title: "", headerShown: false}} name='LoginScreen' component={Login}/> */}
           {/* <RootStack.Screen options={{title: ""}} name='RegisterScreen' component={RegisterLayout}/> */}
-          {/* <RootStack.Screen options={{headerShown: false}} name='RestaurantScreen' component={RestaurantLayout} /> */}
+          <RootStack.Screen options={{headerShown: false}} name='RestaurantScreen' component={RestaurantLayout} />
           {/* <RootStack.Screen options={{title: ""}} name='IntroScreen' component={Intro}/> */}
           {/* <RootStack.Screen options={{headerShown: false}} name='MyProfileScreen' component={MyProfile} /> */}
           <RootStack.Screen options={{headerShown: false}} name='ReviewCardDetailLayout ' component={ReviewCardDetailLayout} />

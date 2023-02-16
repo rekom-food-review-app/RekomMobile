@@ -34,14 +34,14 @@ const RestaurantLayout = () => {
         style={styles.cover}/>
       <View style={styles.content}>
         <Text style={styles.resName}>Dong Phuong Restaurant</Text>
-        <Text>Lorem, ipsum dolor sit amet consectetur adipisicing.</Text>
+        <CsText>Lorem, ipsum dolor sit amet consectetur adipisicing.</CsText>
         <View style={{width: '100%', flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15}}>
-          <Text style={{alignSelf: 'center', fontWeight: '900', fontSize: 17}}>Awwward</Text>
-          <Button wrapperStyle={{height: 35}} type={'primary'} size={'sm'} label={'new review'}/>
+          <CsText style={{alignSelf: 'center', fontWeight: '900', fontSize: 15}}>Awwward</CsText>
+          <Button wrapperStyle={{height: 35}} type={'primary'} size={'xs'} label={'new review'}/>
         </View>
         <View style={styles.rating}>
           <View style={{width: '40%', alignItems: 'center'}}>
-            <Text style={{fontSize: 40, fontWeight: '700'}}>4.9</Text>
+            <CsText style={{fontSize: 40, alignSelf: "center", fontWeight: '700'}}>4.9</CsText>
             <View style={{flexDirection: 'row', gap: 5}}>
               <Icon name="star" size={20} color={Colors.A} />
               <Icon name="star" size={20} color={Colors.A} />
@@ -89,8 +89,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   resName: {
-    fontWeight: 'bold',
-    fontSize: 24,
+    textTransform: 'uppercase',
+    fontWeight: '900',
+    fontSize: 22,
     color: Colors.E,
     marginTop: 10,
     marginBottom: 3,
