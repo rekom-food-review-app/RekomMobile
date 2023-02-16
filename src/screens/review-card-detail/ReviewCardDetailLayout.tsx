@@ -13,8 +13,8 @@ const ReviewCardDetailLayout = () => {
   const tabEmoij = useSelector((state: RootState) => state.restaurantTab.tabRes)
   return(
     <View style={{backgroundColor: 'white', width: '100%', height: '100%'}}>
-      <ScrollView style={{marginTop: 20}}>
-        <ReviewCard isEmoijDisplay={false} />
+      <ScrollView>
+        <ReviewCard wrapperStyle={{marginTop: 10}} isEmoijDisplay={false} />
         <View style={{paddingHorizontal: 20}}>
           <EmoijBar tab={tabEmoij} />
           {
@@ -31,7 +31,14 @@ const ReviewCardDetailLayout = () => {
           }
         </View>
       </ScrollView>
-      </View>
+      {
+        tabEmoij == 1 ? (
+        <View style={{paddingHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', position: 'absolute', bottom: 0, right: 0, left:0, paddingVertical: 10 }}>
+          <TextField placeholder={'Reply to this review'} size={'md'}/>
+          <Button label={'Send'} type={'secondary'} size={'xs'} wrapperStyle={{alignSelf: 'center'}}/>
+        </View>) : null
+      }
+    </View>
   )
 }
 export {ReviewCardDetailLayout}

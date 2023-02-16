@@ -31,6 +31,7 @@ const defaultStyle = StyleSheet.create({
     // height: 50
   },
   textField: {
+    backgroundColor: "white",
     borderRadius: 100,
     borderWidth: 1,
     borderColor: Colors.C,
