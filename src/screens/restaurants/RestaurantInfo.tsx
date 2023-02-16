@@ -31,7 +31,6 @@ const RestaurantInfo = () => (
           >
             <Marker
               coordinate={{ latitude : 16.059758 , longitude : 108.2414633 }}
-              image={{uri: 'custom_pin'}}
             />
         </MapView>
       </View>

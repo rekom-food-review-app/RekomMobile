@@ -4,7 +4,7 @@ import { ReviewCard } from "../../components"
 const RestaurantNewsletter = () => {
   return(
     <View style={{gap: 20}}>
-      <ReviewCard />
+      <ReviewCard numberOfLines={2}/>
       <ReviewCard />
       <ReviewCard />
     </View>

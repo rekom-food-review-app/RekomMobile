@@ -43,7 +43,6 @@ function Button(props: ButtonProps) {
 
 const defaultStyle = StyleSheet.create({
   button: {
-    height: "100%",
     alignSelf: 'flex-start',
     justifyContent: 'center',
     alignItems: 'center',

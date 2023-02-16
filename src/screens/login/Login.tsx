@@ -24,18 +24,16 @@ function Login()
       email: username.value,
       password: password.value
     }
-    // nav.replace("RestaurantScreen")
-    axios.post(API_AUTH, data)
-    .then((res) => {
-      dispatch(setAuth({authToken: res.data.accessToken})) // bug here
-      nav.replace("RestaurantScreen")
-    })
-    .catch((error) => {
-      setIsLoading(false)
-      console.error(error)
-
-      //djkfdisfhisf
-    })
+    nav.replace("RestaurantScreen")
+    // axios.post(API_AUTH, data)
+    // .then((res) => {
+    //   dispatch(setAuth({authToken: res.data.accessToken})) // bug here
+    //   nav.replace("RestaurantScreen")
+    // })
+    // .catch((error) => {
+    //   setIsLoading(false)
+    //   console.error(error)
+    // })
   }
 
   return (

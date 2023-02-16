@@ -26,7 +26,7 @@ function HeaderBack(props: HeaderBackProps)
         </TouchableOpacity>
         {
           props.title
-          ? <CsText size="md" weight={900} color='A' style={{alignSelf: "center"}}>Comments</CsText>
+          ? <CsText size="md" weight={900} color='A' style={{alignSelf: "center"}}>{props.title}</CsText>
           : null
         }
         <TouchableOpacity>
