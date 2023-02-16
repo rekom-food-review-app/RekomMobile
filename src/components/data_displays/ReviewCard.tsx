@@ -9,6 +9,7 @@ interface ReviewCardProps
 {
   numberOfLines?: number
   isEmoijDisplay?: boolean
+  wrapperStyle?: any
 }
 
 function ReviewCard(props: ReviewCardProps)
@@ -24,7 +25,7 @@ function ReviewCard(props: ReviewCardProps)
   }
 
   return (
-    <View>
+    <View style={props.wrapperStyle}>
       <UserActionInfo wrapperStyle={{marginBottom: 10, paddingHorizontal: 20}}/>
       <View>
         <Image style={{width: "100%", height: 300}} source={{uri: "https://i.pinimg.com/736x/a9/5c/3e/a95c3e3b368ddc76ffcec63fa02d456f.jpg"}}/>
