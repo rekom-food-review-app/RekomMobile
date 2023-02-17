@@ -16,8 +16,8 @@ function UserActionInfo(props: UserActionInfoProps)
 {
    return (
       <TouchableOpacity
-         disabled={!!props.onPressUser}
-         onPress={() => props.onPressUser}
+         // disabled={!!props.onPressUser}
+         onPress={props.onPressUser}
          style={props.wrapperStyle}>
 
          <View style={[defaultStyle.wrapper]}>
@@ -27,9 +27,7 @@ function UserActionInfo(props: UserActionInfoProps)
                <CsText size="xs">{props.actionDate}</CsText>
             </View>
          </View>
-
-         { props.content !== null ? <CsText>{props.content}</CsText> : null }
-
+         { props.content ? <CsText>{props.content}</CsText> : null }
       </TouchableOpacity>
    )
 }

@@ -31,7 +31,7 @@ function Login() {
          .then(res => {
             dispatch(setAuth({authToken: res.data.authToken}))
             setIsLoading(false)
-            nav.replace("RestaurantScreen")
+            nav.navigate("RestaurantScreen")
          })
          .catch(e => {
             setIsLoading(false)

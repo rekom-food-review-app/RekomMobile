@@ -5,8 +5,8 @@ import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
    Home,
-   Loading,
    Login,
+   Loading,
    MyProfile,
    OtherProfile,
    RegisterLayout,
