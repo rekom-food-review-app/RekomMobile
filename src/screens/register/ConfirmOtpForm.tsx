@@ -28,13 +28,14 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
         Authorization: `bearer ${auth.authToken.accessToken}`
       }
     }
-    axios.post(API_URL_OTP, data, config).
-      then((res) => {
-        console.log(res.data)
-        dispatch(setTab(3))
-      }).catch((error) => {
-        console.log(error)
-      })
+    dispatch(setTab(3))
+    // axios.post(API_URL_OTP, data, config).
+    //   then((res) => {
+    //     console.log(res.data)
+    //     dispatch(setTab(3))
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
   }
   return (
     <View>

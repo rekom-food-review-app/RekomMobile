@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
 import { Colors } from '../../assets/colors'
 import { Button, HeaderBack, ReviewCard, TextField, UserActionInfo } from '../../components'
-import { Comment } from './Comment'
+import { Comment } from './CommentSection'
 import { EmoijBar } from './EmoijBar'
 import { Like } from './Like'
 
@@ -15,7 +15,20 @@ const ReviewCardDetailLayout = () => {
     <View style={{backgroundColor: 'white', width: '100%', height: '100%'}}>
       <ScrollView>
         <HeaderBack type={'secondary'} title={'Review Details'} wrapperStyle={{marginTop: 30, marginBottom: 20, paddingHorizontal: 20}}/>
-        <ReviewCard textTouchingDisable={true} wrapperStyle={{marginTop: 10}} isEmoijDisplay={false} />
+        <ReviewCard 
+          rating='' 
+          rekomerAvatarUrl='https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80' 
+          rekomerId='' 
+          rekomerName='linh loz' 
+          restaurantCoordinates='' 
+          restaurantId='' 
+          restaurantName='hahaha'
+          reviewAt='2 ngay truoc'
+          reviewContent="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"
+          reviewId=''
+          textTouchingDisable={true} 
+          wrapperStyle={{marginTop: 10}}
+          isEmoijDisplay={false} />
         <View style={{paddingHorizontal: 20}}>
           <EmoijBar tab={tabEmoij} />
           {

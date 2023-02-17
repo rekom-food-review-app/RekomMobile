@@ -4,12 +4,13 @@ interface AvatarProps
 {
   size?: keyof typeof size,
   wrapperStyle?: any
+  imgUrl: string
 }
 
 function Avatar(props: AvatarProps)
 {
   return (
-    <Image style={[defaultStyle.img, size[props.size || 'md'].img, props.wrapperStyle]} source={{uri: "https://images.unsplash.com/photo-1675416864738-373085409a19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"}}/>
+    <Image style={[defaultStyle.img, size[props.size || 'md'].img, props.wrapperStyle]} source={{uri: props.imgUrl}}/>
   )
 }
 

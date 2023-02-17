@@ -9,7 +9,7 @@ const CsOtherProfile = () => {
   return(
     <View style={defaultStyle.contain}>
       <View>
-        <Avatar wrapperStyle={{marginBottom: 20}} size={'lg'}/>
+        <Avatar imgUrl='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80 ' wrapperStyle={{marginBottom: 20}} size={'lg'}/>
         <View style={{backgroundColor: Colors.B, position: 'absolute', bottom: 20, right: -15, padding: 5, borderRadius: 100}}>
           <Button size={'xs'} type={'primary'} label={'Follow'} wrapperStyle={{}}/>
         </View>

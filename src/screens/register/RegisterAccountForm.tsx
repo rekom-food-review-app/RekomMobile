@@ -24,26 +24,27 @@ function RegisterAccountForm(props: RegisterAccountFormProps)
   const dispatch = useDispatch()
 
   const submit = async () => {
-    console.log("submit")
     let data = {
       "username": userNameInput.value,
       "email": emailInput.value,
-      "password": passwordInput.value
+      "password": passwordInput.value,
+      "role": "rekomer"
     }
-    axios.post(API_URL_REGISTER, data)
-      .then((res) => {
-        dispatch(setTab(2))
-        dispatch(setAuth({authToken: res.data.accessToken})) // bug here
-      })
-      .catch((e) => {
-        const status: number = e.response.data.status;
-        const errors = e.response.data.errors
-        if (status == 400) {
-          setUserNameInput({...userNameInput, error: errors["Username"] || ''})
-          setEmailInput({...emailInput, error: errors["Email"] || ''})
-          setPasswordInput({...passwordInput, error: errors["Password"] || ''})
-        }
-      });
+    dispatch(setTab(2))
+    // axios.post(API_URL_REGISTER, data)
+    //   .then((res) => {
+    //     dispatch(setTab(2))
+    //     dispatch(setAuth({authToken: res.data.accessToken})) // bug here
+    //   })
+    //   .catch((e) => {
+    //     const status: number = e.response.data.status;
+    //     const errors = e.response.data.errors
+    //     if (status == 400) {
+    //       setUserNameInput({...userNameInput, error: errors["Username"] || ''})
+    //       setEmailInput({...emailInput, error: errors["Email"] || ''})
+    //       setPasswordInput({...passwordInput, error: errors["Password"] || ''})
+    //     }
+    //   });
   };
 
   return (

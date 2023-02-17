@@ -1,61 +1,43 @@
 
 import { DishInfo } from "../../components"
-import { FlatList, View, Dimensions, StyleSheet } from 'react-native';
-
-const Width = Dimensions.get('window').width;
-const Height = Dimensions.get('window').height;
-
-interface ItemData {
-  id: string
-  price: number
-  foodName: string
-  des: string
-};
-
-const DATA: ItemData[] = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    price: 100,
-    foodName: 'Slalalala',
-    des: 'mot con vit, xoe ra 2 con thang lang con'
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    price: 300,
-    foodName: 'Slililili',
-    des: 'mot con vit, xoe ra 2 con thang lang con'
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    price: 200,
-    foodName: 'Slulululu',
-    des: 'xoe ra 2 con thang lang con, xoe ra 2 con thang lang con'
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    price: 400,
-    foodName: 'Slolololo',
-    des: 'that la zui zui zui, xoe ra 2 con thang lang con'
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    price: 400,
-    foodName: 'Slelelele',
-    des: 'that la hay hay hay, xoe ra 2 con thang lang con'
-  }
-];
+import { FlatList, View, StyleSheet } from 'react-native';
+import { useEffect, useState } from "react";
+import RekomAxios from "../../api/axios";
+import { DishInfoApiType } from "../../@types/DishInfoApiType";
+import { menuApiInitState } from "../../constant/menuApiInitState";
 
 const RestaurantMenu = () => {
+  const [data, setData] = useState<DishInfoApiType[]>([])
+  
+  useEffect(() => {
+    RekomAxios({
+      method: 'get',
+      url: '/feed/restaurants/7037ac28-31e7-42a9-a238-fd13530ae6f5/menu',
+      responseType: 'json'
+    })
+    .then(res => {
+      let data = res.data.menu
+      console.log(data)
+      setData(data)
+    })
+    .catch(e => {
+      console.log(e)
+    })
+  }, [])
 
   return(
     <View style={{paddingHorizontal: 20}}>
-      <FlatList
+      {
+        data.length > 0
+        ? <FlatList
         style={{width: '100%'}}
-        data={DATA} 
+        data={data} 
         numColumns={2}
         columnWrapperStyle={{alignItems: 'center', flex: 0.5, justifyContent: 'space-between', paddingBottom: 20}}
-        renderItem = {({item}) => <DishInfo wrapperStyle={{width: '48%',}} price={item.price} foodName={item.foodName} des={item.des}/>}
-        keyExtractor={item => item.id}/>
+        renderItem = {({item}) => <DishInfo id={item.id} description={item.description} wrapperStyle={{width: '48%',}} image={item.image} price={item.price} name={item.name}/>}
+        keyExtractor={data => data.id}/>
+        : null
+      }
     </View>
   )
 }

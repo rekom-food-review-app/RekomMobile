@@ -2,38 +2,43 @@ import { useNavigation } from "@react-navigation/native"
 import {View, TouchableOpacity, StyleSheet, Image} from "react-native"
 import {Colors} from "../../assets/colors"
 import {TextField, SecureTextField, Button, CsText} from "../../components"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import { InputStateType } from '../../@types/InputStateType';
 import { inputInitState } from '../../constant/inputInitState';
-import { API_AUTH } from '../../constant/api';
-import axios from "axios"
 import { useDispatch } from 'react-redux'
 import {setAuth} from "../../global-states"
+import RekomAxios from "../../api/axios"
 
 function Login()
 {
   const nav = useNavigation<any>()
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [username, setUsername] = useState<InputStateType>(inputInitState)
+  const [email, setEmail] = useState<InputStateType>(inputInitState)
   const [password, setPassword] = useState<InputStateType>(inputInitState)
 
   function submmit() {
+    // nav.replace("RestaurantScreen")
     setIsLoading(true)
-    const data = {
-      email: username.value,
-      password: password.value
-    }
-    nav.replace("RestaurantScreen")
-    // axios.post(API_AUTH, data)
-    // .then((res) => {
-    //   dispatch(setAuth({authToken: res.data.accessToken})) // bug here
-    //   nav.replace("RestaurantScreen")
-    // })
-    // .catch((error) => {
-    //   setIsLoading(false)
-    //   console.error(error)
-    // })
+
+    RekomAxios({
+      method: 'post',
+      url: '/auth/email',
+      data: {
+        email: email.value,
+        password: password.value
+      }
+    })
+    .then(res => {
+      dispatch(setAuth({authToken: res.data.authToken}))
+      setIsLoading(false)
+      nav.replace("RestaurantScreen")
+    })
+    .catch(e => {
+      setIsLoading(false)
+      setEmail(pre => ({value: email.value, error: "incorrect email or password"}))
+      setPassword(pre => ({value: password.value, error: "incorrect email or password"}))
+    })
   }
 
   return (
@@ -47,13 +52,15 @@ function Login()
         justifyContent: 'center'
       }}>
 
-        <TextField onChangeText={(text: string) => {
-          setUsername({value: text, error: ''})
-        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="email"/>
+        <TextField 
+          error={email.error}
+          onChangeText={(text: string) => setEmail({value: text, error: ''})}
+          wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="email"/>
 
-        <SecureTextField onChangeText={(text) => {
-          setPassword({value: text, error: ''})
-        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="password"/>
+        <SecureTextField 
+          error={password.error}
+          onChangeText={(text) => {setPassword({value: text, error: ''})}} 
+          wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="password"/>
 
         <Button onPress={submmit} isLoading={isLoading} wrapperStyle={{width: '100%', marginBottom: 20}} label="Sign In"/>
 

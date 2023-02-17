@@ -5,7 +5,10 @@ interface UserActionInfoProps
 {
   wrapperStyle?: any
   text?: string
-  avtSize?: any 
+  avtSize?: any
+  avatarUrl: string,
+  fullname: string,
+  actionDate: string
 }
 
 function UserActionInfo(props: UserActionInfoProps)
@@ -13,10 +16,10 @@ function UserActionInfo(props: UserActionInfoProps)
   return (
     <View style={props.wrapperStyle}>
       <View style={[defaultStyle.wrapper]}>
-        <Avatar wrapperStyle={defaultStyle.avatar} size={props.avtSize}/>
+        <Avatar imgUrl={props.avatarUrl} wrapperStyle={defaultStyle.avatar} size={props.avtSize}/>
         <View style={[defaultStyle.infoWrapper]}>
-          <CsText style={{marginBottom: 2}} weight={900}>Vu Suy</CsText>
-          <CsText size="xs">10m before - Thus 10, 2023</CsText>
+          <CsText style={{marginBottom: 2}} weight={900}>{props.fullname}</CsText>
+          <CsText size="xs">{props.actionDate}</CsText>
         </View>
       </View>  
       {

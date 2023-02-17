@@ -3,7 +3,8 @@ import { Colors } from '../../assets/colors'
 import { ScrollView } from 'react-native-virtualized-view';
 import { Button, CsText, HeaderBack, NavigateBar } from '../../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { useEffect, useState, useLayoutEffect } from 'react'
+import axios from "axios"
+import { useEffect, useState } from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { RootState } from '../../app/store'
 import { RestaurantNewsletter } from './RestaurantNewsletter'
@@ -12,32 +13,31 @@ import { RestaurantGallery } from './RestaurantGallery'
 import { RestaurantInfo } from './RestaurantInfo'
 import { setResTab } from '../../global-states'
 import { StarLine } from '../../components/data_displays/StartLine'
+import RekomAxios from '../../api/axios';
 import { RestaurantApiType } from '../../@types/RestaurantApiType';
 import { restaurantApiInitState } from '../../constant/restaurantApiInitState';
-import RekomAxios from '../../api/axios';
-
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RestaurantLayout = () => {
   const tabRes = useSelector((state: RootState) => state.restaurantTab.tabRes)
+  const accessToken = useSelector((state: RootState) => state.auth.authToken.accessToken)
   const dispatch = useDispatch()
   const [data, setData] = useState<RestaurantApiType>(restaurantApiInitState)
   
-  useLayoutEffect(() => {
+  RekomAxios({
+    method: 'get',
+    url: '/feed/restaurants/7037ac28-31e7-42a9-a238-fd13530ae6f5',
+    responseType: 'json'
+  })
+  .then(res => {
+    let data = res.data.restaurant
+    setData(data)
+  })
+  .catch(e => {
+    console.log(e)
+  })
 
-    RekomAxios({
-      method: 'get',
-      url: '/feed/restaurants/7037ac28-31e7-42a9-a238-fd13530ae6f5',
-      responseType: 'json'
-    })
-    .then(res => {
-      let data = res.data.restaurant
-      console.log(data)
-      setData(data)
-    })
-    .catch(e => {
-      console.log(e)
-    })
-
+  useEffect(() => {
     return() => {
       dispatch(setResTab(1))
     }
@@ -48,7 +48,7 @@ const RestaurantLayout = () => {
 
       <HeaderBack type='primary' wrapperStyle={{position: 'absolute', padding: 20}}/>
 
-      <Image source={{uri: data.coverImageUrl}} style={styles.cover}/>
+      <Image source={require('../../assets/image/res-cover.png')} style={styles.cover}/>
       <View style={styles.content}>
         <Text style={styles.resName}>{data.name}</Text>
         <CsText>{data.description}</CsText>

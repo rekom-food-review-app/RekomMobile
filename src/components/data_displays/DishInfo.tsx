@@ -1,21 +1,19 @@
 import React from "react";
 import { Image, StyleSheet, Text, View ,Dimensions} from "react-native";
 import { CsText } from "./CsText";
-const Width = Dimensions.get('window').width;
-const Height = Dimensions.get('window').height;
-interface DishInfoProps {
+import { DishInfoApiType } from "../../@types/DishInfoApiType";
+
+interface DishInfoProps extends DishInfoApiType {
   wrapperStyle?: any
-  price: number,
-  foodName: string,
-  des: string
 }
+
 const DishInfo = (props: DishInfoProps) => {
   return(
     <View style={[defaultStyle.contain, props.wrapperStyle]}>
-      <Image source={{uri: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1980&q=80"}} style={defaultStyle.img}/>
+      <Image source={{uri: props.image}} style={defaultStyle.img}/>
       <View style={{paddingLeft: 1}}>
-        <CsText weight={"bold"} style={{marginTop: 8}} color={'A'} size={'md'}>{props.foodName}</CsText>
-        <CsText numberOfLines={1}>{props.des}</CsText>
+        <CsText weight={"bold"} style={{marginTop: 8}} color={'A'} size={'md'}>{props.name}</CsText>
+        <CsText numberOfLines={1}>{props.description}</CsText>
         <CsText weight={900} style={{marginTop: 5}} size={'md'}>{props.price}K</CsText>
       </View>
     </View>
