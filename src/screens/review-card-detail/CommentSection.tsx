@@ -12,9 +12,9 @@ const CommentSection = () => {
           actionDate={"3 ngay truoc"}
           fullname={"vupham"}
           wrapperStyle={{gap: 10, padding: 10, borderWidth: 1, borderColor: Colors.C, borderRadius: 20}} 
-          text={'Mot con vit xoe ra 2 con thang lang con dua nhau can nhau dut con chim non tren canh cay hot lieu lo hot lieu lo'}/>
+          content={'Mot con vit xoe ra 2 con thang lang con dua nhau can nhau dut con chim non tren canh cay hot lieu lo hot lieu lo'}/>
       </View>
     </View>
   )
 }
-export {CommentSection as Comment}
+export {CommentSection}

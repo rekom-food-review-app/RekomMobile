@@ -1,47 +1,47 @@
-import { StyleSheet, View } from "react-native";
-import { Avatar, CsText } from "./index";
+import {StyleSheet, View, TouchableOpacity} from "react-native";
+import {Avatar, CsText} from "./index";
 
 interface UserActionInfoProps
 {
-  wrapperStyle?: any
-  text?: string
-  avtSize?: any
-  avatarUrl: string,
-  fullname: string,
-  actionDate: string
+   wrapperStyle?: any
+   content?: string
+   avtSize?: any
+   avatarUrl: string,
+   fullName: string,
+   actionDate: string
+   onPressUser?: () => void
 }
 
 function UserActionInfo(props: UserActionInfoProps)
 {
-  return (
-    <View style={props.wrapperStyle}>
-      <View style={[defaultStyle.wrapper]}>
-        <Avatar imgUrl={props.avatarUrl} wrapperStyle={defaultStyle.avatar} size={props.avtSize}/>
-        <View style={[defaultStyle.infoWrapper]}>
-          <CsText style={{marginBottom: 2}} weight={900}>{props.fullname}</CsText>
-          <CsText size="xs">{props.actionDate}</CsText>
-        </View>
-      </View>  
-      {
-        props.text 
-        ? <CsText>{props.text}</CsText>
-        : null
-      }
-    </View>
-  )
+   return (
+      <TouchableOpacity
+         disabled={!!props.onPressUser}
+         onPress={() => props.onPressUser}
+         style={props.wrapperStyle}>
+
+         <View style={[defaultStyle.wrapper]}>
+            <Avatar imgUrl={props.avatarUrl} wrapperStyle={defaultStyle.avatar} size={props.avtSize}/>
+            <View>
+               <CsText style={{marginBottom: 2}} weight={900}>{props.fullName}</CsText>
+               <CsText size="xs">{props.actionDate}</CsText>
+            </View>
+         </View>
+
+         { props.content !== null ? <CsText>{props.content}</CsText> : null }
+
+      </TouchableOpacity>
+   )
 }
 
 const defaultStyle = StyleSheet.create({
-  wrapper: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  infoWrapper: {
-
-  },
-  avatar: {
-    marginRight: 8
-  }
+   wrapper: {
+      flexDirection: 'row',
+      alignItems: 'center'
+   },
+   avatar: {
+      marginRight: 8
+   }
 })
 
 export {UserActionInfo}
