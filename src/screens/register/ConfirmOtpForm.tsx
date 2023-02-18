@@ -6,6 +6,7 @@ import {inputInitState} from '../../constant/inputInitState';
 import {useDispatch, useSelector} from 'react-redux';
 import {setTab} from '../../global-states';
 import {RootState} from '../../app/store';
+import RekomAxios from '../../api/axios';
 
 interface ConfirmOtpFormProps {
    onSubmit?: () => void
@@ -20,19 +21,25 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
       let data = {
          "otp": otpInput.value
       }
+
       let config = {
          headers: {
             Authorization: `bearer ${auth.authToken.accessToken}`
          }
       }
       dispatch(setTab(3))
-      // axios.post(API_URL_OTP, data, config).
-      //   then((res) => {
-      //     console.log(res.data)
-      //     dispatch(setTab(3))
-      //   }).catch((error) => {
-      //     console.log(error)
-      //   })
+      // RekomAxios({
+      //    method: 'post',
+      //    data: data,
+      //    url: 'account/confirm'
+      // })
+      // .then((res) => {
+      //    console.log(res.data)
+      //    dispatch(setTab(3))
+      // })
+      // .catch((error) => {
+      //    console.log(error)
+      // })
    }
    return (
       <View>

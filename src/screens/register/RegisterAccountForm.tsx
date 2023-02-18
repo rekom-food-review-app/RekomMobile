@@ -7,6 +7,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import {InputStateType} from '../../@types/InputStateType';
 import {inputInitState} from '../../constant/inputInitState';
 import {RootState} from "../../app/store";
+import RekomAxios from '../../api/axios';
+import { setAuth } from '../../global-states';
 
 interface RegisterAccountFormProps {
    onSubmit?: () => void
@@ -26,21 +28,27 @@ function RegisterAccountForm(props: RegisterAccountFormProps) {
          "password": passwordInput.value,
          "role": "rekomer"
       }
-      dispatch(setTab(2))
-      // axios.post(API_URL_REGISTER, data)
-      //   .then((res) => {
-      //     dispatch(setTab(2))
-      //     dispatch(setAuth({authToken: res.data.accessToken})) // bug here
-      //   })
-      //   .catch((e) => {
-      //     const status: number = e.response.data.status;
-      //     const errors = e.response.data.errors
-      //     if (status == 400) {
-      //       setUserNameInput({...userNameInput, error: errors["Username"] || ''})
-      //       setEmailInput({...emailInput, error: errors["Email"] || ''})
-      //       setPasswordInput({...passwordInput, error: errors["Password"] || ''})
-      //     }
-      //   });
+      // dispatch(setTab(2))
+      RekomAxios({
+         url: 'register/email',
+         method: 'post',
+         data
+      })        
+      .then((res) => {
+          dispatch(setTab(2))
+          console.log(res)
+          dispatch(setAuth({authToken: res.data.authToken})) // bug here
+        })
+      .catch((e) => {
+         const status: number = e.response.data.status;
+         const errors = e.response.data.errors
+         if (status == 400) {
+         setUserNameInput({...userNameInput, error: errors["Username"] || ''})
+         setEmailInput({...emailInput, error: errors["Email"] || ''})
+         setPasswordInput({...passwordInput, error: errors["Password"] || ''})
+         }
+      });
+
    };
 
    return (

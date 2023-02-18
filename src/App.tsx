@@ -15,6 +15,7 @@ import {
 } from './screens';
 import {store} from './app/store'
 import {Provider} from 'react-redux'
+import { FoodDetail } from './screens/restaurants/FoodDetail';
 
 export const RootStack = createNativeStackNavigator();
 
@@ -23,9 +24,10 @@ const App = () => {
       <Provider store={store}>
          <NavigationContainer>
             <RootStack.Navigator>
-               <RootStack.Screen options={{title: "", headerShown: false}} name='LoadingScreen' component={Loading}/>
-               <RootStack.Screen options={{title: "", headerShown: false}} name='LoginScreen' component={Login}/>
-               <RootStack.Screen options={{title: ""}} name='RegisterScreen' component={RegisterLayout}/>
+               {/* <RootStack.Screen options={{title: "", headerShown: false}} name='LoadingScreen' component={Loading}/> */}
+               {/* <RootStack.Screen options={{title: "", headerShown: false}} name='LoginScreen' component={Login}/> */}
+               {/* <RootStack.Screen options={{title: ""}} name='RegisterScreen' component={RegisterLayout}/> */}
+               <RootStack.Screen options={{headerShown: false}} name='Food' component={FoodDetail}/>
                <RootStack.Screen options={{headerShown: false}} name='RestaurantScreen' component={RestaurantLayout}/>
                <RootStack.Screen options={{headerShown: false}} name='MyProfileScreen' component={MyProfile}/>
                <RootStack.Screen options={{headerShown: false}} name='ReviewCardDetailScreen' component={ReviewCardDetailLayout}/>
