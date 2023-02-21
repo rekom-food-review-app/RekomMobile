@@ -62,14 +62,14 @@ function ReviewCard(props: ReviewCardProps) {
                                  <IconButton
                                     onPress={() => react('A')} size={'sm'}
                                     typeBtn={reactIcon == 'A' ? 'active' : 'inactive'}
-                                    source={{uri: 'https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f499.png'}}>{'100'}</IconButton>
+                                    source={require('../../assets/image/like.png')}>{'100'}</IconButton>
                                  <IconButton onPress={() => react('B')} size={'sm'}
                                              typeBtn={reactIcon == 'B' ? 'active' : 'inactive'}
-                                             source={{uri: 'https://vnreview.vn/image/19/45/88/1945885.jpg?t=1559311281453'}}>{'10'}</IconButton>
+                                             source={require('../../assets/image/soso.png')}>{'10'}</IconButton>
                                  <IconButton
                                     onPress={() => react('C')} size={'sm'}
                                     typeBtn={reactIcon == 'C' ? 'active' : 'inactive'}
-                                    source={{uri: 'https://vnreview.vn/image/19/45/89/1945894.jpg?t=1559311281453'}}>{'10'}</IconButton>
+                                    source={require('../../assets/image/dislike.png')}>{'10'}</IconButton>
                               </View>
                               <IconButton onPress={() => nav.navigate("ReviewCardDetailScreen")} size={'sm'}
                                           typeBtn={'inactive'}

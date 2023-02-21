@@ -1,17 +1,19 @@
 import {ScrollView} from 'react-native-virtualized-view'
 import {Colors} from '../../assets/colors'
-import {ReviewCard} from '../../components'
+import {HeaderBack, ReviewCard} from '../../components'
 import {CsOtherProfile} from "./CsOtherProfile";
 
 const OtherProfile = () => {
    return (
       <ScrollView style={{backgroundColor: Colors.B}}>
+         <HeaderBack type={'secondary'} title={'@other'}
+                        wrapperStyle={{marginTop: 30, paddingHorizontal: 20}}/>
          <CsOtherProfile/>
          <ReviewCard
             rating=''
             rekomerAvatarUrl='https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
             rekomerId=''
-            rekomerName='linh loz'
+            rekomerName='linh l'
             restaurantCoordinates=''
             restaurantId=''
             restaurantName='hahaha'
@@ -20,7 +22,7 @@ const OtherProfile = () => {
             reviewId=''
             textTouchingDisable={true}
             wrapperStyle={{marginTop: 10}}
-            isEmojiDisplay={false}/>
+            />
       </ScrollView>
    )
 }

@@ -4,7 +4,7 @@ import { Marker } from 'react-native-maps';
 
 enableLatestRenderer();
 
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { CsText } from "../../components";
 
 const RestaurantInfo = () => (

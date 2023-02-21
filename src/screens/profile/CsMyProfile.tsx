@@ -7,13 +7,13 @@ const CsMyProfile = () =>
    return (
       <View style={defaultStyle.contain}>
          <Avatar
-            imgUrl={""}
+            imgUrl={"https://i.pinimg.com/736x/b1/cb/da/b1cbda6365c638531a79da3a7264c259.jpg"}
             wrapperStyle={{marginBottom: 20}} size={'lg'}/>
 
          <CsText
             style={{alignSelf: 'center', marginBottom: 5}}
             size={'lg'} weight={'800'}>
-            Le Thanh Vu
+            Pham Le Thanh Vu
          </CsText>
 
          <CsText
