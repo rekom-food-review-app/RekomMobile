@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Colors} from '../../assets/colors';
 import {CsText, TimeLine} from '../../components';
 import {ConfirmOtpForm, RegisterAccountForm, UpdateProfileForm} from "./index"
@@ -18,30 +18,32 @@ function RegisterLayout() {
    }, [])
 
    return (
-      <View style={{width: '100%', height: '100%', backgroundColor: Colors.B, position: 'relative'}}>
+      <KeyboardAvoidingView>
+         <ScrollView style={{width: '100%', height: '100%', backgroundColor: Colors.B, position: 'relative'}}>
 
-         <View style={styles.layout}>
+            <View style={styles.layout}>
 
-            <View style={{marginBottom: 30}}>
-               <Image style={styles.logo} source={require('../../assets/image/thelogo.png')}/>
-               <Text style={styles.title}>Be A "Rekomer" Right Now!</Text>
-               <CsText style={{marginBottom: 30}}>Step 1/3</CsText>
-               <TimeLine step={tab}/>
+               <View style={{marginBottom: 30}}>
+                  <Image style={styles.logo} source={require('../../assets/image/thelogo.png')}/>
+                  <Text style={styles.title}>Be A "Rekomer" Right Now!</Text>
+                  <CsText style={{marginBottom: 30}}>Step 1/3</CsText>
+                  <TimeLine step={tab}/>
+               </View>
+
+               {
+                  tab == 1 ? <RegisterAccountForm/> : null
+               }
+               {
+                  tab == 2 ? <ConfirmOtpForm/> : null
+               }
+               {
+                  tab == 3 ? <UpdateProfileForm/> : null
+               }
+
             </View>
 
-            {
-               tab == 1 ? <RegisterAccountForm/> : null
-            }
-            {
-               tab == 2 ? <ConfirmOtpForm/> : null
-            }
-            {
-               tab == 3 ? <UpdateProfileForm/> : null
-            }
-
-         </View>
-
-      </View>
+         </ScrollView>
+      </KeyboardAvoidingView>
    );
 }
 

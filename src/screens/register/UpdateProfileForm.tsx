@@ -1,36 +1,48 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
+import React, { useState } from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View, Platform} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Colors} from '../../assets/colors';
-import {Button, CsText, Select, TextField} from '../../components';
-
+import {Button, CsText, Select, SelectDate, TextField} from '../../components';
+import Icon from 'react-native-vector-icons/Feather'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 interface UpdateProfileFormProps
 {
+  imageUri ?: string | null
 }
-
 
 const UpdateProfileForm = (props: UpdateProfileFormProps) => {
   const nav = useNavigation<any>()
-  const [selected, setSelected] = React.useState('');
-  const data = [
-    {key: '1', value: 'Mobiles', disabled: true},
-    {key: '2', value: 'Appliances'},
-    {key: '3', value: 'Cameras'},
-    {key: '4', value: 'Computers', disabled: true},
-    {key: '5', value: 'Vegetables'},
-    {key: '6', value: 'Diary Products'},
-    {key: '7', value: 'Drinks'},
-  ];
-  
+  const [imageUri, setImageUri] = useState<UpdateProfileFormProps>({imageUri: null});
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (selectedDate?: Date) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    setShow(false);
+  };
+
+  const showDatepicker = () => {
+    setShow(true);
+    setMode('date');
+  };
+
+  // const showTimepicker = () => {
+  //   showMode('time');
+  // };
+
   const LoadLib = async () => {
     try {
       const chooseImg = await ImagePicker.openPicker({
         width: 400,
         height: 400,
         cropping: true,
-      });
+      }).then(image => {
+          setImageUri({imageUri: image.path})
+      })
     } catch (error) {console.log(error);
     }
   };
@@ -45,11 +57,14 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
           Let's update your profile
         </Text>
 
-        <TouchableOpacity onPress={LoadLib} style={{alignSelf: 'center'}}>
+        <TouchableOpacity onPress={LoadLib} style={{alignSelf: 'center', marginBottom: 10}}>
           <Image
             style={styles.setAvt}
-            source={require('../../assets/image/avt.png')}
-          />
+            source={imageUri.imageUri ? { uri: imageUri.imageUri } : require('../../assets/image/avt.jpg')}
+            />
+            <View style={{padding: 5, borderRadius: 100, position: 'absolute', bottom: 5, left: 5, backgroundColor: Colors.B}}>
+              <Icon name="edit" size={15} color={Colors.E}/>
+            </View>
         </TouchableOpacity>
 
         <TextField
@@ -58,34 +73,25 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
           type={'left'}
           size={'lg'}
         />
-
-        <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: 15,
-          }}>
-          <Select
-            wrapperStyle={{width: '48%'}}
-            placeholder={'Country'}
-            setSelected={(val: React.SetStateAction<string>) =>
-              setSelected(val)
-            }
-            data={data}
-            save="value"
-          />
-          <Select
-            wrapperStyle={{width: '48%'}}
-            placeholder={'City'}
-            setSelected={(val: React.SetStateAction<string>) =>
-              setSelected(val)
-            }
-            data={data}
-            save="value"
-          />
-        </View>
-
+        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}} onPress={showDatepicker}>
+          <SelectDate day={date.getDay()} month={date.getMonth()} year={date.getFullYear()}/>
+        </TouchableOpacity>
+        {show && (
+        <DateTimePicker
+        testID="dateTimePicker"
+        value={date}
+        // mode={mode}
+        is24Hour={true}
+        display="default"
+        onChange={(e, d) => onChange(d)}
+        />
+    )}
+        <TextField
+          wrapperStyle={{marginVertical: 15, width: '100%'}}
+          placeholder={'Description'}
+          type={'left'}
+          size={'lg'}
+        />
         <Button
           onPress={submit}
           wrapperStyle={{width: '100%', zIndex: -1}}
@@ -106,6 +112,8 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     alignSelf: 'center',
+    borderRadius: 100,
+    borderBottomLeftRadius: 25
   },
 });
 export {UpdateProfileForm};

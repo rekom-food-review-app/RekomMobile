@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, TextField} from '../../components';
 import {InputStateType} from '../../@types/InputStateType';
@@ -16,6 +16,24 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
    const [otpInput, setOtpInput] = useState<InputStateType>(inputInitState)
    const auth = useSelector((state: RootState) => state.auth)
    const dispatch = useDispatch()
+   const [countdown, setCountdown] = useState(60);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown((prevCountdown) => {
+         if (prevCountdown === 0) {
+           clearInterval(interval);
+           return prevCountdown;
+         }
+         return prevCountdown - 1;
+       });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+   const handleResetCountdown = () => {
+      setCountdown(60);
+   }
 
    const submit = async () => {
       let data = {
@@ -73,13 +91,14 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
          <View style={styles.noti}>
             <Text
                style={{width: '60%', textAlign: 'center', alignItems: 'center'}}>
-               The OTP only work in 60s left, can't see your OTP?
+               The OTP only work in {countdown}s left, can't see your OTP?
             </Text>
             <Button
                wrapperStyle={{alignSelf: 'center'}}
                type={'basic'}
                size={'sm'}
                label={'Resend'}
+               onPress={handleResetCountdown}
             />
          </View>
 

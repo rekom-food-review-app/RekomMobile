@@ -27,7 +27,7 @@ const App = () => {
                {/* <RootStack.Screen options={{title: "", headerShown: false}} name='LoadingScreen' component={Loading}/> */}
                {/* <RootStack.Screen options={{title: "", headerShown: false}} name='LoginScreen' component={Login}/> */}
                {/* <RootStack.Screen options={{title: ""}} name='RegisterScreen' component={RegisterLayout}/> */}
-               <RootStack.Screen options={{headerShown: false}} name='Food' component={FoodDetail}/>
+               {/* <RootStack.Screen options={{headerShown: false}} name='Food' component={FoodDetail}/> */}
                <RootStack.Screen options={{headerShown: false}} name='RestaurantScreen' component={RestaurantLayout}/>
                <RootStack.Screen options={{headerShown: false}} name='MyProfileScreen' component={MyProfile}/>
                <RootStack.Screen options={{headerShown: false}} name='ReviewCardDetailScreen' component={ReviewCardDetailLayout}/>

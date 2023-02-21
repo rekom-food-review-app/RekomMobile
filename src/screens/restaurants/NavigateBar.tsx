@@ -1,5 +1,5 @@
 import {StyleSheet, TouchableOpacity, View} from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/Feather'
 import {useDispatch} from "react-redux";
 import {Colors} from "../../assets/colors";
 import {setResTab} from "../../global-states";
@@ -18,22 +18,22 @@ const NavigateBar = (props: NavigateBarProps) => {
             <TouchableOpacity onPress={() => {
                dispatch(setResTab(1))
             }}>
-               <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iOne]}/>
+               <Icon name="tv" size={20} style={[defaultStyle.button, tabStyle[props.tab].iOne]}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
                dispatch(setResTab(2))
             }}>
-               <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iTwo]}/>
+               <Icon name="clipboard" size={20} style={[defaultStyle.button, tabStyle[props.tab].iTwo]}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
                dispatch(setResTab(3))
             }}>
-               <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iThree]}/>
+               <Icon name="image" size={20} style={[defaultStyle.button, tabStyle[props.tab].iThree]}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
                dispatch(setResTab(4))
             }}>
-               <Icon name="smile-o" size={20} style={[defaultStyle.button, tabStyle[props.tab].iFour]}/>
+               <Icon name="menu" size={20} style={[defaultStyle.button, tabStyle[props.tab].iFour]}/>
             </TouchableOpacity>
          </View>
       </View>

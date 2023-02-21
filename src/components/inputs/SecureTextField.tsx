@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, TextInput, View, TouchableOpacity, Keyboard} from 'react-native';
 import {Colors} from '../../assets/colors';
+import Icon from 'react-native-vector-icons/Feather'
+
 
 interface SecureTextFieldProps {
   placeholder: string;
@@ -11,16 +13,25 @@ interface SecureTextFieldProps {
   error?: string;
 }
 const SecureTextField = (props: SecureTextFieldProps) => {
-  const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [hidePassword, setHidePassword] = useState(true);
+
+  const togglePasswordVisibility = () => {
+      setHidePassword(!hidePassword)
+  };
+
   return (
     <View
       style={[defaultStyle.wrapper, size[props.size || 'lg'], defaultStyle.wrapper, props.wrapperStyle]}>
       <TextInput
-        secureTextEntry={true}
+        onBlur={() => Keyboard.dismiss()}
+        secureTextEntry={hidePassword}
         style={[defaultStyle.textField, type[props.type || 'left'].placeholder]}
         placeholder={props.placeholder}
         onChangeText={props.onChangeText}
       />
+      <TouchableOpacity onPress={togglePasswordVisibility} style={{position: 'absolute', right: 20, top: 15}}>
+        <Icon name={hidePassword ? 'eye-off' : 'eye'} size={20} color={Colors.A}/>
+      </TouchableOpacity>
       {props.error ? (
         <Text style={defaultStyle.error}>{props.error}</Text>
       ) : null}
@@ -29,14 +40,13 @@ const SecureTextField = (props: SecureTextFieldProps) => {
 };
 const defaultStyle = StyleSheet.create({
   wrapper: {
-    // height: 50
+    position: 'relative'
   },
   textField: {
     borderRadius: 100,
     borderWidth: 1,
     borderColor: Colors.C,
     paddingHorizontal: 15,
-    // height: "100%"
   },
   error: {
     color: 'red',

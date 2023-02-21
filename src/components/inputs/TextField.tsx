@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, TextInput, View, Keyboard} from 'react-native';
 import {Colors} from '../../assets/colors';
 
 interface TextFieldProps {
@@ -15,6 +15,7 @@ const TextField = (props: TextFieldProps) => {
   return (
     <View style={[size[props.size ?? 'sm'].contain, defaultStyle.wrapper, props.wrapperStyle]}>
       <TextInput
+        onBlur={() => Keyboard.dismiss()}
         onChangeText={props.onChangeText}
         style={[defaultStyle.textField, type[props.type ?? 'left'].placeholder]}
         placeholder={props.placeholder}
