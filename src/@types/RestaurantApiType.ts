@@ -4,15 +4,14 @@ interface RestaurantApiType {
     description: string
     coverImageUrl: string
     coordinates: string
-    ratingResult: {
-      averagePoint: number
-      totalRating: number
-      five: number
-      four: number
-      three: number
-      two:number
-      one:number
-      restaurantId: string
-    }
+    average: number
+    amount: number
+    percentFive: number
+    percentFour: number
+    percentThree: number
+    percentTwo:number
+    percentOne:number
+    restaurantId: string
+
 }
 export {type RestaurantApiType}

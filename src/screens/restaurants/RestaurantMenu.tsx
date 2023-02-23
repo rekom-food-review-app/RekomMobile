@@ -4,7 +4,6 @@ import { FlatList, View, StyleSheet } from 'react-native';
 import { useEffect, useState } from "react";
 import RekomAxios from "../../api/axios";
 import { DishInfoApiType } from "../../@types/DishInfoApiType";
-import { menuApiInitState } from "../../constant/menuApiInitState";
 
 const RestaurantMenu = () => {
   const [data, setData] = useState<DishInfoApiType[]>([])
@@ -12,11 +11,11 @@ const RestaurantMenu = () => {
   useEffect(() => {
     RekomAxios({
       method: 'get',
-      url: '/feed/restaurants/7037ac28-31e7-42a9-a238-fd13530ae6f5/menu',
+      url: 'rekomer-side/foods?restaurantId=2',
       responseType: 'json'
     })
     .then(res => {
-      let data = res.data.menu
+      let data = res.data.foodList
       console.log(data)
       setData(data)
     })
@@ -34,7 +33,7 @@ const RestaurantMenu = () => {
         data={data} 
         numColumns={2}
         columnWrapperStyle={{alignItems: 'center', flex: 0.5, justifyContent: 'space-between', paddingBottom: 20}}
-        renderItem = {({item}) => <DishInfo id={item.id} description={item.description} wrapperStyle={{width: '48%',}} image={item.image} price={item.price} name={item.name}/>}
+        renderItem = {({item}) => <DishInfo id={item.id} wrapperStyle={{width: '48%',}} imageUrl={item.imageUrl} price={item.price} name={item.name}/>}
         keyExtractor={data => data.id}/>
         : null
       }

@@ -1,9 +1,19 @@
+interface Media {
+  mediaUrl: string
+  type: string
+}
+
 interface ReviewCardType 
 {
   reviewId: string
-  reviewAt: string
+  reviewTime: string
   reviewContent: string
-  rating: string,
+  reviewMedias: Media[]
+  amountDislike: number,
+  amountLike: number,
+  amountHelpful: number,
+  amountComment: number,
+  myReaction: null,
   rekomerId: string,
   rekomerAvatarUrl: string
   rekomerName: string,

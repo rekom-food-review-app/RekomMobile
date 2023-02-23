@@ -15,11 +15,11 @@ const RestaurantNewsletter = () => {
    useEffect(() => {
       RekomAxios({
          method: 'get',
-         url: '/feed/restaurants/7037ac28-31e7-42a9-a238-fd13530ae6f5/reviews',
+         url: 'rekomer-side/reviews?restaurantId=2',
          responseType: 'json'
       })
          .then(res => {
-            let data = res.data.reviews
+            let data = res.data.reviewList
             setData(data)
          })
          .catch(e => {

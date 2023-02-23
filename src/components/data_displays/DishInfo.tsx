@@ -10,10 +10,9 @@ interface DishInfoProps extends DishInfoApiType {
 const DishInfo = (props: DishInfoProps) => {
    return (
       <View style={[defaultStyle.contain, props.wrapperStyle]}>
-         <Image source={{uri: props.image}} style={defaultStyle.img}/>
+         <Image source={{uri: props.imageUrl}} style={defaultStyle.img}/>
          <View style={{paddingLeft: 1}}>
             <CsText weight={"bold"} style={{marginTop: 8}} color={'A'} size={'md'}>{props.name}</CsText>
-            <CsText numberOfLines={1}>{props.description}</CsText>
             <CsText weight={900} style={{marginTop: 5}} size={'md'}>{props.price}K</CsText>
          </View>
       </View>

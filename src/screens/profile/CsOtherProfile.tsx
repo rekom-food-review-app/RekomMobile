@@ -1,13 +1,64 @@
 import {StyleSheet, View} from 'react-native'
 import {Avatar, Button, CsText, Hi} from '../../components'
 import {Colors} from '../../assets/colors'
+import { useEffect, useState } from 'react';
+import { OtherProfileApiType } from '../../@types/OtherProfileApiType';
+import { otherProfileApiInitState } from '../../constant/otherProfileApiInitState';
+import RekomAxios from '../../api/axios';
+import {HeaderBack} from '../../components'
 
 const CsOtherProfile = () => {
+   const [data, setData] = useState<OtherProfileApiType>(otherProfileApiInitState)
+   const [isFollowing, setIsFollowing] = useState(false);
+   const [followStatus, setFollowStatus] = useState<boolean>(data.isFollowed)
+
+   useEffect(() => {
+      setFollowStatus(data.isFollowed)
+   }, [data.isFollowed])
+   
+   const changeFollowStatus = () => {
+      let url = "follow"
+      let method = "post"
+
+      if (followStatus) {
+         url = "unfollow"
+         method = "delete"
+      }
+
+      setFollowStatus(!followStatus)
+
+      RekomAxios({
+         url: `rekomers/cdada5a4-c2ac-40c6-9151-39147f09c830/${url}`,
+         method
+      })
+      .catch((error) => {
+         setFollowStatus((pre) => !pre)
+      })
+   }
+
+   useEffect(() => {
+      RekomAxios({
+         method: 'get',
+         url: '/rekomers/cdada5a4-c2ac-40c6-9151-39147f09c830/profile',
+         responseType: 'json'
+      })
+      .then(res => {
+         let data = res.data.otherProfile
+         console.log(data)
+         setData(data)
+      })
+      .catch(e => {
+         console.log(e)
+      })
+   },[])
+
    return (
       <View style={defaultStyle.contain}>
+         <HeaderBack type={'secondary'} title={data.username}
+                        wrapperStyle={{ paddingHorizontal: 20, marginBottom: 20}}/>
          <View>
             <Avatar
-               imgUrl='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80 '
+               imgUrl={data.avatarUrl}
                wrapperStyle={{marginBottom: 20}} size={'lg'}/>
             <View style={{
                backgroundColor: Colors.B,
@@ -17,19 +68,23 @@ const CsOtherProfile = () => {
                padding: 5,
                borderRadius: 100
             }}>
-               <Button size={'xs'} type={'primary'} label={'Follow'} wrapperStyle={{}}/>
+               <Button 
+               onPress={() => changeFollowStatus()}
+               size={'xs'} 
+               type={'primary'} 
+               label={followStatus ? 'following' : 'follow'} />
             </View>
          </View>
-         <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{'Pham Le Thanh Vu'}</CsText>
+         <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{data.fullName ? data.fullName : 'nhô nhem'}</CsText>
          <CsText style={{
             alignSelf: 'center',
             marginBottom: 10,
             textAlign: 'center'
-         }}>{'Nguoi dan ba co cay ca lem si cu la'}</CsText>
+         }}>{data.description}</CsText>
          <View style={{flexDirection: 'row'}}>
-            <Hi number='110000' label='Reviews'/>
-            <Hi number='1M' label='Followers'/>
-            <Hi number='1' label='Following'/>
+            <Hi number={data.totalReviews} label='Reviews'/>
+            <Hi number={data.totalFollowers} label='Followers'/>
+            <Hi number={data.totalFollowings} label='Following'/>
          </View>
          <View style={defaultStyle.dashedLine}></View>
       </View>
@@ -41,7 +96,7 @@ const defaultStyle = StyleSheet.create({
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: 20,
+      marginTop: 30,
    },
    dashedLine: {
       borderBottomColor: Colors.C,

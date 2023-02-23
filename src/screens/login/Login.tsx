@@ -20,6 +20,8 @@ function Login() {
       // nav.replace("RestaurantScreen")
       setIsLoading(true)
 
+      console.log(email.value, password.value)
+
       RekomAxios({
          method: 'post',
          url: '/auth/email',
@@ -34,6 +36,7 @@ function Login() {
             nav.navigate("RestaurantScreen")
          })
          .catch(e => {
+            console.log(e)
             setIsLoading(false)
             setEmail(pre => ({value: email.value, error: "incorrect email or password"}))
             setPassword(pre => ({value: password.value, error: "incorrect email or password"}))
@@ -58,9 +61,7 @@ function Login() {
 
             <SecureTextField
                error={password.error}
-               onChangeText={(text) => {
-                  setPassword({value: text, error: ''})
-               }}
+               onChangeText={(text) => setPassword({value: text, error: ''})}
                wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="password"/>
 
             <Button onPress={submit} isLoading={isLoading} wrapperStyle={{width: '100%', marginBottom: 20}}

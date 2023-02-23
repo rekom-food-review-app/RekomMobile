@@ -2,8 +2,7 @@ interface DishInfoApiType {
   id: string
   name: string
   price: number
-  image: string
-  description: string
+  imageUrl: string
 }
 
 export {type DishInfoApiType}

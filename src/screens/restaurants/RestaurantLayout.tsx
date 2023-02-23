@@ -22,7 +22,7 @@ const RestaurantLayout = () => {
 
       RekomAxios({
          method: 'get',
-         url: '/feed/restaurants/7037ac28-31e7-42a9-a238-fd13530ae6f5',
+         url: 'rekomer-side/restaurants/2',
          responseType: 'json'
       })
          .then(res => {
@@ -58,7 +58,7 @@ const RestaurantLayout = () => {
                      fontSize: 40,
                      alignSelf: "center",
                      fontWeight: '700'
-                  }}>{data.ratingResult.averagePoint}</CsText>
+                  }}>{data.average}</CsText>
                   <View style={{flexDirection: 'row', gap: 5}}>
                      <Icon name="star" size={20} color={Colors.A}/>
                      <Icon name="star" size={20} color={Colors.A}/>
@@ -66,14 +66,14 @@ const RestaurantLayout = () => {
                      <Icon name="star" size={20} color={Colors.A}/>
                      <Icon name="star" size={20} color={Colors.A}/>
                   </View>
-                  <Text>{data.ratingResult.totalRating} ratings</Text>
+                  <Text>{data.amount} ratings</Text>
                </View>
                <View style={{width: '55%'}}>
-                  <StarLine point={data.ratingResult.five}>5</StarLine>
-                  <StarLine point={data.ratingResult.four}>4</StarLine>
-                  <StarLine point={data.ratingResult.three}>3</StarLine>
-                  <StarLine point={data.ratingResult.two}>2</StarLine>
-                  <StarLine point={data.ratingResult.one}>1</StarLine>
+                  <StarLine point={data.percentFive}>5</StarLine>
+                  <StarLine point={data.percentFour}>4</StarLine>
+                  <StarLine point={data.percentThree}>3</StarLine>
+                  <StarLine point={data.percentTwo}>2</StarLine>
+                  <StarLine point={data.percentOne}>1</StarLine>
                </View>
             </View>
          </View>

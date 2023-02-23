@@ -1,11 +1,14 @@
 import {StyleSheet, View} from 'react-native'
 import {Avatar, CsText, Hi} from '../../components'
 import {Colors} from '../../assets/colors'
+import {HeaderBack} from "../../components"
 
 const CsMyProfile = () =>
 {
    return (
       <View style={defaultStyle.contain}>
+         <HeaderBack type={'secondary'} title={'@traialime'}
+                        wrapperStyle={{ paddingHorizontal: 20, marginBottom: 20}}/>
          <Avatar
             imgUrl={"https://i.pinimg.com/736x/b1/cb/da/b1cbda6365c638531a79da3a7264c259.jpg"}
             wrapperStyle={{marginBottom: 20}} size={'lg'}/>
@@ -22,9 +25,9 @@ const CsMyProfile = () =>
          </CsText>
 
          <View style={{flexDirection: 'row'}}>
-            <Hi number='110000' label='Reviews'/>
-            <Hi number='1M' label='Followers'/>
-            <Hi number='1' label='Following'/>
+            <Hi number={110000} label='Reviews'/>
+            <Hi number={1} label='Followers'/>
+            <Hi number={1} label='Following'/>
          </View>
 
          <View style={defaultStyle.dashedLine}></View>
@@ -36,7 +39,7 @@ const defaultStyle = StyleSheet.create({
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: 20,
+      marginTop: 30,
    },
    dashedLine: {
       borderBottomColor: Colors.C,

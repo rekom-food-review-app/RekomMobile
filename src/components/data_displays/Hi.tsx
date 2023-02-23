@@ -3,7 +3,7 @@ import {CsText} from './CsText'
 
 interface HiProps {
    wrapperStyle?: any
-   number: string
+   number: number
    label: string
 }
 

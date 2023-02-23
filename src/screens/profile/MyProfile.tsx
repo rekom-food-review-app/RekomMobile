@@ -1,12 +1,10 @@
 import {ScrollView} from "react-native-virtualized-view"
 import {Colors} from '../../assets/colors'
-import {HeaderBack, ReviewCard} from "../../components"
+import {ReviewCard} from "../../components"
 import {CsMyProfile} from "./index";
 const MyProfile = () => {
    return (
       <ScrollView style={{backgroundColor: Colors.B}}>
-         <HeaderBack type={'secondary'} iconRight='sliders' title={'@traialime'}
-                        wrapperStyle={{marginTop: 30, paddingHorizontal: 20}}/>
          <CsMyProfile/>
          <ReviewCard
             rating=''

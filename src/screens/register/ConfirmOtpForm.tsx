@@ -46,18 +46,18 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
          }
       }
       dispatch(setTab(3))
-      // RekomAxios({
-      //    method: 'post',
-      //    data: data,
-      //    url: 'account/confirm'
-      // })
-      // .then((res) => {
-      //    console.log(res.data)
-      //    dispatch(setTab(3))
-      // })
-      // .catch((error) => {
-      //    console.log(error)
-      // })
+      RekomAxios({
+         method: 'post',
+         data: data,
+         url: 'account/confirm'
+      })
+      .then((res) => {
+         console.log(res.data)
+         dispatch(setTab(3))
+      })
+      .catch((error) => {
+         console.log(error)
+      })
    }
    return (
       <View>

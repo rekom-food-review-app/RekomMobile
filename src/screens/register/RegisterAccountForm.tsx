@@ -26,7 +26,7 @@ function RegisterAccountForm(props: RegisterAccountFormProps) {
          "username": userNameInput.value,
          "email": emailInput.value,
          "password": passwordInput.value,
-         "role": "rekomer"
+         "role": "Rekomer"
       }
       // dispatch(setTab(2))
       RekomAxios({
@@ -40,12 +40,13 @@ function RegisterAccountForm(props: RegisterAccountFormProps) {
           dispatch(setAuth({authToken: res.data.authToken})) // bug here
         })
       .catch((e) => {
+         console.log(e)
          const status: number = e.response.data.status;
          const errors = e.response.data.errors
          if (status == 400) {
-         setUserNameInput({...userNameInput, error: errors["Username"] || ''})
-         setEmailInput({...emailInput, error: errors["Email"] || ''})
-         setPasswordInput({...passwordInput, error: errors["Password"] || ''})
+            setUserNameInput({...userNameInput, error: errors["Username"] || ''})
+            setEmailInput({...emailInput, error: errors["Email"] || ''})
+            setPasswordInput({...passwordInput, error: errors["Password"] || ''})
          }
       });
 

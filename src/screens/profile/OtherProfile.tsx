@@ -4,10 +4,9 @@ import {HeaderBack, ReviewCard} from '../../components'
 import {CsOtherProfile} from "./CsOtherProfile";
 
 const OtherProfile = () => {
+
    return (
       <ScrollView style={{backgroundColor: Colors.B}}>
-         <HeaderBack type={'secondary'} title={'@other'}
-                        wrapperStyle={{marginTop: 30, paddingHorizontal: 20}}/>
          <CsOtherProfile/>
          <ReviewCard
             rating=''

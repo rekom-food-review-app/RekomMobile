@@ -30,16 +30,16 @@ function ReviewCard(props: ReviewCardProps) {
       <View style={props.wrapperStyle}>
 
          <UserActionInfo
-            onPressUser={() => nav.navigate("OtherProfileScreen")}
+            onPressUser={() => nav.push("OtherProfileScreen")}
             avatarUrl={props.rekomerAvatarUrl}
-            actionDate={props.reviewAt}
+            actionDate={props.reviewTime}
             fullName={props.rekomerName}
             wrapperStyle={{marginBottom: 10, paddingHorizontal: 20}}/>
 
          <View>
             <View>
                <Image style={{width: "100%", height: 300}}
-                   source={{uri: "https://i.pinimg.com/736x/a9/5c/3e/a95c3e3b368ddc76ffcec63fa02d456f.jpg"}}/>
+                   source={{uri: props.reviewMedias[1].mediaUrl}}/>
                <IconButton typeBtn={'inactive'} size={'md'}
                source={require('../../assets/image/che.gif')}
                wrapperStyle={{position: 'absolute', right: 15, bottom: 15}}
@@ -62,18 +62,18 @@ function ReviewCard(props: ReviewCardProps) {
                                  <IconButton
                                     onPress={() => react('A')} size={'sm'}
                                     typeBtn={reactIcon == 'A' ? 'active' : 'inactive'}
-                                    source={require('../../assets/image/like.png')}>{'100'}</IconButton>
+                                    source={require('../../assets/image/like.png')}>{props.amountLike.toLocaleString()}</IconButton>
                                  <IconButton onPress={() => react('B')} size={'sm'}
                                              typeBtn={reactIcon == 'B' ? 'active' : 'inactive'}
-                                             source={require('../../assets/image/soso.png')}>{'10'}</IconButton>
+                                             source={require('../../assets/image/soso.png')}>{props.amountHelpful.toLocaleString()}</IconButton>
                                  <IconButton
                                     onPress={() => react('C')} size={'sm'}
                                     typeBtn={reactIcon == 'C' ? 'active' : 'inactive'}
-                                    source={require('../../assets/image/dislike.png')}>{'10'}</IconButton>
+                                    source={require('../../assets/image/dislike.png')}>{props.amountDislike.toLocaleString()}</IconButton>
                               </View>
                               <IconButton onPress={() => nav.navigate("ReviewCardDetailScreen")} size={'sm'}
                                           typeBtn={'inactive'}
-                                          source={require('../../assets/image/cmt.png')}>{'10'}</IconButton>
+                                          source={require('../../assets/image/cmt.png')}>{props.amountComment.toLocaleString()}</IconButton>
                            </View>
                            <View style={defaultStyle.dashedLine}></View>
                         </>
@@ -87,11 +87,11 @@ function ReviewCard(props: ReviewCardProps) {
 
 const defaultStyle = StyleSheet.create({
    dashedLine: {
-      borderBottomColor: Colors.C,
-      borderStyle: 'dashed',
-      borderBottomWidth: 1,
-      width: '100%',
-      marginTop: 30
+   borderBottomColor: Colors.C,
+   borderStyle: 'dashed',
+   borderBottomWidth: 1,
+   width: '100%',
+   marginTop: 30
    }
 })
 export {ReviewCard}

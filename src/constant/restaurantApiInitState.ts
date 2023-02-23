@@ -6,15 +6,13 @@ const restaurantApiInitState: RestaurantApiType = {
     description: "",
     coverImageUrl: "",
     coordinates: "",
-    ratingResult: {
-      averagePoint: 0,
-      totalRating: 0,
-      five: 0,
-      four: 0,
-      three: 0,
-      two: 0,
-      one: 0,
-      restaurantId: "",
-    }
+    average: 0,
+    amount: 0,
+    percentFive: 0,
+    percentFour: 0,
+    percentThree: 0,
+    percentTwo:0,
+    percentOne:0,
+    restaurantId: '',
 }
 export {restaurantApiInitState}
