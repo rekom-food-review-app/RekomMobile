@@ -3,17 +3,18 @@ import { Colors } from "../../assets/colors"
 
 interface IconButtonProps {
   wrapperStyle ?: any
-  children: string
+  children?: any
   size: keyof typeof size
   typeBtn: keyof typeof typeBtn
   onPress ?: () => void
   source: ImageSourcePropType
+  iconStyle?: any
 }
 
 const IconButton = (props: IconButtonProps) => {
   return (
     <TouchableOpacity onPress={props.onPress} style={[defaultStyle.wrapper, props.wrapperStyle, size[props.size].contain, typeBtn[props.typeBtn].status]}>
-      <View style={defaultStyle.containEmoij}>
+      <View style={[defaultStyle.containEmoij, props.iconStyle]}>
         <Image source={props.source} style={[defaultStyle.emoij, size[props.size].emoij]}/>
         <Text style={[typeBtn[props.typeBtn].text, {fontWeight: '600', backgroundColor: 'rgba(52, 52, 52, 0)'}]}>{props.children}</Text>
       </View>
@@ -82,6 +83,14 @@ const typeBtn = {
       backgroundColor: Colors.B,
       borderWidth: 1,
       borderColor: Colors.C,
+    },
+    text: {
+      color: Colors.D
+    }
+  }),
+  noBoder : StyleSheet.create({
+    status: {
+      backgroundColor: Colors.B,
     },
     text: {
       color: Colors.D

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Ref } from 'react';
 import {StyleSheet, Text, TextInput, View, Keyboard} from 'react-native';
 import {Colors} from '../../assets/colors';
 
@@ -8,16 +8,21 @@ interface TextFieldProps {
   type?: keyof typeof type;
   size?: keyof typeof size;
   wrapperStyle?: any;
+  textFieldStyle ?: any
   keyboardType?: any;
   error?: string;
+  multiline?: boolean
+  inputRef?: Ref<TextInput>;
 }
 const TextField = (props: TextFieldProps) => {
   return (
     <View style={[size[props.size ?? 'sm'].contain, defaultStyle.wrapper, props.wrapperStyle]}>
       <TextInput
+        ref={props.inputRef}
         onBlur={() => Keyboard.dismiss()}
+        multiline={props.multiline}
         onChangeText={props.onChangeText}
-        style={[defaultStyle.textField, type[props.type ?? 'left'].placeholder]}
+        style={[defaultStyle.textField,props.textFieldStyle, type[props.type ?? 'left'].placeholder]}
         placeholder={props.placeholder}
         keyboardType={props.keyboardType}
       />
@@ -29,14 +34,12 @@ const TextField = (props: TextFieldProps) => {
 };
 const defaultStyle = StyleSheet.create({
   wrapper: {
-    // height: 50
   },
   textField: {
     backgroundColor: "white",
     borderRadius: 100,
     borderWidth: 1,
     borderColor: Colors.C,
-    // height: "100%"
   },
   error: {
     color: 'red',
@@ -66,12 +69,24 @@ const size = {
       width: 331,
     },
   }),
+  xxl: StyleSheet.create({
+    contain: {
+      width: '100%',
+    },
+  }),
 };
 const type = {
   left: StyleSheet.create({
     placeholder: {
       textAlign: 'left',
       paddingHorizontal: 15,
+    },
+  }),
+  top: StyleSheet.create({
+    placeholder: {
+      textAlign: 'left',
+      textAlignVertical: 'top',
+      padding: 18
     },
   }),
   center: StyleSheet.create({
