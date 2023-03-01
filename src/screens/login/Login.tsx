@@ -33,7 +33,8 @@ function Login() {
          .then(res => {
             dispatch(setAuth({authToken: res.data.authToken}))
             setIsLoading(false)
-            nav.navigate("RestaurantScreen")
+            console.log(res)
+            nav.navigate("BottomTabs")
          })
          .catch(e => {
             console.log(e)

@@ -5,21 +5,22 @@ interface Media {
 
 interface ReviewCardType 
 {
-  reviewId: string
-  reviewTime: string
-  reviewContent: string
-  reviewMedias: Media[]
-  amountDislike: number,
-  amountLike: number,
-  amountHelpful: number,
-  amountComment: number,
-  myReaction: null,
+  id: string
+  createdAt: string
+  content: string
+  images: string[]
+  amountDisagree: number,
+  amountAgree: number,
+  amountUseful: number,
+  amountReply: number,
+  myReaction?: string,
   rekomerId: string,
   rekomerAvatarUrl: string
-  rekomerName: string,
+  rekomerFullName: string,
   restaurantName: string,
   restaurantId: string,
-  restaurantCoordinates: string 
+  restaurantCoordinates: string,
+  rating: string,
 }
 
 export {type ReviewCardType}

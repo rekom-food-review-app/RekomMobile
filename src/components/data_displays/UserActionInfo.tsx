@@ -8,7 +8,8 @@ interface UserActionInfoProps
    avtSize?: any
    avatarUrl: string,
    fullName: string,
-   actionDate: string
+   actionDate: string,
+   id: string,
    onPressUser?: () => void
 }
 

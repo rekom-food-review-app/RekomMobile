@@ -17,27 +17,30 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
    const auth = useSelector((state: RootState) => state.auth)
    const dispatch = useDispatch()
    const [countdown, setCountdown] = useState(60);
+   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown((prevCountdown) => {
-         if (prevCountdown === 0) {
-           clearInterval(interval);
-           return prevCountdown;
-         }
-         return prevCountdown - 1;
-       });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+   useEffect(() => {
+      const interval = setInterval(() => {
+         setCountdown((prevCountdown) => {
+            if (prevCountdown === 0) {
+            clearInterval(interval);
+            return prevCountdown;
+            }
+            return prevCountdown - 1;
+         });
+      }, 1000);
+      return () => clearInterval(interval);
+   }, []);
 
    const handleResetCountdown = () => {
       setCountdown(60);
    }
 
    const submit = async () => {
+      setIsLoading(true);
+
       let data = {
-         "otp": otpInput.value
+         "otpCode": otpInput.value
       }
 
       let config = {
@@ -45,7 +48,6 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
             Authorization: `bearer ${auth.authToken.accessToken}`
          }
       }
-      dispatch(setTab(3))
       RekomAxios({
          method: 'post',
          data: data,
@@ -56,6 +58,7 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
          dispatch(setTab(3))
       })
       .catch((error) => {
+         setIsLoading(false);
          console.log(error)
       })
    }
@@ -80,6 +83,7 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
                }}
             />
             <Button
+               isLoading={isLoading}
                onPress={submit}
                wrapperStyle={{alignSelf: 'flex-end'}}
                type={'primary'}

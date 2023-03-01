@@ -1,13 +1,13 @@
-interface OtherProfileApiType 
+interface RekomerProfileApiType 
 {
   id: string,
   username: string,
   avatarUrl: string,
   fullName: string,
   description: string,
-  isFollowed: boolean,
-  totalFollowers: number,
-  totalFollowings: number,
-  totalReviews: number
+  isFollow?: boolean,
+  amountFollower: number,
+  amountFollowing: number,
+  amountReview: number
 }
-export {type OtherProfileApiType}
+export {type RekomerProfileApiType}

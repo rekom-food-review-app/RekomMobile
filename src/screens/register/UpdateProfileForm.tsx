@@ -53,11 +53,7 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
   const submit = async() => {
     var data = new FormData();
 
-    data.append('avatar', {
-      uri: avatar?.path,
-      type: "multipart/form-data",
-      name: avatar?.path.split("/").pop()
-    });
+    data.append('avatar', avatar);
     data.append('fullName', fullNameInput.value)
     data.append('dob', dobInput.value)
     data.append('description', descriptionInput.value)

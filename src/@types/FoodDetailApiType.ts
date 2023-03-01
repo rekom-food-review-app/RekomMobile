@@ -1,9 +1,9 @@
 interface FoodDetailType {
-  foodId: string,
-  foodName: string,
-  foodPrice: number,
-  foodPrimaryImage: string
-  foodImageUrls: string[],
+  id: string,
+  name: string,
+  price: number,
+  primaryImage: string
+  images: string[],
   restaurantId: string,
   restaurantName: string,
   restaurantDescription:   string

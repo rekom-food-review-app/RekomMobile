@@ -45,10 +45,10 @@ const ReviewForm = () => {
         <View style={{flexDirection: 'row', width: '100%', gap: 15, marginTop: 20}}>
           <View style={{width: '80%', gap: 10}}>
             <TextField multiline={true} type={'top'} placeholder='Let&apos;s us know what do you think, please say your honest words' 
-            size={'xxl'} textFieldStyle={{height: 200, borderRadius: 30}}/>
+            size={'xxl'} textFieldStyle={{height: 200, borderRadius: 20}}/>
             <Button size={'lg'} type="primary" label='Post' wrapperStyle={{width: '100%'}}/>
           </View>
-          <View style={{width: '15%', flexDirection: 'column', borderWidth: 0.5, borderRadius:100, gap: 5, paddingVertical: 10}}> 
+          <View style={{width: '15%', flexDirection: 'column', borderWidth: 0.5, borderRadius:20, justifyContent: "space-evenly"}}> 
             <IconButton iconStyle={{flexDirection: null, height: 35}} typeBtn={'noBoder'} size={'md'}
               source={require('../../assets/image/i1.gif')}
             />

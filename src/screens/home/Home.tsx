@@ -29,7 +29,7 @@ function Home()
 			<View style={{gap: 20}}>
          {
             data.map((item: ReviewCardType) => {
-               return <ReviewCard key={item.reviewId} {...item}/>
+               return <ReviewCard key={item.id} {...item}/>
             })
          }
     	</View>

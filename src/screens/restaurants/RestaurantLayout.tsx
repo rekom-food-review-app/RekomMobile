@@ -12,7 +12,6 @@ import {RestaurantApiType} from '../../@types/RestaurantApiType';
 import {restaurantApiInitState} from '../../constant/restaurantApiInitState';
 import RekomAxios from '../../api/axios';
 
-
 const RestaurantLayout = () => {
    const tabRes = useSelector((state: RootState) => state.restaurantTab.tabRes)
    const dispatch = useDispatch()
@@ -22,12 +21,10 @@ const RestaurantLayout = () => {
 
       RekomAxios({
          method: 'get',
-         url: 'rekomer-side/restaurants/2',
-         responseType: 'json'
+         url: 'restaurants/2'
       })
          .then(res => {
             let data = res.data.restaurant
-            console.log(data)
             setData(data)
          })
          .catch(e => {
@@ -58,7 +55,7 @@ const RestaurantLayout = () => {
                      fontSize: 40,
                      alignSelf: "center",
                      fontWeight: '700'
-                  }}>{data.average}</CsText>
+                  }}>{data.ratingResult.average}</CsText>
                   <View style={{flexDirection: 'row', gap: 5}}>
                      <Icon name="star" size={20} color={Colors.A}/>
                      <Icon name="star" size={20} color={Colors.A}/>
@@ -66,14 +63,14 @@ const RestaurantLayout = () => {
                      <Icon name="star" size={20} color={Colors.A}/>
                      <Icon name="star" size={20} color={Colors.A}/>
                   </View>
-                  <Text>{data.amount} ratings</Text>
+                  <Text>{data.ratingResult.amount} ratings</Text>
                </View>
                <View style={{width: '55%'}}>
-                  <StarLine point={data.percentFive}>5</StarLine>
-                  <StarLine point={data.percentFour}>4</StarLine>
-                  <StarLine point={data.percentThree}>3</StarLine>
-                  <StarLine point={data.percentTwo}>2</StarLine>
-                  <StarLine point={data.percentOne}>1</StarLine>
+                  <StarLine point={data.ratingResult.percentFive}>5</StarLine>
+                  <StarLine point={data.ratingResult.percentFour}>4</StarLine>
+                  <StarLine point={data.ratingResult.percentThree}>3</StarLine>
+                  <StarLine point={data.ratingResult.percentTwo}>2</StarLine>
+                  <StarLine point={data.ratingResult.percentOne}>1</StarLine>
                </View>
             </View>
          </View>

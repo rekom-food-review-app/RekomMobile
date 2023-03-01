@@ -10,7 +10,7 @@ const Loading = () => {
       .then((accessToken) => {
         setTimeout(() => {
           if (accessToken) {
-            nav.replace("RestaurantScreen")
+            nav.replace("BottomTabs")
           } else {
             nav.replace("LoginScreen")
           }

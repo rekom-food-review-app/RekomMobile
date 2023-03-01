@@ -19,9 +19,11 @@ function RegisterAccountForm(props: RegisterAccountFormProps) {
    const [emailInput, setEmailInput] = useState<InputStateType>(inputInitState)
    const [passwordInput, setPasswordInput] = useState<InputStateType>(inputInitState)
    const auth = useSelector((state: RootState) => state.auth)
+   const [isLoading, setIsLoading] = useState<boolean>(false)
    const dispatch = useDispatch()
 
    const submit = async () => {
+      setIsLoading(true)
       let data = {
          "username": userNameInput.value,
          "email": emailInput.value,
@@ -36,10 +38,10 @@ function RegisterAccountForm(props: RegisterAccountFormProps) {
       })        
       .then((res) => {
           dispatch(setTab(2))
-          console.log(res)
           dispatch(setAuth({authToken: res.data.authToken})) // bug here
         })
       .catch((e) => {
+         setIsLoading(false)
          console.log(e)
          const status: number = e.response.data.status;
          const errors = e.response.data.errors
@@ -101,6 +103,7 @@ function RegisterAccountForm(props: RegisterAccountFormProps) {
          />
 
          <Button
+            isLoading={isLoading}
             onPress={submit}
             wrapperStyle={{alignSelf: 'flex-end'}}
             type={'primary'}

@@ -1,15 +1,15 @@
-import { OtherProfileApiType } from "../@types/OtherProfileApiType";
+import { RekomerProfileApiType } from "../@types/OtherProfileApiType";
 
-const otherProfileApiInitState: OtherProfileApiType =
+const rekomerProfileApiInitState: RekomerProfileApiType =
 {
   id: '',
   username: '',
-  avatarUrl: '',
+  avatarUrl: 'https://itechcliq.com/wp-content/uploads/2020/12/check-who-viewed-my-Facebook-profile-page-696x464.jpg',
   fullName: '',
   description: '',
-  isFollowed: false,
-  totalFollowers: 0,
-  totalFollowings: 0,
-  totalReviews: 0
+  isFollow: undefined,
+  amountFollower: 0,
+  amountFollowing: 0,
+  amountReview: 0
 }
-export {otherProfileApiInitState}
+export {rekomerProfileApiInitState}

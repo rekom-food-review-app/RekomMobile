@@ -2,19 +2,19 @@ import {StyleSheet, View} from 'react-native'
 import {Avatar, Button, CsText, Hi} from '../../components'
 import {Colors} from '../../assets/colors'
 import { useEffect, useState } from 'react';
-import { OtherProfileApiType } from '../../@types/OtherProfileApiType';
-import { otherProfileApiInitState } from '../../constant/otherProfileApiInitState';
+import { RekomerProfileApiType } from '../../@types/OtherProfileApiType';
+import { rekomerProfileApiInitState } from '../../constant/otherProfileApiInitState';
 import RekomAxios from '../../api/axios';
 import {HeaderBack} from '../../components'
 
 const CsOtherProfile = () => {
-   const [data, setData] = useState<OtherProfileApiType>(otherProfileApiInitState)
+   const [data, setData] = useState<RekomerProfileApiType>(rekomerProfileApiInitState)
    const [isFollowing, setIsFollowing] = useState(false);
-   const [followStatus, setFollowStatus] = useState<boolean>(data.isFollowed)
+   const [followStatus, setFollowStatus] = useState<boolean | undefined>(data.isFollow)
 
    useEffect(() => {
-      setFollowStatus(data.isFollowed)
-   }, [data.isFollowed])
+      setFollowStatus(data.isFollow)
+   }, [data.isFollow])
    
    const changeFollowStatus = () => {
       let url = "follow"
@@ -82,9 +82,9 @@ const CsOtherProfile = () => {
             textAlign: 'center'
          }}>{data.description}</CsText>
          <View style={{flexDirection: 'row'}}>
-            <Hi number={data.totalReviews} label='Reviews'/>
-            <Hi number={data.totalFollowers} label='Followers'/>
-            <Hi number={data.totalFollowings} label='Following'/>
+            <Hi number={data.amountReview} label='Reviews'/>
+            <Hi number={data.amountFollower} label='Followers'/>
+            <Hi number={data.amountFollowing} label='Following'/>
          </View>
          <View style={defaultStyle.dashedLine}></View>
       </View>

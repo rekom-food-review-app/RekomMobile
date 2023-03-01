@@ -4,9 +4,10 @@ import {ReviewCard} from "../../components"
 import {CsMyProfile} from "./index";
 const MyProfile = () => {
    return (
+      
       <ScrollView style={{backgroundColor: Colors.B}}>
          <CsMyProfile/>
-         <ReviewCard
+         {/* <ReviewCard
             rating=''
             rekomerAvatarUrl='https://i.pinimg.com/564x/f9/be/b9/f9beb905b5ade9a82dc759049be2085e.jpg'
             rekomerId=''
@@ -19,7 +20,7 @@ const MyProfile = () => {
             reviewId=''
             textTouchingDisable={true}
             wrapperStyle={{marginTop: 10}}
-            isEmojiDisplay={false}/>
+            isEmojiDisplay={false}/> */}
       </ScrollView>
    )
 }

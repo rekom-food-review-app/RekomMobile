@@ -11,11 +11,11 @@ const RestaurantMenu = () => {
   useEffect(() => {
     RekomAxios({
       method: 'get',
-      url: 'rekomer-side/foods?restaurantId=2',
+      url: 'restaurants/2/foods',
       responseType: 'json'
     })
     .then(res => {
-      let data = res.data.foodList
+      let data = res.data.foods
       console.log(data)
       setData(data)
     })
