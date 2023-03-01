@@ -1,0 +1,1 @@
+export {FavouriteRes} from './FavouriteRes'

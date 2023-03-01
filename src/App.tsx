@@ -11,7 +11,8 @@ import {
    OtherProfile,
    RegisterLayout,
    RestaurantLayout,
-   ReviewCardDetailLayout
+   ReviewCardDetailLayout,
+   ReviewForm
 } from './screens';
 import {store} from './app/store'
 import {Provider} from 'react-redux'
@@ -25,18 +26,20 @@ const App = () => {
       <Provider store={store}>
          <NavigationContainer>
             <RootStack.Navigator>
-               <RootStack.Screen options={{headerShown: false}} name='Food' component={FoodDetail}/>
+            {/* <RootStack.Screen options={{headerShown: false}} name="BottomTabs" component={BottomTabs}/> */}
                {/* <RootStack.Screen options={{title: "", headerShown: false}} name='LoadingScreen' component={Loading}/> */}
                {/* <RootStack.Screen options={{title: "", headerShown: false}} name='LoginScreen' component={Login}/> */}
                {/* <RootStack.Screen options={{title: ""}} name='RegisterScreen' component={RegisterLayout}/> */}
 
+               {/* <RootStack.Screen options={{headerShown: false}} name='Food' component={FoodDetail}/> */}
                <RootStack.Screen options={{headerShown: false}} name='RestaurantScreen' component={RestaurantLayout}/>
-               {/* <RootStack.Screen options={{headerShown: false}} name='ReviewCardDetailScreen' component={ReviewCardDetailLayout}/> */}
+               <RootStack.Screen options={{headerShown: false}} name='ReviewForm' component={ReviewForm}/>
+               <RootStack.Screen options={{headerShown: false}} name='ReviewCardDetailScreen' component={ReviewCardDetailLayout}/>
 
                {/* <RootStack.Screen options={{headerShown: false}} name='OtherProfileScreen' component={OtherProfile}/> */}
 
                {/* <RootStack.Screen options={{headerShown: false}} name='HomeScreen' component={Home}/> */}
-               {/* <RootStack.Screen options={{headerShown: false}} name="BottomTabs" component={BottomTabs}/> */}
+
             </RootStack.Navigator>
          </NavigationContainer>
       </Provider>
