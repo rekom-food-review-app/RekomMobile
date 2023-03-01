@@ -1,8 +1,9 @@
-import {Image, StyleSheet, Text, View} from 'react-native'
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {Colors} from '../../assets/colors'
 import {ScrollView} from 'react-native-virtualized-view';
 import {Button, CsText, HeaderBack, StarLine} from '../../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import IconF from 'react-native-vector-icons/Feather'
 import {useLayoutEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootState} from '../../app/store'
@@ -11,11 +12,13 @@ import {setResTab} from '../../global-states'
 import {RestaurantApiType} from '../../@types/RestaurantApiType';
 import {restaurantApiInitState} from '../../constant/restaurantApiInitState';
 import RekomAxios from '../../api/axios';
+import { useNavigation } from '@react-navigation/native';
 
 const RestaurantLayout = () => {
    const tabRes = useSelector((state: RootState) => state.restaurantTab.tabRes)
    const dispatch = useDispatch()
    const [data, setData] = useState<RestaurantApiType>(restaurantApiInitState)
+   const nav = useNavigation<any>();
 
    useLayoutEffect(() => {
 
@@ -46,15 +49,22 @@ const RestaurantLayout = () => {
             <Text style={styles.resName}>{data.name}</Text>
             <CsText>{data.description}</CsText>
             <View style={{width: '100%', flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15}}>
-               <CsText style={{alignSelf: 'center', fontWeight: '900', fontSize: 15}}>Awwward</CsText>
-               <Button wrapperStyle={{height: 35}} type={'primary'} size={'xs'} label={'new review'}/>
+               <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10}}>
+                  <CsText style={{alignSelf: 'center', fontWeight: '900', fontSize: 15}}>Awwward</CsText>
+                  <Image source={require('../../assets/image/golden.png')} style={{width: 25, height: 25}}/>
+               </View>
+               <View style={{flexDirection: 'row', justifyContent: 'center', gap: 10, alignItems: 'center'}}>
+                  <Button wrapperStyle={{height: 35}} type={'primary'} size={'xs'} label={'new review'} onPress={() => nav.navigate('ReviewForm')}/>
+                  <TouchableOpacity><IconF name="heart" size={25}/></TouchableOpacity>
+               </View>
             </View>
             <View style={styles.rating}>
                <View style={{width: '40%', alignItems: 'center'}}>
                   <CsText style={{
-                     fontSize: 40,
+                     fontSize: 50,
                      alignSelf: "center",
-                     fontWeight: '700'
+                     fontFamily: 'K2D-ExtraBold',
+                     lineHeight: 55
                   }}>{data.ratingResult.average}</CsText>
                   <View style={{flexDirection: 'row', gap: 5}}>
                      <Icon name="star" size={20} color={Colors.A}/>

@@ -32,11 +32,14 @@ const ReviewForm = () => {
       <ScrollView horizontal={true} style={{paddingLeft: 20, maxHeight: 200}}>
         {
           reviewImgs.map((img, index) => {
-            return <Image key={index} source={{uri: img.path}} style={styles.setReviewImg}/>
+            return <Image key={index} source={{uri: img.path}} style={[styles.setReviewImg, {width: windowWidth -60}]}/>
           })
         }
         <TouchableOpacity style={styles.setReviewImg} onPress={upLoadReviewImg}>
-          <Icon name="image" size={30} style={{alignSelf: 'center', lineHeight: 200}} />
+          <View style={{alignSelf: 'center', paddingVertical: 75}}>
+            <Icon name="image" size={30} style={{alignSelf: 'center'}} />
+            <CsText>Please upload at least one image !</CsText>
+          </View>
         </TouchableOpacity>
       </ScrollView> 
       <View style={{paddingHorizontal: 20, gap: 5}}>
@@ -72,9 +75,9 @@ const ReviewForm = () => {
 }
 const styles = StyleSheet.create({
   setReviewImg: {
-    width: windowWidth - 60, 
+    width: windowWidth - 40, 
     height: 200, 
-    backgroundColor: Colors.F, 
+    backgroundColor: "#F5F5F5", 
     borderRadius: 25,
     marginRight: 10
   }
