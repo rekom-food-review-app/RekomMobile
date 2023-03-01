@@ -22,25 +22,30 @@ const ReviewCardDetailLayout: React.FC = () => {
    const tabEmoij = useSelector((state: RootState) => state.restaurantTab.tabRes)
    const [review, setReview] = useState<ReviewCardType>(route.params as ReviewCardType)
    const [addComment, setAddComment] = useState<InputStateType>(inputInitState)
-   
    const [commentList, setcommentList] = useState([]);
+   const [page, setPage] = useState(1);
+   const size = 5
    
    useEffect(() => {
-      console.log("eeeee")
       RekomAxios({
          method: 'get',
-         url: 'reviews/123/comments?page=1&size=5',
+         url: `reviews/123/comments?page=${page}&size=${size}`,
          responseType: 'json'
       })
       .then(res => {
          let commentList = res.data.commentList
-         setcommentList(commentList)
+         setcommentList((pre) => {
+            return pre.concat(commentList)
+         })
       })
       .catch(e => {
          console.log(e)
       })
-   },[])
-
+   },[page])
+   const handleEndReached = () => {
+      setPage((prevPage) => prevPage + 1);
+    };
+    
 //    useEffect(() => {
 //       const connection = new signalR.HubConnectionBuilder()
 //           .withUrl(WS_COMMENT_HUB)
@@ -50,10 +55,12 @@ const ReviewCardDetailLayout: React.FC = () => {
 //          console.log('hihi')
 //       });
 
-//       connection.start();
+//       connection.start()
+//          .then(() => console.log("ok"))
+//          .catch((error) => console.log(error))
 
 //       return () => {
-//           connection.stop();
+//          //  connection.stop();
 //       };
 //   }, []);
 
@@ -85,7 +92,7 @@ const ReviewCardDetailLayout: React.FC = () => {
             <View style={{paddingHorizontal: 20}}>
                <EmoijBar tab={tabEmoij}/>
                {
-                  tabEmoij == 1 ? <CommentSection commentList={commentList} /> : null
+                  tabEmoij == 1 ? <CommentSection commentList={commentList} handleEndReached={handleEndReached}/> : null
                }
                {
                   tabEmoij == 2 ? <Like /> : null
@@ -111,4 +118,5 @@ const ReviewCardDetailLayout: React.FC = () => {
       </View>
    )
 }
+
 export {ReviewCardDetailLayout}

@@ -7,23 +7,28 @@ import { DishInfoApiType } from "../../@types/DishInfoApiType";
 
 const RestaurantMenu = () => {
   const [data, setData] = useState<DishInfoApiType[]>([])
-  
+  const [page, setPage] = useState(1);
+  const size = 4
+
   useEffect(() => {
     RekomAxios({
       method: 'get',
-      url: 'restaurants/2/foods',
+      url: `restaurants/2/foods?page=${page}&size=${size}`,
       responseType: 'json'
     })
     .then(res => {
       let data = res.data.foods
-      console.log(data)
-      setData(data)
+      setData((pre) => {
+        return pre.concat(data)
+      })
     })
     .catch(e => {
       console.log(e)
     })
-  }, [])
-
+  }, [page])
+  const handleEndReached = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
   return(
     <View style={{paddingHorizontal: 20}}>
       {
@@ -34,7 +39,10 @@ const RestaurantMenu = () => {
         numColumns={2}
         columnWrapperStyle={{alignItems: 'center', flex: 0.5, justifyContent: 'space-between', paddingBottom: 20}}
         renderItem = {({item}) => <DishInfo id={item.id} wrapperStyle={{width: '48%',}} imageUrl={item.imageUrl} price={item.price} name={item.name}/>}
-        keyExtractor={data => data.id}/>
+        keyExtractor={data => data.id}
+        onEndReached={handleEndReached}
+        onEndReachedThreshold={2}
+        />
         : null
       }
     </View>

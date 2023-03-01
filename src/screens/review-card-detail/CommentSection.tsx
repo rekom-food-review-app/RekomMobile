@@ -7,10 +7,11 @@ import { UserActionInfo } from '../../components'
 interface CommentSectionProps 
 {
   commentList: any[]
+  handleEndReached: () => void
 }
+
 const CommentSection = (props: CommentSectionProps) => {
   return(
-    // <View style={{backgroundColor: 'white', width: '100%', height: '100%', marginBottom: 80}}>
       <FlatList 
         data={props.commentList}
         renderItem = {({item}) => 
@@ -25,6 +26,8 @@ const CommentSection = (props: CommentSectionProps) => {
             content={item.content}
           />}
         keyExtractor={(item, index) => item.key}
+        onEndReached={props.handleEndReached}
+        onEndReachedThreshold={0.01}
       />
     // </View>
   )
