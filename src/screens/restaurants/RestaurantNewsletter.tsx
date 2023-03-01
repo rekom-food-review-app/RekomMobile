@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import {View,} from "react-native"
+import {FlatList, View,} from "react-native"
 import {ReviewCard} from "../../components"
 import RekomAxios from '../../api/axios';
 import {ReviewCardType} from "../../@types/ReviewCardType";
@@ -10,30 +10,43 @@ interface RestaurantNewsletterProps {
 
 const RestaurantNewsletter = () => {
 
-   const [data, setData] = useState<ReviewCardType[]>([])
+   const [review, setReview] = useState<ReviewCardType[]>([])
+   const [page, setPage] = useState(1);
+   const size = 4
 
    useEffect(() => {
+      getReviews()
+   }, [page])
+
+   const getReviews = () => {
       RekomAxios({
          method: 'get',
-         url: 'rekomer-side/reviews?restaurantId=2',
+         url: `restaurants/2/reviews?page=${page}&size=${size}`,
          responseType: 'json'
-      })
+         })
          .then(res => {
-            let data = res.data.reviewList
-            setData(data)
+            let review = res.data.reviews
+            setReview((pre) => {
+               return pre.concat(review)
+            })
          })
          .catch(e => {
+            console.log(e)
          })
-   }, [])
+   }
+
+   const handleEndReached = () => {
+      setPage((prevPage) => prevPage + 1);
+    };
 
    return (
-      <View style={{gap: 20}}>
-         {
-            data.map((item: ReviewCardType) => {
-               return <ReviewCard key={item.reviewId} {...item}/>
-            })
-         }
-      </View>
+      <FlatList 
+         data={review}
+         renderItem = {({item}) => <ReviewCard key={item.id} {...item}/>}
+         keyExtractor={(item, index) => index.toString()}
+         onEndReached={handleEndReached}
+         onEndReachedThreshold={2}
+      />
    )
 }
 export {RestaurantNewsletter}
