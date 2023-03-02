@@ -64,9 +64,10 @@ function ReviewCard(props: ReviewCardProps) {
                                     onPress={() => react('A')} size={'sm'}
                                     typeBtn={reactIcon == 'A' ? 'active' : 'inactive'}
                                     source={require('../../assets/image/like.png')}>{props.amountAgree}</IconButton>
-                                 <IconButton onPress={() => react('B')} size={'sm'}
-                                             typeBtn={reactIcon == 'B' ? 'active' : 'inactive'}
-                                             source={require('../../assets/image/soso.png')}>{props.amountUseful}</IconButton>
+                                 <IconButton 
+                                    onPress={() => react('B')} size={'sm'}
+                                    typeBtn={reactIcon == 'B' ? 'active' : 'inactive'}
+                                    source={require('../../assets/image/soso.png')}>{props.amountUseful}</IconButton>
                                  <IconButton
                                     onPress={() => react('C')} size={'sm'}
                                     typeBtn={reactIcon == 'C' ? 'active' : 'inactive'}

@@ -31,13 +31,13 @@ function RegisterLayout() {
                </View>
 
                {
-                  tab == 3 ? <RegisterAccountForm/> : null
+                  tab == 1 ? <RegisterAccountForm/> : null
                }
                {
                   tab == 2 ? <ConfirmOtpForm/> : null
                }
                {
-                  tab == 1 ? <UpdateProfileForm/> : null
+                  tab == 3 ? <UpdateProfileForm/> : null
                }
 
             </View>

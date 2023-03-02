@@ -61,7 +61,6 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
     data.append('fullName', fullNameInput.value)
     data.append('dob', dobInput.value)
     data.append('description', descriptionInput.value)
-
     RekomAxios({
       method: 'put',
       url: 'rekomers/me/profile',
@@ -72,7 +71,7 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
     })
     .then((res) => {
       console.log(res)
-      nav.navigata("Home")
+      nav.navigate("Home")
     })
     .catch((e) => {
       console.log(e)

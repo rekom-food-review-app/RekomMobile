@@ -96,5 +96,13 @@ const typeBtn = {
       color: Colors.D
     }
   }),
+  dot : StyleSheet.create({
+    status: {
+      backgroundColor: Colors.B,
+    },
+    text: {
+      color: Colors.D
+    }
+  }),
 }
 export {IconButton}
