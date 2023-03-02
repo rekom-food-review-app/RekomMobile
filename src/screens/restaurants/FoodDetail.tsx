@@ -1,5 +1,7 @@
+import { useRoute } from '@react-navigation/native'
 import { useEffect, useState } from 'react'
 import { FlatList, Image, ScrollView, View, Text  } from 'react-native'
+import { DishInfoApiType } from '../../@types/DishInfoApiType'
 import { FoodDetailType } from '../../@types/FoodDetailApiType'
 import RekomAxios from '../../api/axios'
 import { Colors } from '../../assets/colors'
@@ -8,11 +10,13 @@ import { foodDetailApiInitState } from '../../constant/foodDetailApiInitState'
 
 const FoodDetail = () => {
   const [data, setData] = useState<FoodDetailType>(foodDetailApiInitState)
- 
+  const route = useRoute();
+  const [foodDetail, setFoodDetail] = useState<DishInfoApiType>(route.params as DishInfoApiType)
+  
   useEffect(() => {
     RekomAxios({
       method: 'get',
-      url: 'foods/1',
+      url: `foods/${foodDetail.id}`,
       responseType: 'json'
     })
     .then(res => {
@@ -25,13 +29,13 @@ const FoodDetail = () => {
     })
   }, [])
   return(
-    <ScrollView style={{backgroundColor: Colors.B, width: '100%', height: '100%'}}>
+    <ScrollView style={{backgroundColor: Colors.B, width: '100%', height: '100%'}} {...foodDetail}>
       <HeaderBack wrapperStyle={{position: 'absolute', padding: 20}}/>
-      <Image source={{uri: data.primaryImage}} style={{width: '100%', height: 300, borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}/>
+      <Image source={{uri: foodDetail.imageUrl}} style={{width: '100%', height: 300, borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}/>
       <View style={{padding: 20}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
-          <CsText style={{textTransform: 'uppercase'}} size={'lg'} weight={900}>{data.name}</CsText>
-          <CsText color={'A'} weight='900' size={'md'}>{data.price}$</CsText>
+          <CsText style={{textTransform: 'uppercase'}} size={'lg'} weight={900}>{foodDetail.name}</CsText>
+          <CsText color={'A'} weight='900' size={'md'}>{foodDetail.price}$</CsText>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{width: '75%', gap: 5}}>

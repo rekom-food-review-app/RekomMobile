@@ -14,7 +14,7 @@ const DishInfo = (props: DishInfoProps) => {
       <View style={[defaultStyle.contain, props.wrapperStyle]}>
          <Image source={{uri: props.imageUrl}} style={defaultStyle.img}/>
          <View style={{paddingLeft: 1}}>
-            <TouchableOpacity onPress={() => nav.navigate('Food')}><CsText weight={"bold"} style={{marginTop: 8}} color={'A'} size={'md'}>{props.name}</CsText></TouchableOpacity>
+            <TouchableOpacity onPress={() => nav.navigate('Food', props)}><CsText weight={"bold"} style={{marginTop: 8}} color={'A'} size={'md'}>{props.name}</CsText></TouchableOpacity>
             <CsText weight={900} style={{marginTop: 5}} size={'md'}>{props.price}K</CsText>
          </View>
       </View>
