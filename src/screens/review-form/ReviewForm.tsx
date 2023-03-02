@@ -8,11 +8,12 @@ import { ScrollView } from 'react-native';
 import RekomAxios from '../../api/axios';
 import { InputStateType } from '../../@types/InputStateType';
 import { inputInitState } from '../../constant/inputInitState';
+import { useNavigation } from '@react-navigation/native';
 
 
 const windowWidth = Dimensions.get('window').width;
 const ReviewForm = () => {
-
+  const nav = useNavigation<any>()
   const [reviewImgs, setReviewImgs] = useState<ImageOrVideo[]>([])
   const [content, setContent] = useState<InputStateType>(inputInitState)
   const [rating, setRating] = useState('')
@@ -61,7 +62,7 @@ function post () {
       data: reviewData
     })
     .then(res => {
-      console.log(res)
+      nav.navigate('RestaurantScreen')
       console.log('ok')
     })
     .catch(e => {
