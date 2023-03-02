@@ -53,7 +53,11 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
   const submit = async() => {
     var data = new FormData();
 
-    data.append('avatar', avatar);
+    data.append('avatar', {
+      uri: avatar?.path,
+      type: "multipart/form-data",
+      name: avatar?.path.split("/").pop()
+    });
     data.append('fullName', fullNameInput.value)
     data.append('dob', dobInput.value)
     data.append('description', descriptionInput.value)
@@ -61,6 +65,9 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
     RekomAxios({
       method: 'put',
       url: 'rekomers/me/profile',
+      headers: {
+        "Content-Type": 'multipart/form-data'
+      },
       data: data
     })
     .then((res) => {
