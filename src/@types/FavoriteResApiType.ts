@@ -4,7 +4,7 @@ interface FavoriteResApiType {
   restaurantName: string,
   restaurantCoverImageUrl: string
   restaurantRatingAverage: number,
-  createdAt: string
+  createdAt?: string
 }
 
 export {type FavoriteResApiType}

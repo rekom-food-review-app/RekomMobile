@@ -4,7 +4,7 @@ import {ScrollView} from 'react-native-virtualized-view';
 import {Button, CsText, HeaderBack, StarLine} from '../../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import IconI from 'react-native-vector-icons/Ionicons'
-import {useLayoutEffect, useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {RootState} from '../../app/store'
 import {RestaurantNewsletter, RestaurantInfo, RestaurantGallery, RestaurantMenu, NavigateBar} from './index'
@@ -23,6 +23,7 @@ const RestaurantLayout = () => {
 
    const route = useRoute()
    const [id, setId] = useState((route.params as any).id)
+   // const [id, setId] = useState('7b3d65f3-7b15-4145-9ea5-537091c3aff4')
    
    const [reactFavourite, setReactFavourite] = useState('')
    const [isFav, setIsFav] = useState<boolean>(data.isMyFav)
@@ -36,18 +37,17 @@ const RestaurantLayout = () => {
       
       let method = "post"
       if(isFav) { method = "delete" }
-
+      
       RekomAxios({
          method: method,
          url: `favourite-restaurants`,
-         data: {restaurantId: data.restaurantId}
+         data: {restaurantId: id}
       })
       .catch(e =>{
          setIsFav(!isFav)
          console.log(e)
       })
    }
-
    useEffect(() => {
       getRestaurantInfo()
    }, [])
