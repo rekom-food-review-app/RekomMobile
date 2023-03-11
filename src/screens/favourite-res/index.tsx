@@ -1,1 +1,2 @@
-export {FavouriteRes} from './FavouriteRes'
+export {FavoriteRes} from './FavoriteRes'
+export {FavoriteResComponent} from './FavoriteResComponent'
