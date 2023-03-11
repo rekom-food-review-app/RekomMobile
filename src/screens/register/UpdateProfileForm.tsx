@@ -27,8 +27,10 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
   const [descriptionInput, setDescriptionInput] = useState<InputStateType>(inputInitState)
   
   const onChange = (selectedDate?: Date) => {
-    const currentDate = selectedDate || date;
-    setDate(currentDate);
+    setDate((pre) => {
+      const currentDate = selectedDate || date;
+      return currentDate
+    });
     setShow(false);
   };
 
