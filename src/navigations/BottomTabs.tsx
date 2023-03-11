@@ -1,6 +1,6 @@
 import { Image, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Home, MyProfile, FavouriteRes, Search } from "../screens";
+import { Home, MyProfile, FavoriteRes, Search } from "../screens";
 import Icon from 'react-native-vector-icons/Feather'
 import { Colors } from "../assets/colors";
 
@@ -20,7 +20,7 @@ const BottomTabs = () => {
       <Tab.Screen options={{headerShown: false, 
                             tabBarIcon: ({ focused }) => (
                               <Icon name="heart" size={27} style={{ color: focused ? Colors.A : Colors.C }}/>
-                            )}} name='FavouriteRes' component={FavouriteRes}/>
+                            )}} name='FavouriteRes' component={FavoriteRes}/>
       <Tab.Screen options={{headerShown: false, 
                             tabBarIcon: ({ focused }) => (
                               <Image source={require('../assets/image/avt.jpg')} style={{width: 40, height: 40, borderRadius: 100}}/>
