@@ -5,10 +5,10 @@ interface UserActionInfoProps
 {
    wrapperStyle?: any
    content?: string
+   createdAt?: string
    avtSize?: any
    avatarUrl: string,
    fullName: string,
-   actionDate: string,
    id: string,
    onPressUser?: () => void
 }
@@ -25,7 +25,7 @@ function UserActionInfo(props: UserActionInfoProps)
             <Avatar imgUrl={props.avatarUrl} wrapperStyle={defaultStyle.avatar} size={props.avtSize}/>
             <View>
                <CsText style={{marginBottom: 2}} weight={900}>{props.fullName}</CsText>
-               <CsText size="xs">{props.actionDate}</CsText>
+               <CsText size="xs">{props.createdAt}</CsText>
             </View>
          </View>
          { props.content ? <CsText>{props.content}</CsText> : null }

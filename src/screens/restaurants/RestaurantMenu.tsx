@@ -5,7 +5,12 @@ import { useEffect, useState } from "react";
 import RekomAxios from "../../api/axios";
 import { DishInfoApiType } from "../../@types/DishInfoApiType";
 
-const RestaurantMenu = () => {
+interface RestaurantMenuProps
+{
+  restaurantId: string
+}
+
+const RestaurantMenu = (props: RestaurantMenuProps) => {
   const [data, setData] = useState<DishInfoApiType[]>([])
   const [page, setPage] = useState(1);
   const size = 4
@@ -13,7 +18,7 @@ const RestaurantMenu = () => {
   useEffect(() => {
     RekomAxios({
       method: 'get',
-      url: `restaurants/2/foods?page=${page}&size=${size}`,
+      url: `restaurants/${props.restaurantId}/foods?page=${page}&size=${size}`,
       responseType: 'json'
     })
     .then(res => {

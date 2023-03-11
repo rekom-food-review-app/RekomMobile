@@ -14,6 +14,6 @@ interface RestaurantApiType {
         percentOne:number
     }
     restaurantId: string
-
+    isMyFav: boolean
 }
 export {type RestaurantApiType}

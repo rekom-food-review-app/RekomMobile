@@ -5,46 +5,17 @@ import RekomAxios from '../../api/axios';
 import {ReviewCardType} from "../../@types/ReviewCardType";
 
 interface RestaurantNewsletterProps {
-   restaurantId: string
+   reviews: ReviewCardType[],
+   onEndReached?: () => void
 }
 
-const RestaurantNewsletter = () => {
-
-   const [review, setReview] = useState<ReviewCardType[]>([])
-   const [page, setPage] = useState(1);
-   const size = 4
-
-   useEffect(() => {
-      getReviews()
-   }, [page])
-
-   const getReviews = () => {
-      RekomAxios({
-         method: 'get',
-         url: `restaurants/2/reviews?page=${page}&size=${size}`,
-         responseType: 'json'
-         })
-         .then(res => {
-            let review = res.data.reviews
-            setReview((pre) => {
-               return pre.concat(review)
-            })
-         })
-         .catch(e => {
-            console.log(e)
-         })
-   }
-
-   const handleEndReached = () => {
-      setPage((prevPage) => prevPage + 1);
-    };
-
+const RestaurantNewsletter = (props: RestaurantNewsletterProps) => {
    return (
       <FlatList 
-         data={review}
+         data={props.reviews}
          renderItem = {({item}) => <ReviewCard key={item.id} {...item}/>}
          keyExtractor={(item, index) => index.toString()}
-         onEndReached={handleEndReached}
+         onEndReached={props.onEndReached}
          onEndReachedThreshold={2}
       />
    )

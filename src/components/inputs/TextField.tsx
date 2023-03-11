@@ -12,13 +12,14 @@ interface TextFieldProps {
   keyboardType?: any;
   error?: string;
   multiline?: boolean
-  inputRef?: Ref<TextInput>;
+  ref?: Ref<TextInput>;
 }
-const TextField = (props: TextFieldProps) => {
+
+const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref) => {
   return (
     <View style={[size[props.size ?? 'sm'].contain, defaultStyle.wrapper, props.wrapperStyle]}>
       <TextInput
-        ref={props.inputRef}
+        ref={ref}
         onBlur={() => Keyboard.dismiss()}
         multiline={props.multiline}
         onChangeText={props.onChangeText}
@@ -31,7 +32,26 @@ const TextField = (props: TextFieldProps) => {
       ) : null}
     </View>
   );
-};
+})
+
+// const TextField = (props: TextFieldProps) => {
+//   return (
+//     <View style={[size[props.size ?? 'sm'].contain, defaultStyle.wrapper, props.wrapperStyle]}>
+//       <TextInput
+//         ref={props.ref}
+//         onBlur={() => Keyboard.dismiss()}
+//         multiline={props.multiline}
+//         onChangeText={props.onChangeText}
+//         style={[defaultStyle.textField,props.textFieldStyle, type[props.type ?? 'left'].placeholder]}
+//         placeholder={props.placeholder}
+//         keyboardType={props.keyboardType}
+//       />
+//       {props.error ? (
+//         <Text style={defaultStyle.error}>{props.error}</Text>
+//       ) : null}
+//     </View>
+//   );
+// };
 const defaultStyle = StyleSheet.create({
   wrapper: {
   },

@@ -43,7 +43,6 @@ const style = StyleSheet.create({
     width: "100%"
   },
   header: {
-    // backgroundColor: "red",
     flexDirection: "row",
     justifyContent: "space-between",
   },
