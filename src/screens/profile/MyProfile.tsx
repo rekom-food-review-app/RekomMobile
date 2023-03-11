@@ -1,26 +1,63 @@
 import {ScrollView} from "react-native-virtualized-view"
+import { FlatList } from "react-native";
+import { ReviewCardType } from "../../@types/ReviewCardType";
 import {Colors} from '../../assets/colors'
 import {ReviewCard} from "../../components"
 import {CsMyProfile} from "./index";
+import { useEffect, useState } from "react";
+import RekomAxios from "../../api/axios";
+import { RekomerProfileApiType } from '../../@types/OtherProfileApiType'
+import { rekomerProfileApiInitState } from '../../constant/otherProfileApiInitState'
+
 const MyProfile = () => {
+   const [reviews, setReviews] = useState<ReviewCardType[]>([])
+   const [rekomer, setRekomer] = useState<RekomerProfileApiType>(rekomerProfileApiInitState)
+   const [page, setPage] = useState(1);
+   const size = 4
+   useEffect(() => {
+      RekomAxios({
+         method: 'get',
+         url: '/rekomers/me/profile',
+      })
+      .then(res => {
+         let data = res.data.rekomer
+         setRekomer(data)
+      })
+      .catch(e => {
+         console.log(e)
+      })
+   },[])
+   
+   useEffect(() => {
+      RekomAxios({
+         method: 'get',
+         url: `rekomers/me/reviews?page=${page}&size=${size}`
+      })
+      .then(res => {
+         setReviews(res.data.reviews)
+      })
+      .catch(e => {
+         console.log(e)
+      })
+   }, [])
+
    return (
-      
       <ScrollView style={{backgroundColor: Colors.B}}>
-         <CsMyProfile/>
-         {/* <ReviewCard
-            rating=''
-            rekomerAvatarUrl='https://i.pinimg.com/564x/f9/be/b9/f9beb905b5ade9a82dc759049be2085e.jpg'
-            rekomerId=''
-            rekomerName='linh l'
-            restaurantCoordinates=''
-            restaurantId=''
-            restaurantName='hahaha'
-            reviewAt='2 ngay truoc'
-            reviewContent="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley"
-            reviewId=''
-            textTouchingDisable={true}
-            wrapperStyle={{marginTop: 10}}
-            isEmojiDisplay={false}/> */}
+         <CsMyProfile 
+            username={rekomer.username} 
+            avatarUrl={rekomer.avatarUrl}
+            fullName={rekomer.fullName}
+            description={rekomer.description}
+            amountReview={rekomer.amountReview}
+            amountFollower={rekomer.amountFollower}
+            amountFollowing={rekomer.amountFollowing}
+            />
+         <FlatList 
+            data={reviews}
+            renderItem = {({item}) => <ReviewCard key={item.id} {...item}
+            />}
+            keyExtractor={(item, index) => index.toString()}
+         />
       </ScrollView>
    )
 }

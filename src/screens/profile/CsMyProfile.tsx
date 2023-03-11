@@ -2,53 +2,40 @@ import {StyleSheet, View} from 'react-native'
 import {Avatar, CsText, Hi} from '../../components'
 import {Colors} from '../../assets/colors'
 import {HeaderBack} from "../../components"
-import { useEffect, useState } from 'react'
-import RekomAxios from '../../api/axios'
-import { RekomerProfileApiType } from '../../@types/OtherProfileApiType'
-import { rekomerProfileApiInitState } from '../../constant/otherProfileApiInitState'
-import { imageUrlBase } from '../../constant/imageUrlBase'
 
-const CsMyProfile = () =>
+interface CsMyProfileProps
 {
-   const [rekomer, setRekomer] = useState<RekomerProfileApiType>(rekomerProfileApiInitState)
-   
-   useEffect(() => {
-      RekomAxios({
-         method: 'get',
-         url: '/rekomers/cdada5a4-c2ac-40c6-9151-39147f09c830/profile',
-         responseType: 'json'
-      })
-      .then(res => {
-         console.log(res.data)
-         let data = res.data.rekomer
-         setRekomer(data)
-      })
-      .catch(e => {
-         console.log(e)
-      })
-   },[])
-
+   username: string,
+   avatarUrl: string,
+   fullName: string,
+   description: string,
+   amountReview: number,
+   amountFollower: number,
+   amountFollowing: number,
+}
+const CsMyProfile = (props: CsMyProfileProps) =>
+{
    return (
       <View style={defaultStyle.contain}>
-         <HeaderBack type={'secondary'} title={rekomer.username}
+         <HeaderBack type={'secondary'} title={props.username}
             wrapperStyle={{ paddingHorizontal: 20, marginBottom: 20}}/>
          <Avatar
-            imgUrl={`${imageUrlBase}/${rekomer.avatarUrl}`} 
+            imgUrl={`${props.avatarUrl}`} 
             wrapperStyle={{marginBottom: 20}} size={'lg'}/>
 
          <CsText
             style={{alignSelf: 'center', marginBottom: 5}}
             size={'lg'} weight={'800'}>
-            Pham Le Thanh Vu
+            {props.fullName}
          </CsText>
 
          <CsText
             style={{alignSelf: 'center', marginBottom: 10, textAlign: 'center'}}>
-            {rekomer.description}</CsText>
+            {props.description}</CsText>
          <View style={{flexDirection: 'row'}}>
-            <Hi number={rekomer.amountReview} label='Reviews'/>
-            <Hi number={rekomer.amountFollower} label='Followers'/>
-            <Hi number={rekomer.amountFollowing} label='Following'/>
+            <Hi number={props.amountReview} label='Reviews'/>
+            <Hi number={props.amountFollower} label='Followers'/>
+            <Hi number={props.amountFollowing} label='Following'/>
          </View>
 
          <View style={defaultStyle.dashedLine}></View>
