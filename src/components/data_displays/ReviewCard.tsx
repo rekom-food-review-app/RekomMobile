@@ -3,10 +3,11 @@ import {CsText, UserActionInfo} from "./index";
 import {Colors} from "../../assets/colors";
 import Icon from 'react-native-vector-icons/Feather'
 import {IconButton} from "../index";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {ReviewCardType} from "../../@types/ReviewCardType";
 import { imageUrlBase } from "../../constant/imageUrlBase";
+import RekomAxios from "../../api/axios";
 
 interface ReviewCardProps extends ReviewCardType {
    numberOfLines?: number
@@ -18,23 +19,76 @@ interface ReviewCardProps extends ReviewCardType {
 function ReviewCard(props: ReviewCardProps) {
    const [reactIcon, setReactIcon] = useState<string>('');
    const nav = useNavigation<any>();
+   
+   const [reaction, setReaction] = useState({
+      "1": props.amountAgree,
+      "2": props.amountDisagree,
+      "3": props.amountUseful,
+   })
+   
+   // useEffect(() => {
+   //    setReaction({
+   //       "1": props.amountAgree,
+   //       "2": props.amountDisagree,
+   //       "3": props.amountUseful
+   //    })
+   // }, [props.amountAgree, props.amountDisagree, props.amountUseful])
 
-   const react = (tag: string) => {
-      if (tag == reactIcon) {
+   const handleReact = (id: string) => {
+      if (id == reactIcon) {
+         setReaction((pre) => {
+            pre[id as keyof typeof pre] = pre[id as keyof typeof pre] - 1
+            return pre
+         })
+         unReact(id)
          setReactIcon('')
-      } else {
-         setReactIcon(tag)
+      } else { 
+         setReactIcon((reactIconPre) => {
+            setReaction((pre) => {
+               pre[id as keyof typeof pre] = pre[id as keyof typeof pre] + 1
+               pre[reactIconPre as keyof typeof pre] = pre[reactIconPre as keyof typeof pre] - 1
+               return pre
+            })
+            return id
+         })
+         react(id)
       }
    }
 
+   const unReact = (id: string) =>{
+         // RekomAxios({
+         //    method: 'post',
+         //    url: 'reviews/214c76cf-13a0-46e4-a405-01ca9a004b5b/reactions/3'
+         // })
+         // .then(res => {
+         //    console.log(res)
+         // })
+         // .catch(e => {
+         //    console.log(e)
+         // })
+   }
+   
+   const react = (id: string) => {
+         // RekomAxios({
+         //    method: 'post',
+         //    url: 'reviews/214c76cf-13a0-46e4-a405-01ca9a004b5b/reactions/3'
+         // })
+         // .then(res => {
+         //    console.log(res)
+         // })
+         // .catch(e => {
+         //    console.log(e)
+         // })
+   }
+   
    return (
       <View style={props.wrapperStyle}>
 
          <UserActionInfo
             id=""
             onPressUser={() => nav.push("OtherProfileScreen")}
-            avatarUrl={`${imageUrlBase}/${props.rekomerAvatarUrl}`} 
-            actionDate={props.createdAt}
+            avatarUrl={`${props.rekomerAvatarUrl}`} 
+            createdAt={props.createdAt}
             fullName={props.rekomerFullName}
             wrapperStyle={{marginBottom: 10, paddingHorizontal: 20}}/>
          <View>
@@ -61,19 +115,19 @@ function ReviewCard(props: ReviewCardProps) {
                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                               <View style={{flexDirection: 'row', gap: 10}}>
                                  <IconButton
-                                    onPress={() => react('A')} size={'sm'}
-                                    typeBtn={reactIcon == 'A' ? 'active' : 'inactive'}
-                                    source={require('../../assets/image/like.png')}>{props.amountAgree}</IconButton>
+                                    onPress={() => handleReact('1')} size={'sm'}
+                                    typeBtn={reactIcon == '1' ? 'active' : 'inactive'}
+                                    source={require('../../assets/image/like.png')}>{reaction["1"]}</IconButton>
                                  <IconButton 
-                                    onPress={() => react('B')} size={'sm'}
-                                    typeBtn={reactIcon == 'B' ? 'active' : 'inactive'}
-                                    source={require('../../assets/image/soso.png')}>{props.amountUseful}</IconButton>
+                                    onPress={() => handleReact('3')} size={'sm'}
+                                    typeBtn={reactIcon == '3' ? 'active' : 'inactive'}
+                                    source={require('../../assets/image/soso.png')}>{reaction["3"]}</IconButton>
                                  <IconButton
-                                    onPress={() => react('C')} size={'sm'}
-                                    typeBtn={reactIcon == 'C' ? 'active' : 'inactive'}
-                                    source={require('../../assets/image/dislike.png')}>{props.amountDisagree}</IconButton>
+                                    onPress={() => handleReact('2')} size={'sm'}
+                                    typeBtn={reactIcon == '2' ? 'active' : 'inactive'}
+                                    source={require('../../assets/image/dislike.png')}>{reaction["2"]}</IconButton>
                               </View>
-                              <IconButton onPress={() => nav.navigate("ReviewCardDetailScreen")} size={'sm'}
+                              <IconButton onPress={() => nav.navigate("ReviewCardDetailScreen", props)} size={'sm'}
                                           typeBtn={'inactive'}
                                           source={require('../../assets/image/cmt.png')}>{props.amountReply}</IconButton>
                            </View>
