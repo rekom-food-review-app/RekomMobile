@@ -57,7 +57,7 @@ function Login() {
 
             <TextField
                error={email.error}
-               onChangeText={(text: string) => setEmail({value: text, error: ''})}
+               onChangeText={(text: string) => setEmail({value: text.trim(), error: ''})}
                wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="email"/>
 
             <SecureTextField
