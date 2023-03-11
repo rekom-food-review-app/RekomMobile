@@ -2,63 +2,61 @@ import {StyleSheet, View} from 'react-native'
 import {Avatar, Button, CsText, Hi} from '../../components'
 import {Colors} from '../../assets/colors'
 import { useEffect, useState } from 'react';
-import { RekomerProfileApiType } from '../../@types/OtherProfileApiType';
-import { rekomerProfileApiInitState } from '../../constant/otherProfileApiInitState';
 import RekomAxios from '../../api/axios';
 import {HeaderBack} from '../../components'
 
-const CsOtherProfile = () => {
-   const [data, setData] = useState<RekomerProfileApiType>(rekomerProfileApiInitState)
-   const [isFollowing, setIsFollowing] = useState(false);
-   const [followStatus, setFollowStatus] = useState<boolean | undefined>(data.isFollow)
+interface CsOtherProfileProps
+{
+   username: string,
+   avatarUrl: string,
+   fullName: string,
+   description: string,
+   amountReview: number,
+   amountFollower: number,
+   amountFollowing: number,
+   isFollow?: boolean
+}
+const CsOtherProfile = (props: CsOtherProfileProps) => {
+   const [followStatus, setFollowStatus] = useState<boolean | undefined>(props.isFollow)
+   const [amountFollower, setAmountFollower] = useState(props.amountFollower)
 
    useEffect(() => {
-      setFollowStatus(data.isFollow)
-   }, [data.isFollow])
+      setFollowStatus(props.isFollow)
+   }, [props.isFollow])
    
    const changeFollowStatus = () => {
       let url = "follow"
       let method = "post"
+      let num = 1
 
       if (followStatus) {
          url = "unfollow"
          method = "delete"
+         num = -1
       }
 
       setFollowStatus(!followStatus)
+      setAmountFollower(amountFollower + num)
 
       RekomAxios({
-         url: `rekomers/cdada5a4-c2ac-40c6-9151-39147f09c830/${url}`,
+         url: `rekomers/52519880-367c-4fc6-a5e7-bd91fdc7e331/${url}`,
          method
       })
       .catch((error) => {
+         setAmountFollower((pre) => {
+            return pre - num
+         })
          setFollowStatus((pre) => !pre)
       })
    }
 
-   useEffect(() => {
-      RekomAxios({
-         method: 'get',
-         url: '/rekomers/cdada5a4-c2ac-40c6-9151-39147f09c830/profile',
-         responseType: 'json'
-      })
-      .then(res => {
-         let data = res.data.otherProfile
-         console.log(data)
-         setData(data)
-      })
-      .catch(e => {
-         console.log(e)
-      })
-   },[])
-
    return (
       <View style={defaultStyle.contain}>
-         <HeaderBack type={'secondary'} title={data.username}
-                        wrapperStyle={{ paddingHorizontal: 20, marginBottom: 20}}/>
+         <HeaderBack type={'secondary'} title={props.username}
+                     wrapperStyle={{ paddingHorizontal: 20, marginBottom: 20}}/>
          <View>
             <Avatar
-               imgUrl={data.avatarUrl}
+               imgUrl={props.avatarUrl}
                wrapperStyle={{marginBottom: 20}} size={'lg'}/>
             <View style={{
                backgroundColor: Colors.B,
@@ -75,16 +73,16 @@ const CsOtherProfile = () => {
                label={followStatus ? 'following' : 'follow'} />
             </View>
          </View>
-         <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{data.fullName ? data.fullName : 'nhô nhem'}</CsText>
+         <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{props.fullName ? props.fullName : 'nhô nhem'}</CsText>
          <CsText style={{
             alignSelf: 'center',
             marginBottom: 10,
             textAlign: 'center'
-         }}>{data.description}</CsText>
+         }}>{props.description}</CsText>
          <View style={{flexDirection: 'row'}}>
-            <Hi number={data.amountReview} label='Reviews'/>
-            <Hi number={data.amountFollower} label='Followers'/>
-            <Hi number={data.amountFollowing} label='Following'/>
+            <Hi number={props.amountReview} label='Reviews'/>
+            <Hi number={amountFollower} label='Followers'/>
+            <Hi number={props.amountFollowing} label='Following'/>
          </View>
          <View style={defaultStyle.dashedLine}></View>
       </View>
