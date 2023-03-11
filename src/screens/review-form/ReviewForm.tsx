@@ -8,12 +8,13 @@ import { ScrollView } from 'react-native';
 import RekomAxios from '../../api/axios';
 import { InputStateType } from '../../@types/InputStateType';
 import { inputInitState } from '../../constant/inputInitState';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 
 const windowWidth = Dimensions.get('window').width;
 const ReviewForm = () => {
   const nav = useNavigation<any>()
+  const route = useRoute()
   const [reviewImgs, setReviewImgs] = useState<ImageOrVideo[]>([])
   const [content, setContent] = useState<InputStateType>(inputInitState)
   const [rating, setRating] = useState('')
@@ -55,7 +56,8 @@ function post () {
     console.log(reviewData)
     RekomAxios({
       method: 'post',
-      url: 'restaurants/2/reviews',
+      // url: `restaurants/${(route.params as any).id}/reviews`,
+      url: `restaurants/0b4a446e-c238-4d5f-aa6e-527265bae629/reviews`,
       headers: {
         "Content-Type": 'multipart/form-data'
       },
@@ -97,13 +99,13 @@ function post () {
           </View>
           <View style={{width: '15%', flexDirection: 'column', borderWidth: 0.5, borderRadius:20, justifyContent: "space-evenly"}}> 
             <IconButton 
-              onPress={() => {setRating('1'); react('1')}}
-              iconStyle={{flexDirection: null, height: 35, paddingVertical: 5}} typeBtn={reactIcon == '1' ? 'active':'dot'} size={'md'}
+              onPress={() => {setRating('5'); react('5')}}
+              iconStyle={{flexDirection: null, height: 35, paddingVertical: 5}} typeBtn={reactIcon == '5' ? 'active':'dot'} size={'md'}
               source={require('../../assets/image/i1.gif')}
             />
             <IconButton 
-              onPress={() => {setRating('2'); react('2')}}
-              iconStyle={{flexDirection: null, height: 35, paddingVertical: 5}} typeBtn={reactIcon == '2' ? 'active':'noBoder'} size={'md'}
+              onPress={() => {setRating('4'); react('4')}}
+              iconStyle={{flexDirection: null, height: 35, paddingVertical: 5}} typeBtn={reactIcon == '4' ? 'active':'noBoder'} size={'md'}
               source={require('../../assets/image/i2.gif')}
             />
             <IconButton 
@@ -112,13 +114,13 @@ function post () {
               source={require('../../assets/image/i3.gif')}
             />
             <IconButton 
-              onPress={() => {setRating('4'); react('4')}}
-              iconStyle={{flexDirection: null, height: 35, paddingVertical: 5}} typeBtn={reactIcon == '4' ? 'active':'noBoder'} size={'md'}
+              onPress={() => {setRating('2'); react('2')}}
+              iconStyle={{flexDirection: null, height: 35, paddingVertical: 5}} typeBtn={reactIcon == '2' ? 'active':'noBoder'} size={'md'}
               source={require('../../assets/image/i4.gif')}
             />
             <IconButton 
-              onPress={() => {setRating('5'); react('5')}}
-              iconStyle={{flexDirection: null, height: 35, paddingVertical: 5}} typeBtn={reactIcon == '5' ? 'active':'noBoder'} size={'md'}
+              onPress={() => {setRating('1'); react('1')}}
+              iconStyle={{flexDirection: null, height: 35, paddingVertical: 5}} typeBtn={reactIcon == '1' ? 'active':'noBoder'} size={'md'}
               source={require('../../assets/image/i5.gif')}
             />
           </View>
