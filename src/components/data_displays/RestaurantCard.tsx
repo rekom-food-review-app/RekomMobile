@@ -3,14 +3,14 @@ import {Image, Text, TouchableOpacity, View} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { FavoriteResApiType } from '../../@types/FavoriteResApiType'
 import { Colors } from '../../assets/colors'
-import { CsText } from '../../components'
+import { CsText } from '..'
 
 interface FavoriteResProps extends FavoriteResApiType
 {
   wrapperStyle?: any
 }
 
-const FavoriteResComponent = (props: FavoriteResProps) => {
+const RestaurantCard = (props: FavoriteResProps) => {
   const nav = useNavigation<any>()
   return(
     <TouchableOpacity style={[{position: 'relative'}, props.wrapperStyle]} onPress={() => nav.navigate('RestaurantScreen', {id: props.restaurantId})}>
@@ -38,4 +38,4 @@ const FavoriteResComponent = (props: FavoriteResProps) => {
   )
 }
 
-export {FavoriteResComponent}
+export {RestaurantCard}

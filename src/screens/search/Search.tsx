@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import {FlatList, VirtualizedList, TextInput, View, Dimensions, Text} from 'react-native'
 import { DishInfoApiType } from '../../@types/DishInfoApiType'
 import RekomAxios from '../../api/axios'
-import { DishInfo, Title, UserActionInfo } from '../../components'
+import { DishInfo, RestaurantCard, Title, UserActionInfo } from '../../components'
 import { SearchBar } from '../../components/inputs/SearchBar'
-import { FavoriteResComponent } from '../favourite-res'
 import { Colors } from '../../assets/colors'
 import {InputStateType} from '../../@types/InputStateType';
 import {inputInitState} from '../../constant/inputInitState';
@@ -62,7 +61,7 @@ const Search = () => {
           horizontal={true}
           style={{marginBottom: 20}}
           showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => <FavoriteResComponent 
+          renderItem={({item}) => <RestaurantCard 
             wrapperStyle={{width: width - 60}}
             restaurantId={item.id} 
             key={item.id} 

@@ -3,8 +3,7 @@ import {FlatList, Text, View} from 'react-native'
 import { ScrollView } from 'react-native-virtualized-view'
 import { FavoriteResApiType } from '../../@types/FavoriteResApiType'
 import RekomAxios from '../../api/axios'
-import { HeaderBack } from '../../components'
-import { FavoriteResComponent } from './FavoriteResComponent'
+import { HeaderBack, RestaurantCard } from '../../components'
 
 const FavoriteRes = () => {
   const [favourite, setFavourite] = useState<FavoriteResApiType[]>([])
@@ -28,7 +27,7 @@ const FavoriteRes = () => {
       <FlatList 
         data={favourite}
         style={{marginBottom: 100}}
-        renderItem={({item}) => <FavoriteResComponent 
+        renderItem={({item}) => <RestaurantCard 
                                 wrapperStyle={{marginBottom: 15}}
                                 restaurantId={item.restaurantId} 
                                 key={item.id} 
