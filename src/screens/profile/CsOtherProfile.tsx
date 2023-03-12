@@ -1,9 +1,12 @@
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {Avatar, Button, CsText, Hi} from '../../components'
 import {Colors} from '../../assets/colors'
 import { useEffect, useState } from 'react';
 import RekomAxios from '../../api/axios';
 import {HeaderBack} from '../../components'
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { updateAmountFollowing } from '../../global-states';
 
 interface CsOtherProfileProps
 {
@@ -14,11 +17,41 @@ interface CsOtherProfileProps
    amountReview: number,
    amountFollower: number,
    amountFollowing: number,
-   isFollow?: boolean
+   isFollow?: boolean,
+   id: string
 }
 const CsOtherProfile = (props: CsOtherProfileProps) => {
    const [followStatus, setFollowStatus] = useState<boolean | undefined>(props.isFollow)
    const [amountFollower, setAmountFollower] = useState(props.amountFollower)
+
+   const nav = useNavigation<any>()
+   const dispatch = useDispatch()
+   const [follower, setFollower] = useState([])
+   const [following, setFollowing] = useState([])
+   const getFollowers = () => {
+      RekomAxios({
+         method: 'get',
+         url: `rekomers/${props.id}/followers?page=1&size=5`
+      })
+      .then(res => {
+         setFollower(res.data.followerList)
+      })
+      .catch(e => {
+         console.log(e)
+      })
+   }
+   const getFollowings = () => {
+      RekomAxios({
+         method: 'get',
+         url: `rekomers/${props.id}/followings?page=1&size=5`
+      })
+      .then(res => {
+         setFollowing(res.data.followerList)
+      })
+      .catch(e => {
+         console.log(e)
+      })
+   }
 
    useEffect(() => {
       setFollowStatus(props.isFollow)
@@ -39,8 +72,11 @@ const CsOtherProfile = (props: CsOtherProfileProps) => {
       setAmountFollower(amountFollower + num)
 
       RekomAxios({
-         url: `rekomers/52519880-367c-4fc6-a5e7-bd91fdc7e331/${url}`,
+         url: `rekomers/${props.id}/${url}`,
          method
+      })
+      .then(res => {
+         dispatch(updateAmountFollowing(num))
       })
       .catch((error) => {
          setAmountFollower((pre) => {
@@ -81,8 +117,8 @@ const CsOtherProfile = (props: CsOtherProfileProps) => {
          }}>{props.description}</CsText>
          <View style={{flexDirection: 'row'}}>
             <Hi number={props.amountReview} label='Reviews'/>
-            <Hi number={amountFollower} label='Followers'/>
-            <Hi number={props.amountFollowing} label='Following'/>
+            <TouchableOpacity onPress={() => {getFollowers; nav.push('Follow', props.id)}}><Hi number={amountFollower} label='Followers'/></TouchableOpacity>
+            <TouchableOpacity onPress={() => {getFollowings; nav.push('Follow', props.id)}}><Hi number={props.amountFollowing} label='Following'/></TouchableOpacity>
          </View>
          <View style={defaultStyle.dashedLine}></View>
       </View>

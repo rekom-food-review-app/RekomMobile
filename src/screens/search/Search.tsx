@@ -9,6 +9,7 @@ import {InputStateType} from '../../@types/InputStateType';
 import {inputInitState} from '../../constant/inputInitState';
 import { RestaurantCardApiType } from '../../@types/RestaurantCardApiType'
 import { ScrollView } from 'react-native-virtualized-view'
+import { useNavigation } from '@react-navigation/native'
 
 const width = Dimensions.get('window').width
 
@@ -19,6 +20,7 @@ const Search = () => {
   const [search, setSearch] = useState<InputStateType>(inputInitState)
   const searchRef = useRef<TextInput>(null);
 
+  const nav = useNavigation<any>()
   useEffect(() => {
     searchRef.current?.focus();
   }, [])
@@ -98,6 +100,7 @@ const Search = () => {
           data={rekomerList}
           renderItem = {({item}) => 
             <UserActionInfo 
+              onPressUser={() => nav.navigate('OtherProfileScreen', item.id)}
               wrapperStyle={{gap: 10, padding: 10, borderWidth: 0.5, borderColor: Colors.C, borderRadius: 20, marginBottom: 100, borderStyle: 'dashed'}} 
               avatarUrl={item.avatarUrl}
               fullName={item.fullName}

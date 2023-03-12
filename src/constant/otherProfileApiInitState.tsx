@@ -1,4 +1,4 @@
-import { RekomerProfileApiType } from "../@types/OtherProfileApiType";
+import { RekomerProfileApiType } from "../@types/RekomerProfileApiType";
 
 const rekomerProfileApiInitState: RekomerProfileApiType =
 {

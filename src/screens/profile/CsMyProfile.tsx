@@ -1,7 +1,10 @@
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {Avatar, CsText, Hi} from '../../components'
 import {Colors} from '../../assets/colors'
 import {HeaderBack} from "../../components"
+import { useNavigation } from '@react-navigation/native'
+import RekomAxios from '../../api/axios'
+import { useState } from 'react'
 
 interface CsMyProfileProps
 {
@@ -14,7 +17,34 @@ interface CsMyProfileProps
    amountFollowing: number,
 }
 const CsMyProfile = (props: CsMyProfileProps) =>
-{
+{  
+   const nav = useNavigation<any>()
+   const [follower, setFollower] = useState([])
+   const [following, setFollowing] = useState([])
+   const getFollowers = () => {
+      RekomAxios({
+         method: 'get',
+         url: `rekomers/me/followers?page=1&size=5`
+      })
+      .then(res => {
+         setFollower(res.data.followerList)
+      })
+      .catch(e => {
+         console.log(e)
+      })
+   }
+   const getFollowings = () => {
+      RekomAxios({
+         method: 'get',
+         url: `rekomers/me/followings?page=1&size=5`
+      })
+      .then(res => {
+         setFollowing(res.data.followingList)
+      })
+      .catch(e => {
+         console.log(e)
+      })
+   }
    return (
       <View style={defaultStyle.contain}>
          <HeaderBack type={'secondary'} title={props.username}
@@ -34,8 +64,8 @@ const CsMyProfile = (props: CsMyProfileProps) =>
             {props.description}</CsText>
          <View style={{flexDirection: 'row'}}>
             <Hi number={props.amountReview} label='Reviews'/>
-            <Hi number={props.amountFollower} label='Followers'/>
-            <Hi number={props.amountFollowing} label='Following'/>
+            <TouchableOpacity onPress={() => {getFollowers; nav.push('Follow', follower)}}><Hi number={props.amountFollower} label='Followers'/></TouchableOpacity>
+            <TouchableOpacity onPress={() => {getFollowings; nav.push('Follow', following)}}><Hi number={props.amountFollowing} label='Following'/></TouchableOpacity>
          </View>
 
          <View style={defaultStyle.dashedLine}></View>
