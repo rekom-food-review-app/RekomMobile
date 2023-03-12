@@ -29,13 +29,11 @@ const FavoriteRes = () => {
         style={{marginBottom: 100}}
         renderItem={({item}) => <RestaurantCard 
                                 wrapperStyle={{marginBottom: 15}}
-                                restaurantId={item.restaurantId} 
+                                id={item.restaurantId} 
                                 key={item.id} 
-                                restaurantName={item.restaurantName}
-                                restaurantCoverImageUrl={item.restaurantCoverImageUrl} 
-                                restaurantRatingAverage={item.restaurantRatingAverage} 
-                                createdAt={item.createdAt} 
-                                id={item.id}/>}
+                                name={item.restaurantName}
+                                coverImageUrl={item.restaurantCoverImageUrl} 
+                                ratingAverage={item.restaurantRatingAverage}/>}
         keyExtractor={(item, index) => index.toString()}
       />
     </ScrollView>

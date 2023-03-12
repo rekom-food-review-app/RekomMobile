@@ -63,12 +63,12 @@ const Search = () => {
           showsHorizontalScrollIndicator={false}
           renderItem={({item}) => <RestaurantCard 
             wrapperStyle={{width: width - 60}}
-            restaurantId={item.id} 
+            id={item.id} 
             key={item.id} 
-            restaurantName={item.name}
-            restaurantCoverImageUrl={item.coverImageUrl} 
-            restaurantRatingAverage={item.ratingAverage} 
-            id={item.id}/>
+            name={item.name}
+            coverImageUrl={item.coverImageUrl} 
+            ratingAverage={item.ratingAverage} 
+            />
           }
           getItem={getRestaurants}
           getItemCount={getRestaurantCount}

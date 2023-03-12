@@ -14,17 +14,19 @@ const MyProfile = () => {
    const [rekomer, setRekomer] = useState<RekomerProfileApiType>(rekomerProfileApiInitState)
    const [page, setPage] = useState(1);
    const size = 4
+
    useEffect(() => {
       RekomAxios({
          method: 'get',
          url: '/rekomers/me/profile',
       })
       .then(res => {
-         let data = res.data.rekomer
-         setRekomer(data)
+         setRekomer(res.data.rekomer)
+         console.log(res.data.rekomer)
       })
       .catch(e => {
          console.log(e)
+         console.log("ui")
       })
    },[])
    
