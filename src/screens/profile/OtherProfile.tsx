@@ -61,6 +61,7 @@ const OtherProfile = () => {
          />
          <FlatList 
             data={reviews}
+            style={{marginBottom: 50}}
             renderItem = {({item}) => <ReviewCard key={item.id} {...item}
             />}
             keyExtractor={(item, index) => index.toString()}

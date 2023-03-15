@@ -26,32 +26,6 @@ const CsOtherProfile = (props: CsOtherProfileProps) => {
 
    const nav = useNavigation<any>()
    const dispatch = useDispatch()
-   const [follower, setFollower] = useState([])
-   const [following, setFollowing] = useState([])
-   const getFollowers = () => {
-      RekomAxios({
-         method: 'get',
-         url: `rekomers/${props.id}/followers?page=1&size=5`
-      })
-      .then(res => {
-         setFollower(res.data.followerList)
-      })
-      .catch(e => {
-         console.log(e)
-      })
-   }
-   const getFollowings = () => {
-      RekomAxios({
-         method: 'get',
-         url: `rekomers/${props.id}/followings?page=1&size=5`
-      })
-      .then(res => {
-         setFollowing(res.data.followerList)
-      })
-      .catch(e => {
-         console.log(e)
-      })
-   }
 
    useEffect(() => {
       setFollowStatus(props.isFollow)
@@ -117,8 +91,8 @@ const CsOtherProfile = (props: CsOtherProfileProps) => {
          }}>{props.description}</CsText>
          <View style={{flexDirection: 'row'}}>
             <Hi number={props.amountReview} label='Reviews'/>
-            <TouchableOpacity onPress={() => {getFollowers; nav.push('Follow', props.id)}}><Hi number={amountFollower} label='Followers'/></TouchableOpacity>
-            <TouchableOpacity onPress={() => {getFollowings; nav.push('Follow', props.id)}}><Hi number={props.amountFollowing} label='Following'/></TouchableOpacity>
+            <TouchableOpacity onPress={() => {nav.push('Follow', {id: props.id, route: "followers"})}}><Hi number={props.amountFollower} label='Followers'/></TouchableOpacity>
+            <TouchableOpacity onPress={() => {nav.push('Follow', {id: props.id, route: "followings"})}}><Hi number={props.amountFollowing} label='Following'/></TouchableOpacity>
          </View>
          <View style={defaultStyle.dashedLine}></View>
       </View>

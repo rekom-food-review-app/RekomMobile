@@ -12,6 +12,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { addReviewToTop } from '../../global-states';
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -20,10 +22,23 @@ const ReviewForm = () => {
   const route = useRoute()
   const dispatch = useDispatch()
 
+  const selectedRestaurant = useSelector((state: RootState) => state.selectedRestaurant)
+  const auth = useSelector((state: RootState) => state.auth)
+
   const [reviewImgs, setReviewImgs] = useState<ImageOrVideo[]>([])
   const [content, setContent] = useState<InputStateType>(inputInitState)
   const [rating, setRating] = useState('')
   const [reactIcon, setReactIcon] = useState('')
+
+  const [isSubmiting, setIsSubmiting] = useState<boolean>(false)
+  const [submitButtonLabel, setSubmitButtonLabel] = useState<string>("Post")
+  const [submitButtonState, setSubmitButtonState] = useState<never>("disable" as never)
+  
+  useEffect(() => {
+    if (reviewImgs.length > 0 && content.value.toString().trim().length > 0 && rating.length > 0) {
+      setSubmitButtonState("primary" as never)
+    }
+  }, [reviewImgs, content.value, rating])
 
   const react = (tag: string) => {
     if(tag == reactIcon){
@@ -47,44 +62,34 @@ const ReviewForm = () => {
     }
   };
   function post () {
+      setSubmitButtonState("disable" as never)
+      setSubmitButtonLabel("Submiting...")
+      setIsSubmiting(true)
       let reviewData = new FormData();
       reviewData.append('content', content.value)
       reviewData.append('rating', rating)
       reviewImgs.forEach((image, index) => {
         reviewData.append('images',
         {
-          uri: reviewImgs?.[index].path,
+          uri: image.path,
           type: "multipart/form-data",
-          name: reviewImgs?.[index].path.split("/").pop()
+          name: image.path.split("/").pop()
         })
       })
+
       RekomAxios({
         method: 'post',
-        url: `restaurants/${(route.params as any).id}/reviews`,
+        url: `restaurants/${selectedRestaurant.info!.id}/reviews`,
         headers: {
           "Content-Type": 'multipart/form-data'
         },
         data: reviewData
       })
       .then(res => {
-        // dispatch(addReviewToTop({
-        //   id: uuidv4(),
-        //   createdAt: Date.now().toString(),
-        //   content: content.value.toString(),
-        //   images: [],
-        //   amountDisagree: 0,
-        //   amountAgree: 0,
-        //   amountUseful: 0,
-        //   amountReply: 0,
-        //   myReaction: "111111",
-        //   rekomerId: "me",
-        //   rekomerAvatarUrl: string,
-        //   rekomerFullName: string,
-        //   restaurantName: string,
-        //   restaurantId: string,
-        //   restaurantCoordinates: string,
-        //   rating: string,
-        // }))
+        dispatch(addReviewToTop({
+          ...res.data.review,
+          images: reviewImgs.map((value, index) => value.path)
+        }))
         nav.goBack()
       })
       .catch(e => {
@@ -94,13 +99,13 @@ const ReviewForm = () => {
   return(
     <View style={{backgroundColor: Colors.B, width: '100%', height: '100%'}}>
       <HeaderBack type={'secondary'} title="Review" wrapperStyle={{paddingHorizontal: 20, paddingTop: 30, marginBottom: 20}}/>
-      <ScrollView horizontal={true} style={{paddingHorizontal: 20, maxHeight: 200}}>
+      <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{paddingHorizontal: 20, maxHeight: 200}}>
         {
           reviewImgs.map((img, index) => {
             return <Image key={index} source={{uri: img.path}} style={[styles.setReviewImg, {width: windowWidth -60}]}/>
           })
         }
-        <TouchableOpacity style={styles.setReviewImg} onPress={upLoadReviewImg}>
+        <TouchableOpacity style={[styles.setReviewImg, styles.imgSlt]} onPress={upLoadReviewImg}>
           <View style={{alignSelf: 'center', paddingVertical: 75}}>
             <Icon name="image" size={30} style={{alignSelf: 'center'}} />
             <CsText>Please upload at least one image !</CsText>
@@ -108,14 +113,14 @@ const ReviewForm = () => {
         </TouchableOpacity>
       </ScrollView> 
       <View style={{paddingHorizontal: 20, gap: 5}}>
-        <CsText size={'lg'} weight={900} style={{textTransform: 'uppercase', marginTop: 20}}>Dong Phuong restaurant</CsText>
-        <CsText numberOfLines={2} >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae corporis iste quae atque odio sequi consequuntur. Animi aliquam modi alias, excepturi eveniet pariatur obcaecati architecto nam ullam tempore ducimus in.</CsText>
+        <CsText size={'lg'} weight={900} style={{textTransform: 'uppercase', marginTop: 20}}>{selectedRestaurant.info.name}</CsText>
+        <CsText numberOfLines={3} >{selectedRestaurant.info.description}</CsText>
         <View style={{flexDirection: 'row', width: '100%', gap: 15, marginTop: 20}}>
           <View style={{width: '80%', gap: 10}}>
             <TextField onChangeText={(content) => setContent({value: content, error: ''})} 
             multiline={true} type={'top'} placeholder='Let&apos;s us know what do you think, please say your honest words' 
             size={'xxl'} textFieldStyle={{height: 200, borderRadius: 20}}/>
-            <Button size={'lg'} type="primary" label='Post' wrapperStyle={{width: '100%'}} onPress={post}/>
+            <Button size={'lg'} type={submitButtonState} label={submitButtonLabel} wrapperStyle={{width: '100%'}} onPress={post}/>
           </View>
           <View style={{width: '15%', flexDirection: 'column', borderWidth: 0.5, borderRadius:20, justifyContent: "space-evenly"}}> 
             <IconButton 
@@ -156,6 +161,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F5", 
     borderRadius: 25,
     marginRight: 10
+  },
+  imgSlt: {
+    borderWidth: 0.5,
+    borderStyle: 'dashed'
   }
 })
 export {ReviewForm}

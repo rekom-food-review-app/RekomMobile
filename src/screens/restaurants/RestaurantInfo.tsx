@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from "react-native"
+import {View, StyleSheet} from "react-native"
 import {enableLatestRenderer} from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 

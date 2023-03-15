@@ -94,11 +94,11 @@ function ReviewCard(props: ReviewCardProps) {
          <View>
             <View>
                <Image style={{width: "100%", height: 300}}
-                   source={{uri: `${imageUrlBase}/${props.images[0]}`}}/>
+                   source={{uri: `${props.images[0]}`}}/>
                <IconButton typeBtn={'inactive'} size={'md'}
                   source={require('../../assets/image/i1.gif')}
                   wrapperStyle={{position: 'absolute', right: 15, bottom: 15}}
-               >{props.rating}</IconButton>
+               >{props.ratingId}</IconButton>
             </View>
             <View style={{marginHorizontal: 20, paddingVertical: 10}}>
                <TouchableOpacity disabled={props.textTouchingDisable}

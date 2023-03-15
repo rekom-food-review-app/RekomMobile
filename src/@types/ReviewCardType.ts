@@ -1,8 +1,3 @@
-interface Media {
-  mediaUrl: string
-  type: string
-}
-
 interface ReviewCardType 
 {
   id: string
@@ -13,14 +8,14 @@ interface ReviewCardType
   amountAgree: number,
   amountUseful: number,
   amountReply: number,
-  myReaction?: string,
+  myReactionId?: string,
   rekomerId: string,
   rekomerAvatarUrl: string
   rekomerFullName: string,
   restaurantName: string,
   restaurantId: string,
-  restaurantCoordinates: string,
-  rating: string,
+  // restaurantCoordinates: string,
+  ratingId: string,
 }
 
 export {type ReviewCardType}

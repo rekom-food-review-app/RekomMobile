@@ -21,6 +21,7 @@ function Button(props: ButtonProps) {
 
   return (
     <TouchableOpacity
+      disabled={props.type == "disable"}
       onPress={props.onPress}
       style={[
         size[props.size || 'md'].button,
@@ -101,6 +102,13 @@ const type = {
     label: 'C' as 'C',
     button: {
       backgroundColor: Colors.B,
+      borderColor: Colors.B,
+    },
+  }),
+  disable: StyleSheet.create<any>({
+    label: 'C' as 'C',
+    button: {
+      backgroundColor: Colors.F,
       borderColor: Colors.B,
     },
   }),
