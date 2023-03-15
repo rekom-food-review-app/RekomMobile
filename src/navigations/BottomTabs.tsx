@@ -3,10 +3,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, MyProfile, FavoriteRes, Search } from "../screens";
 import Icon from 'react-native-vector-icons/Feather'
 import { Colors } from "../assets/colors";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
+  const profile = useSelector((state: RootState) => state.auth.profile)
+
   return(
     <Tab.Navigator screenOptions={{tabBarShowLabel: false, tabBarStyle: bottomTabsStyle.tabBar,}}>
       <Tab.Screen options={{headerShown: false, 
@@ -23,7 +27,7 @@ const BottomTabs = () => {
                             )}} name='FavouriteRes' component={FavoriteRes}/>
       <Tab.Screen options={{headerShown: false, 
                             tabBarIcon: ({ focused }) => (
-                              <Image source={require('../assets/image/avt.jpg')} style={{width: 40, height: 40, borderRadius: 100}}/>
+                              <Image source={{uri: profile.avatarUrl}} style={{width: 40, height: 40, borderRadius: 100}}/>
                           )}} name='MyProfile' component={MyProfile}/>
     </Tab.Navigator>
   )

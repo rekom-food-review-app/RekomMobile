@@ -27,7 +27,7 @@ const App = () => {
       <Provider store={store}>
          <NavigationContainer>
             <RootStack.Navigator>
-               {/* <RootStack.Screen options={{title: "", headerShown: false}} name='LoadingScreen' component={Loading}/> */}
+               <RootStack.Screen options={{title: "", headerShown: false}} name='LoadingScreen' component={Loading}/>
                <RootStack.Screen options={{title: "", headerShown: false}} name='LoginScreen' component={Login}/>
                <RootStack.Screen options={{headerShown: false}} name="BottomTabs" component={BottomTabs}/>
                <RootStack.Screen options={{title: ""}} name='RegisterScreen' component={RegisterLayout}/>

@@ -102,14 +102,14 @@ const ReviewCardDetailLayout: React.FC = () => {
                   amountDisagree={review.amountDisagree} 
                   amountReply={review.amountReply} 
                   amountUseful={review.amountUseful} 
-                  myReaction={review.myReaction} 
+                  myReactionId={review.myReactionId} 
                   rekomerId={review.rekomerId} 
                   rekomerAvatarUrl={review.rekomerAvatarUrl}
                   rekomerFullName={review.rekomerFullName}
                   restaurantCoordinates={review.restaurantCoordinates}
                   restaurantId={review.restaurantId}
                   restaurantName={review.restaurantName}
-                  rating={review.rating}
+                  ratingId={review.ratingId}
                />
                {
                   tabEmoij == 1 ? <CommentSection commentList={commentList} handleEndReached={handleEndReached} /> : null

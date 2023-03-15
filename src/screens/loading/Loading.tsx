@@ -2,15 +2,24 @@ import { useEffect } from 'react'
 import {Image} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { setProfile } from '../../global-states';
+import { useDispatch } from 'react-redux';
 
 const Loading = () => {
   const nav = useNavigation<any>()
+  const dispatch = useDispatch()
+
   useEffect(() => {
     AsyncStorage.getItem("accessToken")
       .then((accessToken) => {
         setTimeout(() => {
           if (accessToken) {
-            nav.replace("BottomTabs")
+
+            AsyncStorage.getItem("profile")
+              .then((profileString) => {
+                dispatch(setProfile(JSON.parse(profileString || '')))
+                nav.replace("BottomTabs")
+              })
           } else {
             nav.replace("LoginScreen")
           }

@@ -6,7 +6,7 @@ import {useState} from "react"
 import {InputStateType} from '../../@types/InputStateType';
 import {inputInitState} from '../../constant/inputInitState';
 import {useDispatch} from 'react-redux'
-import {setAuth} from "../../global-states"
+import {setAuth, setProfile} from "../../global-states"
 import RekomAxios from "../../api/axios"
 
 function Login() {
@@ -17,10 +17,7 @@ function Login() {
    const [password, setPassword] = useState<InputStateType>(inputInitState)
 
    function submit() {
-      // nav.replace("RestaurantScreen")
       setIsLoading(true)
-
-      console.log(email.value, password.value)
 
       RekomAxios({
          method: 'post',
@@ -31,9 +28,9 @@ function Login() {
          }
       })
          .then(res => {
-            dispatch(setAuth({authToken: res.data.authToken}))
+            dispatch(setAuth(res.data.authToken))
+            dispatch(setProfile(res.data.profile))
             setIsLoading(false)
-            console.log(res)
             nav.navigate("BottomTabs")
          })
          .catch(e => {
