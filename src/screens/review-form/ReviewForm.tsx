@@ -9,12 +9,17 @@ import RekomAxios from '../../api/axios';
 import { InputStateType } from '../../@types/InputStateType';
 import { inputInitState } from '../../constant/inputInitState';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
+import { useDispatch } from 'react-redux';
+import { addReviewToTop } from '../../global-states';
+import { v4 as uuidv4 } from 'uuid';
 
 const windowWidth = Dimensions.get('window').width;
+
 const ReviewForm = () => {
   const nav = useNavigation<any>()
   const route = useRoute()
+  const dispatch = useDispatch()
+
   const [reviewImgs, setReviewImgs] = useState<ImageOrVideo[]>([])
   const [content, setContent] = useState<InputStateType>(inputInitState)
   const [rating, setRating] = useState('')
@@ -41,40 +46,55 @@ const ReviewForm = () => {
     } catch (error) {console.log(error);
     }
   };
-function post () {
-    let reviewData = new FormData();
-    reviewData.append('content', content.value)
-    reviewData.append('rating', rating)
-    reviewImgs.forEach((image, index) => {
-      reviewData.append('images',
+  function post () {
+      let reviewData = new FormData();
+      reviewData.append('content', content.value)
+      reviewData.append('rating', rating)
+      reviewImgs.forEach((image, index) => {
+        reviewData.append('images',
         {
           uri: reviewImgs?.[index].path,
           type: "multipart/form-data",
           name: reviewImgs?.[index].path.split("/").pop()
         })
-    })
-    console.log(reviewData)
-    RekomAxios({
-      method: 'post',
-      // url: `restaurants/${(route.params as any).id}/reviews`,
-      url: `restaurants/0b4a446e-c238-4d5f-aa6e-527265bae629/reviews`,
-      headers: {
-        "Content-Type": 'multipart/form-data'
-      },
-      data: reviewData
-    })
-    .then(res => {
-      nav.navigate('RestaurantScreen')
-      console.log('ok')
-    })
-    .catch(e => {
-      console.log(e)
-    })
-}
+      })
+      RekomAxios({
+        method: 'post',
+        url: `restaurants/${(route.params as any).id}/reviews`,
+        headers: {
+          "Content-Type": 'multipart/form-data'
+        },
+        data: reviewData
+      })
+      .then(res => {
+        // dispatch(addReviewToTop({
+        //   id: uuidv4(),
+        //   createdAt: Date.now().toString(),
+        //   content: content.value.toString(),
+        //   images: [],
+        //   amountDisagree: 0,
+        //   amountAgree: 0,
+        //   amountUseful: 0,
+        //   amountReply: 0,
+        //   myReaction: "111111",
+        //   rekomerId: "me",
+        //   rekomerAvatarUrl: string,
+        //   rekomerFullName: string,
+        //   restaurantName: string,
+        //   restaurantId: string,
+        //   restaurantCoordinates: string,
+        //   rating: string,
+        // }))
+        nav.goBack()
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }
   return(
     <View style={{backgroundColor: Colors.B, width: '100%', height: '100%'}}>
       <HeaderBack type={'secondary'} title="Review" wrapperStyle={{paddingHorizontal: 20, paddingTop: 30, marginBottom: 20}}/>
-      <ScrollView horizontal={true} style={{paddingLeft: 20, maxHeight: 200}}>
+      <ScrollView horizontal={true} style={{paddingHorizontal: 20, maxHeight: 200}}>
         {
           reviewImgs.map((img, index) => {
             return <Image key={index} source={{uri: img.path}} style={[styles.setReviewImg, {width: windowWidth -60}]}/>

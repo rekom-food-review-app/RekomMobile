@@ -23,7 +23,7 @@ const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref) => {
         onBlur={() => Keyboard.dismiss()}
         multiline={props.multiline}
         onChangeText={props.onChangeText}
-        style={[defaultStyle.textField,props.textFieldStyle, type[props.type ?? 'left'].placeholder]}
+        style={[defaultStyle.textField, type[props.type ?? 'left'].placeholder, props.textFieldStyle]}
         placeholder={props.placeholder}
         keyboardType={props.keyboardType}
       />
@@ -97,12 +97,22 @@ const size = {
 };
 const type = {
   left: StyleSheet.create({
+    textField: {
+      borderRadius: 100,
+      borderWidth: 1,
+      borderColor: Colors.C,
+    },
     placeholder: {
       textAlign: 'left',
       paddingHorizontal: 15,
     },
   }),
   top: StyleSheet.create({
+    textField: {
+      borderRadius: 100,
+      borderWidth: 1,
+      borderColor: Colors.C,
+    },
     placeholder: {
       textAlign: 'left',
       textAlignVertical: 'top',
@@ -110,10 +120,23 @@ const type = {
     },
   }),
   center: StyleSheet.create({
+    textField: {
+      borderRadius: 100,
+      borderWidth: 1,
+      borderColor: Colors.C,
+    },
     placeholder: {
       textAlign: 'center',
     },
   }),
+  none: {
+    textField: {
+      border: 0
+    },
+    placeholder: {
+      
+    },
+  }
 };
 
 export {TextField};

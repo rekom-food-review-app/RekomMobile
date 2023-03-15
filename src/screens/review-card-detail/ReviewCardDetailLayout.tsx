@@ -5,7 +5,6 @@ import {RootState} from '../../app/store'
 import {Button, HeaderBack, ReviewCard, TextField} from '../../components'
 import {CommentSection} from './CommentSection'
 import {EmoijBar} from './EmoijBar'
-import {Like} from './Like'
 import { useRoute } from '@react-navigation/native'
 import { ReviewCardType } from '../../@types/ReviewCardType'
 import { useEffect, useState } from 'react'
@@ -15,6 +14,7 @@ import { inputInitState } from '../../constant/inputInitState'
 import React, { useRef } from 'react'
 import * as signalR from '@microsoft/signalr';
 import { WS_COMMENT_HUB } from '../../constant/api'
+import { Reaction } from './Reaction'
 
 const ReviewCardDetailLayout: React.FC = () => {
    const route = useRoute();
@@ -115,13 +115,13 @@ const ReviewCardDetailLayout: React.FC = () => {
                   tabEmoij == 1 ? <CommentSection commentList={commentList} handleEndReached={handleEndReached} /> : null
                }
                {
-                  tabEmoij == 2 ? <Like /> : null
+                  tabEmoij == 2 ? <Reaction /> : null
                }
                {
-                  tabEmoij == 3 ? <Like /> : null
+                  tabEmoij == 3 ? <Reaction /> : null
                }
                {
-                  tabEmoij == 4 ? <Like /> : null
+                  tabEmoij == 4 ? <Reaction /> : null
                }
             </View>
          </ScrollView>

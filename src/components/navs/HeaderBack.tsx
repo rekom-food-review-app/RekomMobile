@@ -11,7 +11,8 @@ interface HeaderBackProps
   type?: keyof typeof headerStyle,
   iconLeft?: string,
   iconRight?: string,
-  title?: string
+  title?: string,
+  onBack?: () => void
 }
 
 function HeaderBack(props: HeaderBackProps)
@@ -21,7 +22,7 @@ function HeaderBack(props: HeaderBackProps)
   return (
     <View style={[style.wrapperStyle, props.wrapperStyle]}>
       <View style={[style.header, headerStyle[props.type || "primary"].header]}>
-        <TouchableOpacity onPress={() => nav.goBack()}>
+        <TouchableOpacity onPress={() => {props.onBack ? props.onBack() : null; nav.goBack()}}>
           <Icon style={[style.iconLeft, headerStyle[props.type || "primary"].iconLeft]} name={props.iconLeft || "chevron-left"} size={27} color={Colors.B}/>
         </TouchableOpacity>
         {

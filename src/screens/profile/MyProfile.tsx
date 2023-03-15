@@ -55,7 +55,6 @@ const MyProfile = () => {
             amountReview={myProfile.amountReview}
             amountFollower={myProfile.amountFollower}
             amountFollowing={myProfile.amountFollowing}
-
             />
          <FlatList 
             data={reviews}

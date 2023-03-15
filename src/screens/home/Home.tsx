@@ -11,18 +11,19 @@ const Home = () =>
 	const getFeedCount = () => feedList.length
   const getFeeds = (feeds: FeedProps[], index: number) => feedList[index];
 
-	useEffect(() => {
-		RekomAxios({
-			 method: 'get',
-			 url: '',
-		})
-			 .then(res => {
-					setFeedList(res.data.feedList) 
-			 })
-			 .catch(e => {
-				console.log(e)
-			 })
- }, [])
+// 	useEffect(() => {
+// 		RekomAxios({
+// 			 method: 'get',
+// 			 url: '',
+// 		})
+// 			 .then(res => {
+// 					setFeedList(res.data.feedList) 
+// 			 })
+// 			 .catch(e => {
+// 				console.log(e)
+// 			 })
+//  }, [])
+
 	return (
 		<ScrollView style={{backgroundColor: Colors.B}}>
 			<HeaderBack type={'secondary'} iconRight='map-pin' title="REKOM" wrapperStyle={{marginTop: 30, marginBottom: 20,paddingHorizontal: 20}}/> 

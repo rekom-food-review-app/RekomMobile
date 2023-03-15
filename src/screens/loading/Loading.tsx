@@ -14,7 +14,7 @@ const Loading = () => {
           } else {
             nav.replace("LoginScreen")
           }
-        }, 500)
+        }, 400)
       })
   }, [])
 
