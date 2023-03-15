@@ -5,7 +5,7 @@ import {Colors} from '../../assets/colors'
 import {HeaderBack, ReviewCard} from '../../components'
 import {CsOtherProfile} from "./CsOtherProfile";
 import { RekomerProfileApiType } from '../../@types/RekomerProfileApiType';
-import { rekomerProfileApiInitState } from '../../constant/otherProfileApiInitState';
+import { rekomerProfileApiInitState } from '../../constant/rekomerProfileApiInitState';
 import { FlatList } from 'react-native';
 import { ReviewCardType } from '../../@types/ReviewCardType';
 import { useRoute } from '@react-navigation/native';

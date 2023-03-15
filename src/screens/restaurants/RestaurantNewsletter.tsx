@@ -10,13 +10,16 @@ interface RestaurantNewsletterProps {
 }
 
 const RestaurantNewsletter = (props: RestaurantNewsletterProps) => {
+   useEffect(() => {
+      console.log("------------------------", props.reviews)
+   }, [props.reviews])
    return (
       <FlatList 
          data={props.reviews}
          renderItem = {({item}) => <ReviewCard key={item.id} {...item}/>}
          keyExtractor={(item, index) => index.toString()}
          onEndReached={props.onEndReached}
-         onEndReachedThreshold={2}
+         onEndReachedThreshold={0.5}
       />
    )
 }

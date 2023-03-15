@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RekomerProfileApiType } from "../../@types/RekomerProfileApiType"
-import { rekomerProfileApiInitState } from '../../constant/otherProfileApiInitState'
+import { rekomerProfileApiInitState } from '../../constant/rekomerProfileApiInitState'
 
 
 export interface MyProfileStateType

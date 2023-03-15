@@ -43,7 +43,7 @@ const RestaurantMenu = (props: RestaurantMenuProps) => {
         data={data} 
         numColumns={2}
         columnWrapperStyle={{alignItems: 'center', flex: 0.5, justifyContent: 'space-between', paddingBottom: 20}}
-        renderItem = {({item}) => <DishInfo id={item.id} wrapperStyle={{width: '48%',}} imageUrl={item.imageUrl} price={item.price} name={item.name}/>}
+        renderItem = {({item}) => <DishInfo description={item.description} id={item.id} wrapperStyle={{width: '48%',}} imageUrl={item.imageUrl} price={item.price} name={item.name}/>}
         keyExtractor={data => data.id}
         onEndReached={handleEndReached}
         onEndReachedThreshold={2}

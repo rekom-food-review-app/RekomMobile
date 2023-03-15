@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
 import {FlatList, Text, View} from 'react-native'
 import { ScrollView } from 'react-native-virtualized-view'
-import { FavoriteResApiType } from '../../@types/FavoriteResApiType'
+import { useDispatch, useSelector } from 'react-redux'
 import RekomAxios from '../../api/axios'
+import { RootState } from '../../app/store'
 import { HeaderBack, RestaurantCard } from '../../components'
+import { setFavorite } from '../../global-states'
 
 const FavoriteRes = () => {
-  const [favourite, setFavourite] = useState<FavoriteResApiType[]>([])
+  const dispatch = useDispatch()
+  const favoriteList = useSelector((state: RootState) => state.favorite.favoriteList)
   useEffect(() => {
     RekomAxios({
       method: 'get',
@@ -14,8 +17,7 @@ const FavoriteRes = () => {
       responseType: 'json'
     })
     .then(res => {
-      let favourite = res.data.favList
-      setFavourite(favourite)
+      dispatch(setFavorite(res.data.favList))
     })
     .catch(e => {
       console.log(e)
@@ -25,7 +27,7 @@ const FavoriteRes = () => {
     <ScrollView style={{paddingHorizontal: 20, paddingTop: 30, backgroundColor: 'white'}}>
       <HeaderBack title='Favourite' type='secondary' wrapperStyle={{marginBottom: 20}}/> 
       <FlatList 
-        data={favourite}
+        data={favoriteList}
         style={{marginBottom: 100}}
         renderItem={({item}) => <RestaurantCard 
                                 wrapperStyle={{marginBottom: 15}}
