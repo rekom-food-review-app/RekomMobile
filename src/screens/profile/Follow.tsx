@@ -29,7 +29,7 @@ const Follow = () => {
  }
 
   return(
-    <View style={{paddingHorizontal: 20, paddingTop: 30}}>
+    <View style={{paddingHorizontal: 20, paddingTop: 30, backgroundColor: "white", minHeight: "100%"}}>
       <HeaderBack title='Vu&apos;s Followers' type='secondary'wrapperStyle={{marginBottom: 20}}/>
       {(followList) ? <FlatList 
         data={followList}
