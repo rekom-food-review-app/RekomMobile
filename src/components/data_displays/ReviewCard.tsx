@@ -7,6 +7,7 @@ import {useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {ReviewCardType} from "../../@types/ReviewCardType";
 import RekomAxios from "../../api/axios";
+import { ImageSlider } from "react-native-image-slider-banner";
 
 interface ReviewCardProps extends ReviewCardType {
    numberOfLines?: number
@@ -72,7 +73,7 @@ function ReviewCard(props: ReviewCardProps) {
          console.log(e)
       })
    }
-   
+   const images = props.images
    return (
       <View style={props.wrapperStyle}>
          <UserActionInfo
@@ -83,9 +84,15 @@ function ReviewCard(props: ReviewCardProps) {
             fullName={props.rekomerFullName}
             wrapperStyle={{marginBottom: 10, paddingHorizontal: 20}}/>
          <View>
-            <View>
-               <Image style={{width: "100%", height: 300}}
-                   source={{uri: `${props.images[0]}`}}/>
+            <View>   
+               <ImageSlider 
+                  caroselImageStyle={{ resizeMode: 'cover' }}
+                  data={images.map((item) => {
+                     return {img: item}
+                  }) as any[]}
+                  autoPlay={false}
+                  closeIconColor="#fff"
+               />
                <IconButton typeBtn={'inactive'} size={'md'}
                   source={require('../../assets/image/face-vomiting.png')}
                   wrapperStyle={{position: 'absolute', right: 15, bottom: 15}}
