@@ -1,77 +1,86 @@
-import { useNavigation } from "@react-navigation/native"
-import {View, TouchableOpacity, StyleSheet, Image} from "react-native"
+import {useNavigation} from "@react-navigation/native"
+import {Image, StyleSheet, TouchableOpacity, View} from "react-native"
 import {Colors} from "../../assets/colors"
-import {TextField, SecureTextField, Button, CsText} from "../../components"
+import {Button, CsText, SecureTextField, TextField} from "../../components"
 import {useState} from "react"
-import { InputStateType } from '../../@types/InputStateType';
-import { inputInitState } from '../../constant/inputInitState';
-import { API_AUTH } from '../../constant/api';
-import axios from "axios"
+import {InputStateType} from '../../@types/InputStateType';
+import {inputInitState} from '../../constant/inputInitState';
+import {useDispatch} from 'react-redux'
+import {setAuth, setProfile} from "../../global-states"
+import RekomAxios from "../../api/axios"
 
-function Login()
-{
-  const nav = useNavigation<any>()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [username, setUsername] = useState<InputStateType>(inputInitState)
-  const [password, setPassword] = useState<InputStateType>(inputInitState)
+function Login() {
+   const nav = useNavigation<any>()
+   const dispatch = useDispatch()
+   const [isLoading, setIsLoading] = useState<boolean>(false)
+   const [email, setEmail] = useState<InputStateType>(inputInitState)
+   const [password, setPassword] = useState<InputStateType>(inputInitState)
 
-  console.log("yesh")
+   function submit() {
+      setIsLoading(true)
 
-  function submmit()
-  {
-    const data = {
-      email: username.value,
-      password: password.value
-    }
-    setIsLoading(true)
-    axios.post(API_AUTH, data)
-    .then((res) => {
-      setIsLoading(false)
-      nav.replace("HomeScreen")
-      console.log(res.data)
-    })
-    .catch((error) => {
-      setIsLoading(false)
-      console.error(error)
-    })
-  }
+      RekomAxios({
+         method: 'post',
+         url: '/auth/email',
+         data: {
+            email: email.value,
+            password: password.value
+         }
+      })
+         .then(res => {
+            dispatch(setAuth(res.data.authToken))
+            dispatch(setProfile(res.data.profile))
+            setIsLoading(false)
+            nav.navigate("BottomTabs")
+         })
+         .catch(e => {
+            console.log(e)
+            setIsLoading(false)
+            setEmail(pre => ({value: email.value, error: "incorrect email or password"}))
+            setPassword(pre => ({value: password.value, error: "incorrect email or password"}))
+         })
+   }
 
-  return (
-    <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
-      <Image source={require('../../assets/image/Header.png')} style={styles.header}/>
-      <View
-        style={{
-        paddingHorizontal: 10,
-        width: '90%',
-        alignSelf: 'center',
-        justifyContent: 'center'
-      }}>
+   return (
+      <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
+         <Image source={require('../../assets/image/Header.png')} style={styles.header}/>
+         <View
+            style={{
+               paddingHorizontal: 10,
+               width: '90%',
+               alignSelf: 'center',
+               justifyContent: 'center'
+            }}>
 
-        <TextField onChangeText={(text: string) => {
-          setUsername({value: text, error: ''})
-        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="username"/>
+            <TextField
+               error={email.error}
+               onChangeText={(text: string) => setEmail({value: text.trim(), error: ''})}
+               wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="email"/>
 
-        <SecureTextField onChangeText={(text) => {
-          setPassword({value: text, error: ''})
-        }} wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="password"/>
+            <SecureTextField
+               error={password.error}
+               onChangeText={(text) => setPassword({value: text, error: ''})}
+               wrapperStyle={{width: "100%", marginBottom: 15}} placeholder="password"/>
 
-        <Button onPress={submmit} isLoading={isLoading} wrapperStyle={{width: '100%', marginBottom: 20}} label="Sign In"/>
+            <Button onPress={submit} isLoading={isLoading} wrapperStyle={{width: '100%', marginBottom: 20}}
+                    label="Sign In"/>
 
-        <TouchableOpacity style={{alignSelf: 'center'}}>
-          <CsText>forgot your password?</CsText>
-        </TouchableOpacity>
+            <TouchableOpacity style={{alignSelf: 'center'}}>
+               <CsText>forgot your password?</CsText>
+            </TouchableOpacity>
 
-        <Button onPress={() => nav.navigate("RegisterScreen")} wrapperStyle={{alignSelf: 'center', marginTop: 80}} type={'secondary'} size={'sm'} label={'create new account'} />
+            <Button onPress={() => nav.navigate("RegisterScreen")} wrapperStyle={{alignSelf: 'center', marginTop: 80}}
+                    type={'secondary'} size={'sm'} label={'create new account'}/>
+         </View>
       </View>
-    </View>
-  )
+   )
 }
 
 const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    height: 253,
-    marginBottom: 50,
-  }
+   header: {
+      width: '100%',
+      height: 253,
+      marginBottom: 50,
+   }
 })
 export {Login}

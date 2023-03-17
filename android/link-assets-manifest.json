@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/ClimateCrisis-Regular.ttf",
+      "sha1": "1c2066cea06b4da61d5bff6b96e817dfce0717b0"
+    },
+    {
+      "path": "src/assets/fonts/K2D-ExtraBold.ttf",
+      "sha1": "8fb212903ca76f1a33b130eaee1514859ce14ded"
+    },
+    {
+      "path": "src/assets/fonts/TiltNeon-Regular.ttf",
+      "sha1": "6a2c92be0ee97f078233260b226d22311474db65"
+    }
+  ]
+}

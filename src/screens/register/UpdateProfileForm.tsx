@@ -1,41 +1,83 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
+import React, { useState } from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View, Platform} from 'react-native';
+import ImagePicker,{ImageOrVideo} from 'react-native-image-crop-picker';
 import {Colors} from '../../assets/colors';
-import {Button, CsText, Select, TextField} from '../../components';
-
+import {Button, CsText, Select, SelectDate, TextField} from '../../components';
+import Icon from 'react-native-vector-icons/Feather'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { InputStateType } from '../../@types/InputStateType';
+import { inputInitState } from '../../constant/inputInitState';
+import RekomAxios from '../../api/axios';
 
 interface UpdateProfileFormProps
 {
+  imageUri ?: string | null
 }
-
 
 const UpdateProfileForm = (props: UpdateProfileFormProps) => {
   const nav = useNavigation<any>()
-  const [selected, setSelected] = React.useState('');
-  const data = [
-    {key: '1', value: 'Mobiles', disabled: true},
-    {key: '2', value: 'Appliances'},
-    {key: '3', value: 'Cameras'},
-    {key: '4', value: 'Computers', disabled: true},
-    {key: '5', value: 'Vegetables'},
-    {key: '6', value: 'Diary Products'},
-    {key: '7', value: 'Drinks'},
-  ];
+
+  const [avatar, setAvatar] = useState<ImageOrVideo>();
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+  const [fullNameInput, setFullNameInput] = useState<InputStateType>(inputInitState)
+  const [dobInput, setdobInput] = useState<InputStateType>(inputInitState)
+  const [descriptionInput, setDescriptionInput] = useState<InputStateType>(inputInitState)
+  
+  const onChange = (selectedDate?: Date) => {
+    setDate((pre) => {
+      const currentDate = selectedDate || date;
+      return currentDate
+    });
+    setShow(false);
+  };
+
+  const showDatepicker = () => {
+    setShow(true);
+    setMode('date');
+  };
+
   const LoadLib = async () => {
     try {
-      const chooseImg = await ImagePicker.openPicker({
+      await ImagePicker.openPicker({
         width: 400,
         height: 400,
         cropping: true,
-      });
+      }).then(image => {
+        setAvatar(image)
+      })
     } catch (error) {console.log(error);
     }
   };
 
-  const submit = () => {
-    nav.navigate("IntroScreen")
+  const submit = async() => {
+    var data = new FormData();
+
+    data.append('avatar', {
+      uri: avatar?.path,
+      type: "multipart/form-data",
+      name: avatar?.path.split("/").pop()
+    });
+    data.append('fullName', fullNameInput.value)
+    data.append('dob', dobInput.value)
+    data.append('description', descriptionInput.value)
+    RekomAxios({
+      method: 'put',
+      url: 'rekomers/me/profile',
+      headers: {
+        "Content-Type": 'multipart/form-data'
+      },
+      data: data
+    })
+    .then((res) => {
+      console.log(res)
+      nav.navigate("Home")
+    })
+    .catch((e) => {
+      console.log(e)
+    })
   }
 
   return (
@@ -44,11 +86,14 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
           Let's update your profile
         </Text>
 
-        <TouchableOpacity onPress={LoadLib} style={{alignSelf: 'center'}}>
+        <TouchableOpacity onPress={LoadLib} style={{alignSelf: 'center', marginBottom: 10}}>
           <Image
             style={styles.setAvt}
-            source={require('../../assets/image/avt.png')}
-          />
+            source={avatar ? { uri: avatar.path } : require('../../assets/image/avt.jpg')}
+            />
+            <View style={{padding: 5, borderRadius: 100, position: 'absolute', bottom: 5, left: 5, backgroundColor: Colors.B}}>
+              <Icon name="edit" size={15} color={Colors.E}/>
+            </View>
         </TouchableOpacity>
 
         <TextField
@@ -56,35 +101,38 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
           placeholder={'Your full name'}
           type={'left'}
           size={'lg'}
+          onChangeText={(fullName: string) => {
+            setFullNameInput({
+               value: fullName,
+               error: ''
+            })
+         }}
         />
-
-        <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: 15,
-          }}>
-          <Select
-            wrapperStyle={{width: '48%'}}
-            placeholder={'Country'}
-            setSelected={(val: React.SetStateAction<string>) =>
-              setSelected(val)
-            }
-            data={data}
-            save="value"
-          />
-          <Select
-            wrapperStyle={{width: '48%'}}
-            placeholder={'City'}
-            setSelected={(val: React.SetStateAction<string>) =>
-              setSelected(val)
-            }
-            data={data}
-            save="value"
-          />
-        </View>
-
+        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center', width: '100%'}} onPress={showDatepicker}>
+          <SelectDate day={date.getDay()} month={date.getMonth()} year={date.getFullYear()}/>
+        </TouchableOpacity>
+        {show && (
+        <DateTimePicker
+        testID="dateTimePicker"
+        value={date}
+        mode={'date'}
+        is24Hour={true}
+        display="default"
+        onChange={(e, d) => onChange(d)}
+        />
+    )}
+        <TextField
+          wrapperStyle={{marginVertical: 15, width: '100%'}}
+          placeholder={'Description'}
+          type={'left'}
+          size={'lg'}
+          onChangeText={(des: string) => {
+            setDescriptionInput({
+               value: des,
+               error: ''
+            })
+         }}
+        />
         <Button
           onPress={submit}
           wrapperStyle={{width: '100%', zIndex: -1}}
@@ -105,6 +153,8 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     alignSelf: 'center',
+    borderRadius: 100,
+    borderBottomLeftRadius: 25
   },
 });
 export {UpdateProfileForm};

@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import React, { Ref } from 'react';
+import {StyleSheet, Text, TextInput, View, Keyboard} from 'react-native';
 import {Colors} from '../../assets/colors';
 
 interface TextFieldProps {
@@ -8,15 +8,22 @@ interface TextFieldProps {
   type?: keyof typeof type;
   size?: keyof typeof size;
   wrapperStyle?: any;
+  textFieldStyle ?: any
   keyboardType?: any;
   error?: string;
+  multiline?: boolean
+  ref?: Ref<TextInput>;
 }
-const TextField = (props: TextFieldProps) => {
+
+const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref) => {
   return (
     <View style={[size[props.size ?? 'sm'].contain, defaultStyle.wrapper, props.wrapperStyle]}>
       <TextInput
+        ref={ref}
+        onBlur={() => Keyboard.dismiss()}
+        multiline={props.multiline}
         onChangeText={props.onChangeText}
-        style={[defaultStyle.textField, type[props.type ?? 'left'].placeholder]}
+        style={[defaultStyle.textField, type[props.type ?? 'left'].placeholder, props.textFieldStyle]}
         placeholder={props.placeholder}
         keyboardType={props.keyboardType}
       />
@@ -25,16 +32,34 @@ const TextField = (props: TextFieldProps) => {
       ) : null}
     </View>
   );
-};
+})
+
+// const TextField = (props: TextFieldProps) => {
+//   return (
+//     <View style={[size[props.size ?? 'sm'].contain, defaultStyle.wrapper, props.wrapperStyle]}>
+//       <TextInput
+//         ref={props.ref}
+//         onBlur={() => Keyboard.dismiss()}
+//         multiline={props.multiline}
+//         onChangeText={props.onChangeText}
+//         style={[defaultStyle.textField,props.textFieldStyle, type[props.type ?? 'left'].placeholder]}
+//         placeholder={props.placeholder}
+//         keyboardType={props.keyboardType}
+//       />
+//       {props.error ? (
+//         <Text style={defaultStyle.error}>{props.error}</Text>
+//       ) : null}
+//     </View>
+//   );
+// };
 const defaultStyle = StyleSheet.create({
   wrapper: {
-    // height: 50
   },
   textField: {
+    backgroundColor: "white",
     borderRadius: 100,
     borderWidth: 1,
     borderColor: Colors.C,
-    // height: "100%"
   },
   error: {
     color: 'red',
@@ -44,9 +69,19 @@ const defaultStyle = StyleSheet.create({
   },
 });
 const size = {
+  xs: StyleSheet.create({
+    contain: {
+      width: 65,
+    },
+  }),
   sm: StyleSheet.create({
     contain: {
       width: 155,
+    },
+  }),
+  md: StyleSheet.create({
+    contain: {
+      width: 270,
     },
   }),
   lg: StyleSheet.create({
@@ -54,19 +89,54 @@ const size = {
       width: 331,
     },
   }),
+  xxl: StyleSheet.create({
+    contain: {
+      width: '100%',
+    },
+  }),
 };
 const type = {
   left: StyleSheet.create({
+    textField: {
+      borderRadius: 100,
+      borderWidth: 1,
+      borderColor: Colors.C,
+    },
     placeholder: {
       textAlign: 'left',
       paddingHorizontal: 15,
     },
   }),
+  top: StyleSheet.create({
+    textField: {
+      borderRadius: 100,
+      borderWidth: 1,
+      borderColor: Colors.C,
+    },
+    placeholder: {
+      textAlign: 'left',
+      textAlignVertical: 'top',
+      padding: 18
+    },
+  }),
   center: StyleSheet.create({
+    textField: {
+      borderRadius: 100,
+      borderWidth: 1,
+      borderColor: Colors.C,
+    },
     placeholder: {
       textAlign: 'center',
     },
   }),
+  none: {
+    textField: {
+      border: 0
+    },
+    placeholder: {
+      
+    },
+  }
 };
 
 export {TextField};
