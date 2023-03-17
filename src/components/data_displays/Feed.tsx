@@ -8,27 +8,26 @@ import { DishInfo } from "./DishInfo";
 import { RestaurantCard } from "./RestaurantCard";
 import { ReviewCard } from "./ReviewCard";
 
-
 interface FeedProps
 {
   restaurant: RestaurantCardApiType
   foodList: DishInfoApiType[]
   standardReview?: ReviewCardType
 }
+
 const width = Dimensions.get('window').width
 
 const Feed = (props: FeedProps) => {
   const getFoodCount = () => props.foodList.length
   const getFoods = (foods: DishInfoApiType[], index: number) => props.foodList[index];
   return(
-    <View style={{gap: 15}}>
+    <View style={{gap: 20, marginBottom: 20}}>
       <RestaurantCard {...props.restaurant} wrapperStyle={{marginHorizontal: 20}}/>
       <VirtualizedList 
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{gap: 13, justifyContent: "space-between", paddingLeft: 20}}
           data={props.foodList}
           horizontal={true}
-          style={{marginBottom: 20}}
           renderItem={({item}) => <DishInfo {...props.foodList} wrapperStyle={{width: (width - 50)*0.48}} {...item} />}
           getItem={getFoods}
           getItemCount={getFoodCount}

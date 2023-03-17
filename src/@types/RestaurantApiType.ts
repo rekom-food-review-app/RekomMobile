@@ -3,7 +3,10 @@ interface RestaurantApiType {
     name: string
     description: string
     coverImageUrl: string
-    coordinates: string
+    coordinates: {
+        latitude: number,
+        longitude: number
+    }
     ratingResult: {
         average: number
         amount: number
@@ -15,5 +18,7 @@ interface RestaurantApiType {
     }
     restaurantId: string
     isMyFav: boolean
+    address: string
+    canReview: boolean
 }
 export {type RestaurantApiType}

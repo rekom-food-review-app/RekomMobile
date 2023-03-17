@@ -5,7 +5,10 @@ const restaurantApiInitState: RestaurantApiType = {
     name: "",
     description: "",
     coverImageUrl: "https://i.pinimg.com/originals/44/f3/8f/44f38f786d1a2c63904b64a6b17e6634.png",
-    coordinates: "",
+    coordinates: {
+        latitude: 17.5914,
+        longitude: 85.5718
+    },
     ratingResult: {
         average: 0,
         amount: 0,
@@ -16,5 +19,8 @@ const restaurantApiInitState: RestaurantApiType = {
         percentOne:0,
     },
     restaurantId: '',
+    isMyFav: false,
+    address: '',
+    canReview: false
 }
 export {restaurantApiInitState}

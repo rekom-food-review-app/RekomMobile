@@ -3,10 +3,9 @@ import {CsText, UserActionInfo} from "./index";
 import {Colors} from "../../assets/colors";
 import Icon from 'react-native-vector-icons/Feather'
 import {IconButton} from "../index";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {ReviewCardType} from "../../@types/ReviewCardType";
-import { imageUrlBase } from "../../constant/imageUrlBase";
 import RekomAxios from "../../api/axios";
 
 interface ReviewCardProps extends ReviewCardType {
@@ -17,7 +16,7 @@ interface ReviewCardProps extends ReviewCardType {
 }
 
 function ReviewCard(props: ReviewCardProps) {
-   const [reactIcon, setReactIcon] = useState<string>('');
+   const [reactIcon, setReactIcon] = useState<string | undefined>(props.myReactionId);
    const nav = useNavigation<any>();
    
    const [reaction, setReaction] = useState({
@@ -25,16 +24,9 @@ function ReviewCard(props: ReviewCardProps) {
       "2": props.amountDisagree,
       "3": props.amountUseful,
    })
-   
-   // useEffect(() => {
-   //    setReaction({
-   //       "1": props.amountAgree,
-   //       "2": props.amountDisagree,
-   //       "3": props.amountUseful
-   //    })
-   // }, [props.amountAgree, props.amountDisagree, props.amountUseful])
 
    const handleReact = (id: string) => {
+      console.log(props.id)
       if (id == reactIcon) {
          setReaction((pre) => {
             pre[id as keyof typeof pre] = pre[id as keyof typeof pre] - 1
@@ -56,34 +48,33 @@ function ReviewCard(props: ReviewCardProps) {
    }
 
    const unReact = (id: string) =>{
-         // RekomAxios({
-         //    method: 'post',
-         //    url: 'reviews/214c76cf-13a0-46e4-a405-01ca9a004b5b/reactions/3'
-         // })
-         // .then(res => {
-         //    console.log(res)
-         // })
-         // .catch(e => {
-         //    console.log(e)
-         // })
+      RekomAxios({
+         method: 'delete',
+         url: `reviews/${props.id}/reactions/${id}`
+      })
+      .then(res => {
+         console.log(res)
+      })
+      .catch(e => {
+         console.log(e)
+      })
    }
    
    const react = (id: string) => {
-         // RekomAxios({
-         //    method: 'post',
-         //    url: 'reviews/214c76cf-13a0-46e4-a405-01ca9a004b5b/reactions/3'
-         // })
-         // .then(res => {
-         //    console.log(res)
-         // })
-         // .catch(e => {
-         //    console.log(e)
-         // })
+      RekomAxios({
+         method: 'post',
+         url: `reviews/${props.id}/reactions/${id}`
+      })
+      .then(res => {
+         console.log(res)
+      })
+      .catch(e => {
+         console.log(e)
+      })
    }
    
    return (
       <View style={props.wrapperStyle}>
-
          <UserActionInfo
             id=""
             onPressUser={() => nav.push("OtherProfileScreen")}
@@ -96,11 +87,11 @@ function ReviewCard(props: ReviewCardProps) {
                <Image style={{width: "100%", height: 300}}
                    source={{uri: `${props.images[0]}`}}/>
                <IconButton typeBtn={'inactive'} size={'md'}
-                  source={require('../../assets/image/i1.gif')}
+                  source={require('../../assets/image/face-vomiting.png')}
                   wrapperStyle={{position: 'absolute', right: 15, bottom: 15}}
                >{props.ratingId}</IconButton>
             </View>
-            <View style={{marginHorizontal: 20, paddingVertical: 10}}>
+            <View style={{marginHorizontal: 20, paddingTop: 10}}>
                <TouchableOpacity disabled={props.textTouchingDisable}
                                  onPress={() => nav.navigate("ReviewCardDetailScreen", props)}><CsText
                   numberOfLines={props.numberOfLines}>{props.content}</CsText></TouchableOpacity>
@@ -148,7 +139,6 @@ const defaultStyle = StyleSheet.create({
    borderBottomWidth: 1,
    width: '100%',
    marginTop: 30,
-   marginBottom: 20
    }
 })
 export {ReviewCard}

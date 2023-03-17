@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import {FlatList, View} from 'react-native'
-import RekomAxios from '../../api/axios'
 import { Colors } from '../../assets/colors'
 import { UserActionInfo } from '../../components'
 
@@ -25,7 +24,7 @@ const CommentSection = (props: CommentSectionProps) => {
             content={item.content}
             createdAt={item.createdAt}
           />}
-        keyExtractor={(item, index) => item.key}
+        keyExtractor={(item) => item.id}
         // onEndReached={props.handleEndReached}
         onEndReachedThreshold={0.01}
       />

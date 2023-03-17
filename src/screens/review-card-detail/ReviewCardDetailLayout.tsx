@@ -21,12 +21,11 @@ const ReviewCardDetailLayout: React.FC = () => {
    const tabEmoij = useSelector((state: RootState) => state.restaurantTab.tabRes)
    const [review, setReview] = useState<ReviewCardType>(route.params as ReviewCardType)
    const [addComment, setAddComment] = useState<InputStateType>(inputInitState)
-   const [commentList, setCommentList] = useState([]);
+   const [commentList, setCommentList] = useState<any[]>([]);
    const [lastTimestamp, setLastTimestamp] = useState('')
    const [page, setPage] = useState(1);
-   const size = 5
+   const size = 12
    
-   // console.log(lastTimestamp)
    useEffect(() => {
       RekomAxios({
          method: 'get',
@@ -35,7 +34,6 @@ const ReviewCardDetailLayout: React.FC = () => {
       })
       .then(res => {
          let commentList = res.data.commentList
-         // setLastTimestamp(commentList[size-1].createdAt) 
          setCommentList((pre) => {
             return pre.concat(commentList)
          })
@@ -47,25 +45,29 @@ const ReviewCardDetailLayout: React.FC = () => {
 
    const handleEndReached = () => {
       setPage((prevPage) => prevPage + 1);
-    };
+   };
    
    useEffect(() => {
       const connection = new signalR.HubConnectionBuilder()
-          .withUrl(WS_COMMENT_HUB)
-          .build();
+         .withUrl(WS_COMMENT_HUB)
+         .build();
 
-      connection.on("ReceiveComment", comment => {
-         console.log(comment)
+      connection.on("ReceiveComment", (comment: any) => {
+         setCommentList((pre) => {
+            pre.unshift(comment)
+            return pre
+         })
       });
 
       connection.start()
          .then(() => console.log("ok"))
-         .catch((error) => console.log(error))
+         .catch((error) => console.log('-------------', error))
 
       return () => {
-         //  connection.stop();
+         console.log("out")
+         connection.stop();
       };
-  }, []);
+   }, []);
 
    const post = () => {
       let data = {
@@ -94,22 +96,9 @@ const ReviewCardDetailLayout: React.FC = () => {
                isEmojiDisplay={false}/>
             <View style={{paddingHorizontal: 20, marginBottom: 70}}>
                <EmoijBar 
-                  tab={tabEmoij} id={review.id} 
-                  createdAt={review.createdAt} 
-                  content={review.content} 
-                  images={review.images} 
-                  amountAgree={review.amountAgree} 
-                  amountDisagree={review.amountDisagree} 
-                  amountReply={review.amountReply} 
-                  amountUseful={review.amountUseful} 
-                  myReactionId={review.myReactionId} 
-                  rekomerId={review.rekomerId} 
-                  rekomerAvatarUrl={review.rekomerAvatarUrl}
-                  rekomerFullName={review.rekomerFullName}
-                  restaurantCoordinates={review.restaurantCoordinates}
-                  restaurantId={review.restaurantId}
-                  restaurantName={review.restaurantName}
-                  ratingId={review.ratingId}
+                  {...review}
+                  tab={tabEmoij}
+                  // restaurantCoordinates={review.restaurantCoordinates}
                />
                {
                   tabEmoij == 1 ? <CommentSection commentList={commentList} handleEndReached={handleEndReached} /> : null

@@ -10,19 +10,25 @@ const Home = () =>
 	const [feedList, setFeedList] = useState<FeedProps[]>([])
 	const getFeedCount = () => feedList.length
   const getFeeds = (feeds: FeedProps[], index: number) => feedList[index];
+	const [page, setPage] = useState<number>(1)
+	const size = 10
 
 	useEffect(() => {
+		loadFeed()
+	}, [page])
+
+	const loadFeed = () => {
 		RekomAxios({
-			 method: 'get',
-			 url: 'feeds?Location.Latitude=10.0252955&Location.Longitude=105.0312475&Page=1&Size=5',
+			method: 'get',
+			url: `feeds?Location.Latitude=10.0252955&Location.Longitude=105.0312475&Page=${page}&Size=${size}`,
 		})
-			 .then(res => {
-					setFeedList(res.data.feedList) 
-			 })
-			 .catch(e => {
+			.then(res => {
+					setFeedList((pre) => pre.concat(res.data.feedList)) 
+			})
+			.catch(e => {
 				console.log(e)
-			 })
- }, [])
+			})
+	}
 
 	return (
 		<ScrollView style={{backgroundColor: Colors.B}}>
@@ -36,6 +42,10 @@ const Home = () =>
           getItem={getFeeds}
           getItemCount={getFeedCount}
           keyExtractor={(item, index) => index.toString()}
+					onEndReachedThreshold={5}
+					onEndReached={() => {
+						setPage(pre => pre + 1)
+					}}
         />
 		</ScrollView>
 	)

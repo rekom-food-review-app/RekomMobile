@@ -58,7 +58,7 @@ const MyProfile = () => {
             />
          <FlatList 
             data={reviews}
-            style={{marginBottom: 50}}
+            style={{marginBottom: 50, gap: 20}}
             renderItem = {({item}) => <ReviewCard key={item.id} {...item}
             />}
             keyExtractor={(item, index) => index.toString()}

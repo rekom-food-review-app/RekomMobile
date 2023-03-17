@@ -76,7 +76,6 @@ const ReviewForm = () => {
           name: image.path.split("/").pop()
         })
       })
-
       RekomAxios({
         method: 'post',
         url: `restaurants/${selectedRestaurant.info!.id}/reviews`,
