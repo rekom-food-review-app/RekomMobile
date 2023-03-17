@@ -4,7 +4,7 @@ const restaurantApiInitState: RestaurantApiType = {
     id: "",
     name: "",
     description: "",
-    coverImageUrl: "https://i.pinimg.com/originals/44/f3/8f/44f38f786d1a2c63904b64a6b17e6634.png",
+    coverImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo54hpuEkGK1gxr7JFQ6e9J7JoVv_PaFVDZVr9fvbhJTBBiyRxUpcpA360_JbGE_nrMAk&usqp=CAU",
     coordinates: {
         latitude: 17.5914,
         longitude: 85.5718

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import {FlatList, VirtualizedList, TextInput, View, Dimensions, Keyboard, Image} from 'react-native'
+import {FlatList, VirtualizedList, TextInput, View, Dimensions, Keyboard, Image, Text} from 'react-native'
 import { DishInfoApiType } from '../../@types/DishInfoApiType'
 import RekomAxios from '../../api/axios'
 import { CsText, DishInfo, RestaurantCard, Title, UserActionInfo } from '../../components'
@@ -10,6 +10,7 @@ import {inputInitState} from '../../constant/inputInitState';
 import { RestaurantCardApiType } from '../../@types/RestaurantCardApiType'
 import { ScrollView } from 'react-native-virtualized-view'
 import { useNavigation } from '@react-navigation/native'
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const width = Dimensions.get('window').width
 
@@ -69,7 +70,47 @@ const Search = () => {
       {
         isLoading
         ? (
-          <View><CsText>loadding</CsText></View>
+          <SkeletonPlaceholder borderRadius={4}>
+            <View style={{paddingHorizontal: 20, flexDirection: 'column', gap: 20}}>
+              <View>
+                <Text style={{width: 100, height: 20, marginBottom: 15}} />
+                <View style={{width: '100%', height: 200, borderRadius: 20}}/>
+              </View>
+              <View>
+                <Text style={{width: 100, height: 20, marginBottom: 15}} />
+                <View style={{flexDirection:'row', gap: 15}}>
+                  <View style={{ flexDirection: 'column', gap: 5}}>
+                    <View style={{width: '100%', height: 150, borderTopLeftRadius: 20, borderTopRightRadius: 20}} />
+                    <Text style={{width: 70, height: 15}}/>
+                    <Text style={{width: 150, height: 25}}/>
+                  </View>
+                  <View style={{ flexDirection: 'column', gap: 5}}>
+                    <View style={{width: '100%', height: 150, borderTopLeftRadius: 20, borderTopRightRadius: 20}} />
+                    <Text style={{width: 70, height: 15}}/>
+                    <Text style={{width: 150, height: 25}}/>
+                  </View>
+                  <View style={{ flexDirection: 'column', gap: 5}}>
+                    <View style={{width: '100%', height: 150, borderTopLeftRadius: 20, borderTopRightRadius: 20}} />
+                    <Text style={{width: 70, height: 15}}/>
+                    <Text style={{width: 150, height: 25}}/>
+                  </View>
+                </View>
+              </View>
+              <View>
+                <Text style={{width: 100, height: 20, marginBottom: 10}} />
+                <View style={{flexDirection: 'column', gap: 5}}>
+                  <View style={{flexDirection: 'row', marginBottom: 5}}>
+                    <View style={{width: 50, height: 50, borderRadius: 100, marginRight: 7}}/>
+                    <View style={{width: 280, height: 50, borderRadius: 10}} />
+                  </View>
+                  <View style={{flexDirection: 'row', marginBottom: 5}}>
+                    <View style={{width: 50, height: 50, borderRadius: 100, marginRight: 7}}/>
+                    <View style={{width: 280, height: 50, borderRadius: 10}} />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </SkeletonPlaceholder>
         )
         : !searchResult
         ? 
