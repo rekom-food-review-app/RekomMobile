@@ -15,13 +15,13 @@ interface RestaurantCardProps extends RestaurantCardApiType
 const RestaurantCard = (props: RestaurantCardProps) => {
   const nav = useNavigation<any>()
   return(
-    <TouchableOpacity style={[{position: 'relative'}, props.wrapperStyle]} onPress={() => nav.navigate('RestaurantScreen', {id: props.id})}>
+    <View style={props.wrapperStyle}>
+      <TouchableOpacity style={[{position: 'relative'}]} onPress={() => nav.navigate('RestaurantScreen', {id: props.id})}>
       <Image source={{uri: props.coverImageUrl}} style={{width: '100%', height: 200, borderRadius: 20}}/>
       <View style={{position: 'absolute', bottom: 15, left: 15}}>
         <View style={{flexDirection: 'column', gap: 7}}>
           <View style={{flexDirection: 'row', gap: 5}}>
             <View style={{flexDirection: 'row', gap: 3, backgroundColor: 'white', paddingHorizontal: 10,borderRadius: 20, alignItems: 'center'}}>
-              <Image source={require('../../assets/image/golden.png')} style={{width: 20, height: 20}}/>
               <Image source={require('../../assets/image/golden.png')} style={{width: 20, height: 20}}/>
               <Image source={require('../../assets/image/golden.png')} style={{width: 20, height: 20}}/>
               <Image source={require('../../assets/image/golden.png')} style={{width: 20, height: 20}}/>
@@ -37,6 +37,7 @@ const RestaurantCard = (props: RestaurantCardProps) => {
         </View>
       </View>
     </TouchableOpacity>
+    </View>
   )
 }
 

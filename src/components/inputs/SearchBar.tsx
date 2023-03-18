@@ -13,6 +13,7 @@ interface SearchBarProps
   inputRef?: Ref<TextInput>
   onChangeText?: (text: string) => void
   error?: string
+  inputValue?: string
 }
 
 const SearchBar = React.forwardRef<TextInput, SearchBarProps>((props, ref) => {
@@ -24,11 +25,12 @@ const SearchBar = React.forwardRef<TextInput, SearchBarProps>((props, ref) => {
         </TouchableOpacity>
         {/* <CsText style={{alignSelf: "center"}} weight={500}>restaurant:</CsText> */}
         <TextField 
+          value={props.inputValue}
           type='none'
           textFieldStyle={{padding: 5, borderWidth: 0}}
           error={props.error} 
           ref={ref} 
-          wrapperStyle={{width: "50%", border: 0}}
+          wrapperStyle={{width: "70%", border: 0}}
           onChangeText={props.onChangeText} placeholder={props.placeholder} 
           />
         <TouchableOpacity onPress={props.onSubmit} style={{position: 'absolute', zIndex: 1, right: 0, padding: 8}}>

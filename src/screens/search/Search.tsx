@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import {FlatList, VirtualizedList, TextInput, View, Dimensions, Keyboard, Image, Text} from 'react-native'
 import { DishInfoApiType } from '../../@types/DishInfoApiType'
 import RekomAxios from '../../api/axios'
@@ -54,9 +54,9 @@ const Search = () => {
   }
 
   const getRestaurantCount = () => searchResult!.restaurantList.length
-  const getFoodCount = () => searchResult!.foodList.length
-
   const getRestaurants = (restaurants: RestaurantCardApiType[], index: number) => searchResult!.restaurantList[index];
+
+  const getFoodCount = () => searchResult!.foodList.length
   const getFoods = (foods: DishInfoApiType[], index: number) => searchResult!.foodList[index];
 
   return(
@@ -67,7 +67,7 @@ const Search = () => {
         onChangeText={(text: string) => setSearch({value: text.trim(), error: ''})} 
         ref={searchRef} placeholder='Search ...'
         wrapperStyle={{paddingHorizontal: 20, zIndex: 100, paddingTop: 30, paddingBottom: 20, position: "absolute"}}/>
-      <ScrollView style={{paddingTop: 110}}>
+      <ScrollView style={{paddingTop: 100}}>
       {
         isLoading
         ? (
@@ -121,7 +121,7 @@ const Search = () => {
           </View>
         : <>
         <View>
-          <Title titleName='Restaurants' wrapperStyle={{paddingHorizontal: 24}}/>
+          <Title onPressSeeMore={() => nav.navigate("RestaurantSearch", {keyword: search.value})} titleName='Restaurants' wrapperStyle={{paddingHorizontal: 24}}/>
 
           <VirtualizedList 
             contentContainerStyle={{gap: 15, paddingHorizontal: 20}}
@@ -129,14 +129,7 @@ const Search = () => {
             horizontal={true}
             style={{marginBottom: 20}}
             showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => <RestaurantCard 
-              wrapperStyle={{width: width - 60}}
-              id={item.id} 
-              key={item.id} 
-              name={item.name}
-              coverImageUrl={item.coverImageUrl} 
-              ratingAverage={item.ratingAverage} 
-              />
+            renderItem={({item}) => <RestaurantCard {...item} wrapperStyle={{width: width - 60}}/>
             }
             getItem={getRestaurants}
             getItemCount={getRestaurantCount}

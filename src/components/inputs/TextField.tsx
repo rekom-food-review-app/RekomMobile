@@ -13,12 +13,14 @@ interface TextFieldProps {
   error?: string;
   multiline?: boolean
   ref?: Ref<TextInput>;
+  value?: string
 }
 
 const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref) => {
   return (
     <View style={[size[props.size ?? 'sm'].contain, defaultStyle.wrapper, props.wrapperStyle]}>
       <TextInput
+        value={props.value}
         ref={ref}
         onBlur={() => Keyboard.dismiss()}
         multiline={props.multiline}

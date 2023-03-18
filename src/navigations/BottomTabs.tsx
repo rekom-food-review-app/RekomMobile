@@ -1,10 +1,11 @@
 import { Image, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Home, MyProfile, FavoriteRes, Search } from "../screens";
+import { Home, MyProfile, FavoriteRes, Search, RestaurantSearch } from "../screens";
 import Icon from 'react-native-vector-icons/Feather'
 import { Colors } from "../assets/colors";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import { SearchStack } from "./SearchStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,14 +18,17 @@ const BottomTabs = () => {
                             tabBarIcon: ({ focused }) => (
                               <Icon name="tv" size={27} style={{ color: focused ? Colors.A : Colors.C }}/>
                               )}} name='Home' component={Home}/>
+
       <Tab.Screen options={{headerShown: false, 
                             tabBarIcon: ({ focused }) => (
                               <Icon name="search" size={27} style={{ color: focused ? Colors.A : Colors.C }}/>
-                            )}} name='Search' component={Search}/>
+                            )}} name='SearchStack' component={SearchStack}/>
+
       <Tab.Screen options={{headerShown: false, 
                             tabBarIcon: ({ focused }) => (
                               <Icon name="heart" size={27} style={{ color: focused ? Colors.A : Colors.C }}/>
                             )}} name='FavouriteRes' component={FavoriteRes}/>
+                            
       <Tab.Screen options={{headerShown: false, 
                             tabBarIcon: ({ focused }) => (
                               <Image source={{uri: profile.avatarUrl}} style={{width: 40, height: 40, borderRadius: 100}}/>
