@@ -31,6 +31,7 @@ const Search = () => {
   const nav = useNavigation<any>()
 
   const handleSearch = () => {
+    Keyboard.dismiss()
     setIsLoading(true)
     RekomAxios({
       method: 'get',

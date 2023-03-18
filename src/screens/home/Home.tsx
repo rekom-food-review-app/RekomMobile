@@ -10,7 +10,6 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 const Home = () =>
 {
 	const [feedList, setFeedList] = useState<FeedProps[]>([])
-	const getFeedCount = () => feedList.length
   const getFeeds = (feeds: FeedProps[], index: number) => feedList[index];
   const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [page, setPage] = useState<number>(1)
@@ -27,8 +26,8 @@ const Home = () =>
 			url: `feeds?Location.Latitude=10.0252955&Location.Longitude=105.0312475&Page=${page}&Size=${size}`,
 		})
 			.then(res => {
-				setIsLoading(false)
 				setFeedList((pre) => pre.concat(res.data.feedList)) 
+				setIsLoading(false)
 			})
 			.catch(e => {
 				console.log(e)
@@ -38,6 +37,20 @@ const Home = () =>
 	return (
 		<ScrollView style={{backgroundColor: Colors.B}}>
 			<HeaderBack type={'secondary'} iconRight='map-pin' title="REKOM" wrapperStyle={{marginTop: 30, marginBottom: 20,paddingHorizontal: 20}}/> 
+			<VirtualizedList 
+					windowSize={5}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: 1, justifyContent: "space-between", paddingLeft: 20}}
+          data={feedList}
+          renderItem={({item}) => <Feed {...item} />}
+          getItem={getFeeds}
+          getItemCount={() => feedList.length}
+          keyExtractor={(item, index) => index.toString()}
+					onEndReachedThreshold={6}
+					onEndReached={() => {
+						setPage(pre => pre + 1)
+					}}
+        />
 			{
 				isLoading 
 				? (
@@ -75,24 +88,9 @@ const Home = () =>
 					</SkeletonPlaceholder>
 				)
 				: (
-					<VirtualizedList 
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{gap: 1, justifyContent: "space-between", paddingLeft: 20}}
-          data={feedList}
-          style={{marginBottom: 20}}
-          renderItem={({item}) => <Feed {...item} />}
-          getItem={getFeeds}
-          getItemCount={getFeedCount}
-          keyExtractor={(item, index) => index.toString()}
-					onEndReachedThreshold={5}
-					onEndReached={() => {
-						setPage(pre => pre + 1)
-					}}
-        />
+					null
 				)
 			}
-			
-			
 		</ScrollView>
 	)
 }

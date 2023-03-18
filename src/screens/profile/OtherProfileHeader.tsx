@@ -4,32 +4,44 @@ import {Colors} from '../../assets/colors'
 import { useEffect, useState } from 'react';
 import RekomAxios from '../../api/axios';
 import {HeaderBack} from '../../components'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { updateAmountFollowing } from '../../global-states';
+import { RekomerProfileApiType } from '../../@types/RekomerProfileApiType';
+import { rekomerProfileApiInitState } from '../../constant/rekomerProfileApiInitState';
 
-interface CsOtherProfileProps
+interface OtherProfileHeaderProps
 {
-   username: string,
-   avatarUrl: string,
-   fullName: string,
-   description: string,
-   amountReview: number,
-   amountFollower: number,
-   amountFollowing: number,
-   isFollow?: boolean,
-   id: string
+   rekomerId: string
 }
-const CsOtherProfile = (props: CsOtherProfileProps) => {
-   const [followStatus, setFollowStatus] = useState<boolean | undefined>(props.isFollow)
-   const [amountFollower, setAmountFollower] = useState(props.amountFollower)
+
+const OtherProfileHeader = (props: OtherProfileHeaderProps) =>
+{
+   const [rekomerProfile, setRekomerProfile] = useState<RekomerProfileApiType>(rekomerProfileApiInitState)
+
+   const [followStatus, setFollowStatus] = useState<boolean | undefined>(false)
+   const [amountFollower, setAmountFollower] = useState(0)
 
    const nav = useNavigation<any>()
    const dispatch = useDispatch()
 
    useEffect(() => {
-      setFollowStatus(props.isFollow)
-   }, [props.isFollow])
+      RekomAxios({
+         method: 'get',
+         url: `/rekomers/${props.rekomerId}/profile`,
+         responseType: 'json'
+      })
+      .then(res => {
+         setRekomerProfile(res.data.rekomer)
+      })
+      .catch(e => {
+         console.log(e)
+      })
+   },[])
+
+   useEffect(() => {
+      setFollowStatus(rekomerProfile.isFollow)
+   }, [rekomerProfile.isFollow])
    
    const changeFollowStatus = () => {
       let url = "follow"
@@ -46,7 +58,7 @@ const CsOtherProfile = (props: CsOtherProfileProps) => {
       setAmountFollower(amountFollower + num)
 
       RekomAxios({
-         url: `rekomers/${props.id}/${url}`,
+         url: `rekomers/${props.rekomerId}/${url}`,
          method
       })
       .then(res => {
@@ -62,11 +74,11 @@ const CsOtherProfile = (props: CsOtherProfileProps) => {
 
    return (
       <View style={defaultStyle.contain}>
-         <HeaderBack type={'secondary'} title={props.username}
+         <HeaderBack type={'secondary'} title={rekomerProfile.username}
                      wrapperStyle={{ paddingHorizontal: 20, marginBottom: 20}}/>
          <View>
             <Avatar
-               imgUrl={props.avatarUrl}
+               imgUrl={rekomerProfile.avatarUrl}
                wrapperStyle={{marginBottom: 20}} size={'lg'}/>
             <View style={{
                backgroundColor: Colors.B,
@@ -83,16 +95,16 @@ const CsOtherProfile = (props: CsOtherProfileProps) => {
                label={followStatus ? 'following' : 'follow'} />
             </View>
          </View>
-         <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{props.fullName ? props.fullName : 'nhô nhem'}</CsText>
+         <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{rekomerProfile.fullName ? rekomerProfile.fullName : 'nhô nhem'}</CsText>
          <CsText style={{
             alignSelf: 'center',
             marginBottom: 10,
             textAlign: 'center'
-         }}>{props.description}</CsText>
+         }}>{rekomerProfile.description}</CsText>
          <View style={{flexDirection: 'row'}}>
-            <Hi number={props.amountReview} label='Reviews'/>
-            <TouchableOpacity onPress={() => {nav.push('Follow', {id: props.id, route: "followers"})}}><Hi number={props.amountFollower} label='Followers'/></TouchableOpacity>
-            <TouchableOpacity onPress={() => {nav.push('Follow', {id: props.id, route: "followings"})}}><Hi number={props.amountFollowing} label='Following'/></TouchableOpacity>
+            <Hi number={rekomerProfile.amountReview} label='Reviews'/>
+            <TouchableOpacity onPress={() => {nav.push('Follow', {id: rekomerProfile.id, route: "followers"})}}><Hi number={rekomerProfile.amountFollower} label='Followers'/></TouchableOpacity>
+            <TouchableOpacity onPress={() => {nav.push('Follow', {id: rekomerProfile.id, route: "followings"})}}><Hi number={rekomerProfile.amountFollowing} label='Following'/></TouchableOpacity>
          </View>
          <View style={defaultStyle.dashedLine}></View>
       </View>
@@ -118,4 +130,4 @@ const defaultStyle = StyleSheet.create({
    }
 })
 
-export {CsOtherProfile}
+export {OtherProfileHeader as CsOtherProfile}

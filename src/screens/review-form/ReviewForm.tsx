@@ -1,4 +1,4 @@
-import {Dimensions, TouchableOpacity, View, Image, StyleSheet} from 'react-native'
+import {Dimensions, TouchableOpacity, View, Image, StyleSheet, Keyboard} from 'react-native'
 import { Colors } from '../../assets/colors';
 import { Button, CsText, HeaderBack, IconButton, TextField } from '../../components'
 import Icon from 'react-native-vector-icons/Feather'
@@ -62,6 +62,7 @@ const ReviewForm = () => {
     }
   };
   function post () {
+      Keyboard.dismiss()
       setSubmitButtonState("disable" as never)
       setSubmitButtonLabel("Submiting...")
       setIsSubmiting(true)
