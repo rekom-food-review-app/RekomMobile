@@ -103,7 +103,7 @@ const OtherProfileHeader = (props: OtherProfileHeaderProps) =>
                }
             </View>
          </View>
-         <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{rekomerProfile.fullName ? rekomerProfile.fullName : 'nhô nhem'}</CsText>
+         <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{rekomerProfile.fullName}</CsText>
          <CsText style={{
             alignSelf: 'center',
             marginBottom: 10,
