@@ -16,6 +16,29 @@ interface ReviewCardProps extends ReviewCardType {
    textTouchingDisable?: boolean
 }
 
+const ratings = {
+   "1" : {
+      icon: require('../../assets/image/face-vomiting.png'),
+      label: "che che che"
+   },
+   "2" : {
+      icon: require('../../assets/image/unamused-face.png'),
+      label: "2"
+   },
+   "3" : {
+      icon: require('../../assets/image/relieved-face.png'),
+      label: "3"
+   },
+   "4" : {
+      icon: require('../../assets/image/face-savoring-food.png'),
+      label: "4"
+   },
+   "5" : {
+      icon: require('../../assets/image/smiling-face-with-heart-eyes.png'),
+      label: "sugoiii"
+   }
+}
+
 function ReviewCard(props: ReviewCardProps) {
    const [reactIcon, setReactIcon] = useState<string | undefined>(props.myReactionId);
    const nav = useNavigation<any>();
@@ -94,9 +117,9 @@ function ReviewCard(props: ReviewCardProps) {
                   closeIconColor="#fff"
                />
                <IconButton typeBtn={'inactive'} size={'md'}
-                  source={require('../../assets/image/face-vomiting.png')}
+                  source={ratings[props.ratingId as keyof typeof ratings].icon}
                   wrapperStyle={{position: 'absolute', right: 15, bottom: 15}}
-               >{props.ratingId}</IconButton>
+               >{ratings[props.ratingId as keyof typeof ratings].label}</IconButton>
             </View>
             <View style={{marginHorizontal: 20, paddingTop: 10}}>
                <TouchableOpacity disabled={props.textTouchingDisable}
