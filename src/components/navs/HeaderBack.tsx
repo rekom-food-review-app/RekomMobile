@@ -13,6 +13,7 @@ interface HeaderBackProps
   iconRight?: string,
   title?: string,
   onBack?: () => void
+  onPressExtend?: () => void
 }
 
 function HeaderBack(props: HeaderBackProps)
@@ -30,7 +31,7 @@ function HeaderBack(props: HeaderBackProps)
           ? <CsText size="md" weight={900} color='A' style={{alignSelf: "center"}}>{props.title}</CsText>
           : null
         }
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.onPressExtend}>
           <Icon style={[style.iconRight, headerStyle[props.type || "primary"].iconRight]} name={props.iconRight || "more-vertical"} size={27} color={Colors.B}/>
         </TouchableOpacity>
       </View>

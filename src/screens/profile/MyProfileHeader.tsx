@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import {Button, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {Avatar, CsText, Hi} from '../../components'
 import {Colors} from '../../assets/colors'
 import {HeaderBack} from "../../components"
@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
 import { setMyProfile } from '../../global-states'
+import { MyProfileMenu } from './MyProfileMenu'
 
 interface MyProfileHeaderProps
 {
@@ -19,6 +20,10 @@ const MyProfileHeader = (props: MyProfileHeaderProps) =>
    const nav = useNavigation<any>()
    const dispatch = useDispatch()
    const myProfile = useSelector((state: RootState) => state.myProfile.myProfile)
+
+   // const [isModalVisible, setModalVisible] = useState(false);
+
+   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
    useEffect(() => {
       RekomAxios({
@@ -35,7 +40,10 @@ const MyProfileHeader = (props: MyProfileHeaderProps) =>
    
    return (
       <View style={defaultStyle.contain}>
-         <HeaderBack type={'secondary'} title={myProfile.username}
+
+         <MyProfileMenu modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+
+         <HeaderBack onPressExtend={() => setModalVisible(true)} type={'secondary'} title={myProfile.username}
             wrapperStyle={{ paddingHorizontal: 20, marginBottom: 20}}/>
          <Avatar
             imgUrl={`${myProfile.avatarUrl}`} 
