@@ -1,7 +1,5 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-// @ts-ignore
-import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
    Home,
@@ -28,9 +26,8 @@ const App = () => {
          <NavigationContainer>
             <RootStack.Navigator>
                <RootStack.Screen options={{title: "", headerShown: false}} name='LoadingScreen' component={Loading}/>
-               <RootStack.Screen options={{title: "", headerShown: false}} name='LoginScreen' component={Login}/>
-               <RootStack.Screen options={{headerShown: false}} name="BottomTabs" component={BottomTabs}/>
-               <RootStack.Screen name='RegisterScreen' component={RegisterLayout}/>
+               <RootStack.Screen options={{headerShown: false}} name='LoginScreen' component={Login}/>
+               <RootStack.Screen options={{title: "", headerShown: true}} name='RegisterScreen' component={RegisterLayout}/>
 
                <RootStack.Screen options={{headerShown: false}} name='Food' component={FoodDetail}/>
                <RootStack.Screen options={{headerShown: false}} name='RestaurantScreen' component={RestaurantLayout}/>
@@ -41,7 +38,7 @@ const App = () => {
 
                {/* <RootStack.Screen options={{headerShown: false}} name='HomeScreen' component={Home}/> */}
                <RootStack.Screen options={{headerShown: false}} name='Follow' component={Follow}/>
-
+               <RootStack.Screen options={{headerShown: false}} name="BottomTabs" component={BottomTabs}/>
 
             </RootStack.Navigator>
          </NavigationContainer>

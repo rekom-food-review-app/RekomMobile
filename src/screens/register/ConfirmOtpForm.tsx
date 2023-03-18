@@ -43,11 +43,11 @@ const ConfirmOtpForm = (props: ConfirmOtpFormProps) => {
          "otpCode": otpInput.value
       }
 
-      let config = {
-         headers: {
-            Authorization: `bearer ${auth.authToken.accessToken}`
-         }
-      }
+      // let config = {
+      //    headers: {
+      //       Authorization: `bearer ${auth.authToken.accessToken}`
+      //    }
+      // }
       RekomAxios({
          method: 'post',
          data: data,

@@ -9,6 +9,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { InputStateType } from '../../@types/InputStateType';
 import { inputInitState } from '../../constant/inputInitState';
 import RekomAxios from '../../api/axios';
+import { useDispatch } from 'react-redux';
+import { setProfile } from '../../global-states';
 
 interface UpdateProfileFormProps
 {
@@ -17,6 +19,7 @@ interface UpdateProfileFormProps
 
 const UpdateProfileForm = (props: UpdateProfileFormProps) => {
   const nav = useNavigation<any>()
+  const dispatch = useDispatch()
 
   const [avatar, setAvatar] = useState<ImageOrVideo>();
   const [date, setDate] = useState(new Date());
@@ -72,8 +75,9 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
       data: data
     })
     .then((res) => {
-      console.log(res)
-      nav.navigate("Home")
+      console.log(res.data.profile)
+      dispatch(setProfile(res.data.profile))
+      nav.replace("BottomTabs")
     })
     .catch((e) => {
       console.log(e)

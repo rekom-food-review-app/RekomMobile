@@ -3,7 +3,6 @@ import {StyleSheet, Text, TextInput, View, TouchableOpacity, Keyboard} from 'rea
 import {Colors} from '../../assets/colors';
 import Icon from 'react-native-vector-icons/Feather'
 
-
 interface SecureTextFieldProps {
   placeholder: string;
   onChangeText ?: (text: string) => void;
@@ -12,6 +11,7 @@ interface SecureTextFieldProps {
   wrapperStyle?: any;
   error?: string;
 }
+
 const SecureTextField = (props: SecureTextFieldProps) => {
   const [hidePassword, setHidePassword] = useState(true);
 

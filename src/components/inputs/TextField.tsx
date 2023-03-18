@@ -22,7 +22,7 @@ const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref) => {
       <TextInput
         value={props.value}
         ref={ref}
-        onBlur={() => Keyboard.dismiss()}
+        // onBlur={() => Keyboard.dismiss()}
         multiline={props.multiline}
         onChangeText={props.onChangeText}
         style={[defaultStyle.textField, type[props.type ?? 'left'].placeholder, props.textFieldStyle]}

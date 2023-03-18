@@ -38,7 +38,7 @@ function RegisterAccountForm(props: RegisterAccountFormProps) {
       })        
       .then((res) => {
           dispatch(setTab(2))
-          dispatch(setAuth({authToken: res.data.authToken})) // bug here
+          dispatch(setAuth(res.data.authToken)) // bug here
         })
       .catch((e) => {
          setIsLoading(false)

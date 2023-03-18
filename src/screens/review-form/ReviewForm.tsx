@@ -10,8 +10,7 @@ import { InputStateType } from '../../@types/InputStateType';
 import { inputInitState } from '../../constant/inputInitState';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { addReviewToTop } from '../../global-states';
-import { v4 as uuidv4 } from 'uuid';
+import { addReviewToTop, setCanReview } from '../../global-states';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 
@@ -23,7 +22,6 @@ const ReviewForm = () => {
   const dispatch = useDispatch()
 
   const selectedRestaurant = useSelector((state: RootState) => state.selectedRestaurant)
-  const auth = useSelector((state: RootState) => state.auth)
 
   const [reviewImgs, setReviewImgs] = useState<ImageOrVideo[]>([])
   const [content, setContent] = useState<InputStateType>(inputInitState)
@@ -90,6 +88,7 @@ const ReviewForm = () => {
           ...res.data.review,
           images: reviewImgs.map((value, index) => value.path)
         }))
+        dispatch(setCanReview(res.data.canReview))
         nav.goBack()
       })
       .catch(e => {

@@ -20,7 +20,6 @@ function RegisterLayout() {
    return (
       <KeyboardAvoidingView>
          <ScrollView style={{width: '100%', height: '100%', backgroundColor: Colors.B, position: 'relative'}}>
-
             <View style={styles.layout}>
 
                <View style={{marginBottom: 30}}>
@@ -29,7 +28,6 @@ function RegisterLayout() {
                   <CsText style={{marginBottom: 30}}>Step 1/3</CsText>
                   <TimeLine step={tab}/>
                </View>
-
                {
                   tab == 1 ? <RegisterAccountForm/> : null
                }
@@ -39,9 +37,7 @@ function RegisterLayout() {
                {
                   tab == 3 ? <UpdateProfileForm/> : null
                }
-
             </View>
-
          </ScrollView>
       </KeyboardAvoidingView>
    );

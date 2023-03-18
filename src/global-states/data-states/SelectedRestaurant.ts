@@ -20,11 +20,14 @@ export const SelectedRestaurantSlice = createSlice({
     },
     setRestaurantInfo(state, action: PayloadAction<RestaurantApiType>){
       state.info = action.payload
+    },
+    setCanReview(state, action: PayloadAction<boolean>){
+      state.info.canReview = action.payload
     }
   }
 })
 
-export const {setRestaurantInfo, setRestaurantInfoToInit} = SelectedRestaurantSlice.actions
+export const {setRestaurantInfo, setCanReview, setRestaurantInfoToInit} = SelectedRestaurantSlice.actions
 
 const SelectedRestaurantReducer = SelectedRestaurantSlice.reducer;
 
