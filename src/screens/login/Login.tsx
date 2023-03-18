@@ -8,6 +8,7 @@ import {inputInitState} from '../../constant/inputInitState';
 import {useDispatch} from 'react-redux'
 import {setAuth, setProfile} from "../../global-states"
 import RekomAxios from "../../api/axios"
+import { NotiModal } from "./NotiModal"
 
 function Login() {
    const nav = useNavigation<any>()
@@ -15,6 +16,7 @@ function Login() {
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [email, setEmail] = useState<InputStateType>(inputInitState)
    const [password, setPassword] = useState<InputStateType>(inputInitState)
+   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
    function submit() {
       setIsLoading(true)
@@ -34,15 +36,23 @@ function Login() {
             nav.navigate("BottomTabs")
          })
          .catch(e => {
-            console.log(e)
             setIsLoading(false)
-            setEmail(pre => ({value: email.value, error: "incorrect email or password"}))
-            setPassword(pre => ({value: password.value, error: "incorrect email or password"}))
+            const statusCode = e.response.status
+
+            if(statusCode == 429){
+               setModalVisible(true)
+            }
+
+            if(statusCode == 400) {
+               setEmail(pre => ({value: email.value, error: "incorrect email or password"}))
+               setPassword(pre => ({value: password.value, error: "incorrect email or password"}))
+            }
          })
    }
 
    return (
       <View style={{width: '100%', height: '100%', backgroundColor: Colors.B}}>
+         <NotiModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
          <Image source={require('../../assets/image/Header.png')} style={styles.header}/>
          <View
             style={{

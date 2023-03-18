@@ -1,25 +1,17 @@
-import { Button } from "../../components"
+import { Button, CsText } from "../../components"
 import {Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import { resetAuthSlice } from "../../global-states";
 
-interface MyProfileMenuProps
+interface NotiModalProps
 {
   modalVisible: boolean
   setModalVisible: (status: boolean) => void
 }
 
-function MyProfileMenu(props: MyProfileMenuProps)
+function NotiModal(props: NotiModalProps)
 {
-  // const [modalVisible, setModalVisible] = useState();
   const nav = useNavigation<any>()
-  const dispatch = useDispatch()
-
-  const handleLogout = () => {
-    dispatch(resetAuthSlice())
-    nav.replace("LoginScreen")
-  }
 
   return (
     <Modal
@@ -31,19 +23,19 @@ function MyProfileMenu(props: MyProfileMenuProps)
       }}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Button type="secondary" onPress={() => handleLogout()} label="Logout"></Button>
-          <Button onPress={() => props.setModalVisible(!props.modalVisible)} label="Cancel"></Button>
+          <CsText size="md" weight={"bold"}>Hi, You Login Too Much Today, Please Try Another Day</CsText>
+          <Button size="sm" onPress={() => props.setModalVisible(!props.modalVisible)} label="Ok"></Button>
         </View>
       </View>
     </Modal>
   )
 }
-
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    // marginTop: 22,
     backgroundColor: 'white'
   },
   modalView: {
@@ -84,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {MyProfileMenu}
+export {NotiModal}

@@ -39,6 +39,12 @@ export const AuthSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    resetAuthSlice: (state) => {
+      AsyncStorage.removeItem("accessToken")
+      AsyncStorage.removeItem("profile")
+      state.authToken = initialState.authToken
+      state.profile = initialState.profile
+    },
     setAuth: (state, action: PayloadAction<AuthTokenType>) => {
       AsyncStorage.setItem("accessToken", action.payload.accessToken)
       state.authToken = action.payload
@@ -50,7 +56,7 @@ export const AuthSlice = createSlice({
   }
 })
 
-export const {setAuth, setProfile} = AuthSlice.actions
+export const {setAuth, setProfile, resetAuthSlice} = AuthSlice.actions
 
 const AuthReducer = AuthSlice.reducer;
 
