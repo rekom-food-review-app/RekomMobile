@@ -18,7 +18,7 @@ const Follow = () => {
   const getFollow = () => {
     RekomAxios({
        method: 'get',
-       url: `rekomers/${(route.params as any).id}/${(route.params as any).route}?page=1&size=5`
+       url: `rekomers/${(route.params as any).id}/${(route.params as any).route}?page=1&size=25`
     })
     .then(res => {  
       setFollowLList(res.data.followList)

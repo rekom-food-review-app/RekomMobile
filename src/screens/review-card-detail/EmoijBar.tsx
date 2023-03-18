@@ -5,10 +5,14 @@ import { IconButton } from '../../components/inputs/IconButton'
 import { setResTab } from '../../global-states';
 import { ReviewCardType } from '../../@types/ReviewCardType';
 
-interface EmoijBarProps extends ReviewCardType
+interface EmoijBarProps
 {
   wrapperStyle ?: any
   tab: number
+  amountDisagree: number,
+  amountAgree: number,
+  amountUseful: number,
+  amountReply: number,
 }
 
 const EmoijBar = (props: EmoijBarProps) => {
