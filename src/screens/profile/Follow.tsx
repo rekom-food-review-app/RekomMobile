@@ -39,6 +39,7 @@ const Follow = () => {
             avatarUrl={item.rekomerAvatarUrl} 
             fullName={item.rekomerFullName}
             id={item.id}
+            createdAt={item.rekomerDescription}
             onPressUser={() => nav.push('OtherProfileScreen', {rekomerId: item.rekomerId})}
           />}
         keyExtractor={(item, index) => item.id}

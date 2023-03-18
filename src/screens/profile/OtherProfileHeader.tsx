@@ -24,10 +24,14 @@ const OtherProfileHeader = (props: OtherProfileHeaderProps) =>
 
    const [isFollowButtonDisplay, setIsFollowButtonDisplay] = useState<boolean>(!(props.rekomerId == meId))
    const [followStatus, setFollowStatus] = useState<boolean | undefined>(false)
-   const [amountFollower, setAmountFollower] = useState(0)
+   const [amountFollower, setAmountFollower] = useState(rekomerProfile.amountFollower)
 
    const nav = useNavigation<any>()
    const dispatch = useDispatch()
+   
+   useEffect(() => {
+      setAmountFollower(rekomerProfile.amountFollower)
+   }, [rekomerProfile.amountFollower])
 
    useEffect(() => {
       RekomAxios({
@@ -83,7 +87,7 @@ const OtherProfileHeader = (props: OtherProfileHeaderProps) =>
          <View>
             <Avatar
                imgUrl={rekomerProfile.avatarUrl}
-               wrapperStyle={{marginBottom: 20}} size={'lg'}/>
+               wrapperStyle={{marginBottom: 20}} size={'xl'}/>
             <View style={{
                backgroundColor: Colors.B,
                position: 'absolute',
@@ -111,7 +115,7 @@ const OtherProfileHeader = (props: OtherProfileHeaderProps) =>
          }}>{rekomerProfile.description}</CsText>
          <View style={{flexDirection: 'row'}}>
             <Hi number={rekomerProfile.amountReview} label='Reviews'/>
-            <TouchableOpacity onPress={() => {nav.push('Follow', {id: rekomerProfile.id, route: "followers"})}}><Hi number={rekomerProfile.amountFollower} label='Followers'/></TouchableOpacity>
+            <TouchableOpacity onPress={() => {nav.push('Follow', {id: rekomerProfile.id, route: "followers"})}}><Hi number={amountFollower} label='Followers'/></TouchableOpacity>
             <TouchableOpacity onPress={() => {nav.push('Follow', {id: rekomerProfile.id, route: "followings"})}}><Hi number={rekomerProfile.amountFollowing} label='Following'/></TouchableOpacity>
          </View>
          <View style={defaultStyle.dashedLine}></View>

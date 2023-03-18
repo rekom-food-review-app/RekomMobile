@@ -37,7 +37,7 @@ function OtherReviewList(props: OtherReviewListProps)
     <FlatList 
       data={reviews}
       windowSize={5}
-      style={{marginBottom: 50}}
+      style={{marginBottom: 50, gap: 20}}
       renderItem = {({item}) => <ReviewCard key={item.id} {...item}/>}
       onEndReached={handleEndReach}
       onEndReachedThreshold={3}

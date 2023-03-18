@@ -159,11 +159,10 @@ const Search = () => {
             data={searchResult!.rekomerList}
             renderItem = {({item}) => 
               <UserActionInfo 
-                onPressUser={() => nav.navigate('OtherProfileScreen', item.id)}
+                onPressUser={() => nav.navigate('OtherProfileScreen', {rekomerId: item.id})}
                 wrapperStyle={{gap: 10, padding: 10, borderWidth: 0.5, borderColor: Colors.C, borderRadius: 20, marginBottom: 100, borderStyle: 'dashed'}} 
-                avatarUrl={item.avatarUrl}
-                fullName={item.fullName}
-                id={item.id}
+                {...item}
+                createdAt={item.description}
               />}
             keyExtractor={(item, index) => item.key}
         />
