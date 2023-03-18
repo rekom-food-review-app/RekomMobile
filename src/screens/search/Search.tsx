@@ -120,52 +120,67 @@ const Search = () => {
             <CsText style={{alignSelf: "center"}}>Search for Foods, Restaurants and other Rekomers</CsText>
           </View>
         : <>
-        <View>
+        <View style={{marginBottom: 20}}>
           <Title onPressSeeMore={() => nav.navigate("RestaurantSearch", {keyword: search.value})} titleName='Restaurants' wrapperStyle={{paddingHorizontal: 24}}/>
-
-          <VirtualizedList 
-            contentContainerStyle={{gap: 15, paddingHorizontal: 20}}
-            data={searchResult!.restaurantList}
-            horizontal={true}
-            style={{marginBottom: 20}}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => <RestaurantCard {...item} wrapperStyle={{width: width - 60}}/>
-            }
-            getItem={getRestaurants}
-            getItemCount={getRestaurantCount}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          {
+            searchResult!.restaurantList.length > 0
+            ? (
+              <VirtualizedList 
+                contentContainerStyle={{gap: 15, paddingHorizontal: 20}}
+                data={searchResult!.restaurantList}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item}) => <RestaurantCard {...item} wrapperStyle={{width: width - 60}}/>
+                }
+                getItem={getRestaurants}
+                getItemCount={getRestaurantCount}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            )
+            : <CsText size='xs' color='C' style={{paddingHorizontal: 24, alignSelf: 'flex-end'}}>Not found restaurant</CsText>
+          }
         </View>
 
-        <View>
+        <View style={{marginBottom: 20}}>
           <Title onPressSeeMore={() => nav.navigate("FoodSearch", {keyword: search.value})} titleName='Foods' wrapperStyle={{paddingHorizontal: 24}}/>
-
-          <VirtualizedList 
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{gap: 13, justifyContent: "space-between", paddingHorizontal: 20}}
-            data={searchResult!.foodList}
-            horizontal={true}
-            style={{marginBottom: 20}}
-            renderItem={({item}) => <DishInfo wrapperStyle={{width: (width -50)*0.48}} {...item} />}
-            getItem={getFoods}
-            getItemCount={getFoodCount}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          {
+            searchResult!.foodList.length > 0
+            ? (
+              <VirtualizedList 
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{gap: 13, justifyContent: "space-between", paddingHorizontal: 20}}
+                data={searchResult!.foodList}
+                horizontal={true}
+                renderItem={({item}) => <DishInfo wrapperStyle={{width: (width -50)*0.48}} {...item} />}
+                getItem={getFoods}
+                getItemCount={getFoodCount}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            )
+            : <CsText size='xs' color='C' style={{paddingHorizontal: 24, alignSelf: 'flex-end'}}>Not found food</CsText>
+          }
         </View>
 
         <View style={{paddingHorizontal: 20}}>
           <Title titleName='Rekomers' wrapperStyle={{paddingHorizontal: 4}} />
-          <FlatList 
-            data={searchResult!.rekomerList}
-            renderItem = {({item}) => 
-              <UserActionInfo 
-                onPressUser={() => nav.navigate('OtherProfileScreen', {rekomerId: item.id})}
-                wrapperStyle={{gap: 10, padding: 10, borderWidth: 0.5, borderColor: Colors.C, borderRadius: 20, marginBottom: 100, borderStyle: 'dashed'}} 
-                {...item}
-                createdAt={item.description}
-              />}
-            keyExtractor={(item, index) => item.id}
-        />
+
+          {
+            searchResult!.rekomerList.length > 0
+            ? (
+              <FlatList 
+                data={searchResult!.rekomerList}
+                renderItem = {({item}) => 
+                  <UserActionInfo 
+                    onPressUser={() => nav.navigate('OtherProfileScreen', {rekomerId: item.id})}
+                    wrapperStyle={{gap: 10, padding: 10, borderWidth: 0.5, borderColor: Colors.C, borderRadius: 20, marginBottom: 100, borderStyle: 'dashed'}} 
+                    {...item}
+                    createdAt={item.description}
+                  />}
+                keyExtractor={(item, index) => item.id}
+              />
+            )
+            : <CsText size='xs' color='C' style={{paddingHorizontal: 0, alignSelf: 'flex-end'}}>Not found food</CsText>
+          }
         </View>
         </>
       }
