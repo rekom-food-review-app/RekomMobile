@@ -21,7 +21,7 @@ function MyReviewList(props: ReviewListProps)
        url: `rekomers/me/reviews?page=${page}&size=${size}`
     })
     .then(res => {
-       setReviews(res.data.reviews)
+       setReviews(pre => pre.concat(res.data.reviews))
     })
     .catch(e => {
        console.log(e)

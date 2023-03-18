@@ -78,7 +78,7 @@ function ReviewCard(props: ReviewCardProps) {
       <View style={props.wrapperStyle}>
          <UserActionInfo
             id=""
-            onPressUser={() => nav.push("OtherProfileScreen")}
+            onPressUser={() => nav.push("OtherProfileScreen", {rekomerId: props.rekomerId})}
             avatarUrl={`${props.rekomerAvatarUrl}`} 
             createdAt={props.createdAt}
             fullName={props.rekomerFullName}

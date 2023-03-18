@@ -20,13 +20,13 @@ const Follow = () => {
        method: 'get',
        url: `rekomers/${(route.params as any).id}/${(route.params as any).route}?page=1&size=5`
     })
-    .then(res => {
+    .then(res => {  
       setFollowLList(res.data.followList)
     })
     .catch(e => {
        console.log(e)
     })
- }
+  }
 
   return(
     <View style={{paddingHorizontal: 20, paddingTop: 30, backgroundColor: "white", minHeight: "100%"}}>
@@ -39,7 +39,7 @@ const Follow = () => {
             avatarUrl={item.rekomerAvatarUrl} 
             fullName={item.rekomerFullName}
             id={item.id}
-            onPressUser={() => nav.push('OtherProfileScreen', item.rekomerId)}
+            onPressUser={() => nav.push('OtherProfileScreen', {rekomerId: item.rekomerId})}
           />}
         keyExtractor={(item, index) => item.id}
         // onEndReached={props.handleEndReached}

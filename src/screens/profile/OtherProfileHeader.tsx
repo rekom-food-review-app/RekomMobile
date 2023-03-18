@@ -5,10 +5,11 @@ import { useEffect, useState } from 'react';
 import RekomAxios from '../../api/axios';
 import {HeaderBack} from '../../components'
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateAmountFollowing } from '../../global-states';
 import { RekomerProfileApiType } from '../../@types/RekomerProfileApiType';
 import { rekomerProfileApiInitState } from '../../constant/rekomerProfileApiInitState';
+import { RootState } from '../../app/store';
 
 interface OtherProfileHeaderProps
 {
@@ -19,6 +20,9 @@ const OtherProfileHeader = (props: OtherProfileHeaderProps) =>
 {
    const [rekomerProfile, setRekomerProfile] = useState<RekomerProfileApiType>(rekomerProfileApiInitState)
 
+   const meId = useSelector((state: RootState) => state.auth.profile.id)
+
+   const [isFollowButtonDisplay, setIsFollowButtonDisplay] = useState<boolean>(!(props.rekomerId == meId))
    const [followStatus, setFollowStatus] = useState<boolean | undefined>(false)
    const [amountFollower, setAmountFollower] = useState(0)
 
@@ -88,11 +92,15 @@ const OtherProfileHeader = (props: OtherProfileHeaderProps) =>
                padding: 5,
                borderRadius: 100
             }}>
-               <Button 
-               onPress={() => changeFollowStatus()}
-               size={'xs'} 
-               type={'primary'} 
-               label={followStatus ? 'following' : 'follow'} />
+               {
+                  isFollowButtonDisplay
+                  ? <Button 
+                     onPress={() => changeFollowStatus()}
+                     size={'xs'} 
+                     type={'primary'} 
+                     label={followStatus ? 'following' : 'follow'} />
+                  : null
+               }
             </View>
          </View>
          <CsText style={{alignSelf: 'center', marginBottom: 5}} size={'lg'} weight={'800'}>{rekomerProfile.fullName ? rekomerProfile.fullName : 'nhô nhem'}</CsText>
@@ -130,4 +138,4 @@ const defaultStyle = StyleSheet.create({
    }
 })
 
-export {OtherProfileHeader as CsOtherProfile}
+export {OtherProfileHeader}
