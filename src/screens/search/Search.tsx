@@ -138,7 +138,7 @@ const Search = () => {
         </View>
 
         <View>
-          <Title titleName='Foods' wrapperStyle={{paddingHorizontal: 24}}/>
+          <Title onPressSeeMore={() => nav.navigate("FoodSearch", {keyword: search.value})} titleName='Foods' wrapperStyle={{paddingHorizontal: 24}}/>
 
           <VirtualizedList 
             showsHorizontalScrollIndicator={false}

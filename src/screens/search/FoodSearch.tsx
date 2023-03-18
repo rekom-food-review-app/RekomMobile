@@ -3,15 +3,14 @@ import { useEffect, useRef, useState } from "react"
 import { Dimensions, FlatList, Keyboard, Text, TextInput, View, VirtualizedList } from "react-native"
 import SkeletonPlaceholder from "react-native-skeleton-placeholder"
 import { ScrollView } from "react-native-virtualized-view"
+import { DishInfoApiType } from "../../@types/DishInfoApiType"
 import { InputStateType } from "../../@types/InputStateType"
-import { RestaurantCardApiType } from "../../@types/RestaurantCardApiType"
 import RekomAxios from "../../api/axios"
-import { RestaurantCard, SearchBar } from "../../components"
+import { DishInfo, RestaurantCard, SearchBar } from "../../components"
 
 const width = Dimensions.get('window').width
 
-
-function RestaurantSearch ()
+function FoodSearch ()
 {
   const nav = useNavigation<any>()
   const route = useRoute()
@@ -20,7 +19,7 @@ function RestaurantSearch ()
   const searchRef = useRef<TextInput>(null);
   const [search, setSearch] = useState<InputStateType>({value: keyword, error: ""})
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [restaurantList, setRestaurantList] = useState<RestaurantCardApiType[]>([])
+  const [foodList, setFoodList] = useState<DishInfoApiType[]>([])
 
   const [page, setPage] = useState(1)
   const size = 30
@@ -32,20 +31,20 @@ function RestaurantSearch ()
   const handleSearch = (p: number) => {
     Keyboard.dismiss()
     if (p == 1) {
-      setRestaurantList([])
+      setFoodList([])
       setIsLoading(true)
     }
     RekomAxios({
       method: "get",
-      url: `search/restaurants?Keyword=${search.value}&Page=${p}&Size=${size}`
+      url: `search/foods?Keyword=${search.value}&Page=${p}&Size=${size}`
     })
     .then((res) => {
       if (p == 1) {
-        setRestaurantList(res.data.restaurantList)
+        setFoodList(res.data.foodList)
         setIsLoading(false)
       }
       else {
-        setRestaurantList(restaurantList.concat(res.data.restaurantList))
+        setFoodList(foodList.concat(res.data.restaurantList))
       }
     })
   }
@@ -64,27 +63,16 @@ function RestaurantSearch ()
         ref={searchRef} placeholder='Search ...'
         wrapperStyle={{paddingHorizontal: 20, zIndex: 100, paddingTop: 30, paddingBottom: 20, position: "absolute"}}/>
       <ScrollView style={{paddingTop: 100}}>
-        {/* <VirtualizedList
-          data={restaurantList}
-          style={{gap: 15, paddingHorizontal: 20}}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => <RestaurantCard {...item}/>}
-          getItem={getRestaurants}
-          getItemCount={getRestaurantCount}
-          onEndReached={handleEndReach}
-          onEndReachedThreshold={3}
-          // windowSize={30}
-          keyExtractor={(item, index) => item.id}
-        /> */}
-            <FlatList 
-              data={restaurantList}
-              windowSize={5}
-              style={{gap: 15, paddingHorizontal: 20}}
-              renderItem = {({item}) => <RestaurantCard {...item}/>}
-              onEndReachedThreshold={3}
-              keyExtractor={(item, index) => item.id}
-              // onEndReached={handleEndReach}
-            />
+        <FlatList
+        style={{width: '100%', paddingHorizontal: 20}}
+        data={foodList} 
+        numColumns={2}
+        columnWrapperStyle={{alignItems: 'center', flex: 0.5, justifyContent: 'space-between', paddingBottom: 20}}
+        renderItem = {({item}) => <DishInfo {...item} wrapperStyle={{width: '48%',}}/>}
+        keyExtractor={data => data.id}
+        // onEndReached={handleEndReached}
+        onEndReachedThreshold={2}
+        />
         {
           isLoading
           ? (
@@ -106,4 +94,4 @@ function RestaurantSearch ()
   )
 }
 
-export {RestaurantSearch}
+export {FoodSearch}
