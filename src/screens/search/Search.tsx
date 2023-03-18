@@ -164,7 +164,7 @@ const Search = () => {
                 {...item}
                 createdAt={item.description}
               />}
-            keyExtractor={(item, index) => item.key}
+            keyExtractor={(item, index) => item.id}
         />
         </View>
         </>

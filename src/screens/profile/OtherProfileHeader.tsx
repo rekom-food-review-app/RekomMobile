@@ -101,7 +101,7 @@ const OtherProfileHeader = (props: OtherProfileHeaderProps) =>
                   ? <Button 
                      onPress={() => changeFollowStatus()}
                      size={'xs'} 
-                     type={'primary'} 
+                     type={followStatus ? 'secondary' : 'primary'} 
                      label={followStatus ? 'following' : 'follow'} />
                   : null
                }

@@ -4,7 +4,7 @@ const rekomerProfileApiInitState: RekomerProfileApiType =
 {
   id: '',
   username: '',
-  avatarUrl: 'https://itechcliq.com/wp-content/uploads/2020/12/check-who-viewed-my-Facebook-profile-page-696x464.jpg',
+  avatarUrl: 'https://inkythuatso.com/uploads/thumbnails/800/2023/03/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg',
   fullName: '',
   description: '',
   isFollow: undefined,
@@ -12,4 +12,5 @@ const rekomerProfileApiInitState: RekomerProfileApiType =
   amountFollowing: 0,
   amountReview: 0
 }
+
 export {rekomerProfileApiInitState}
