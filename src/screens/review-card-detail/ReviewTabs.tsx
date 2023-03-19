@@ -27,13 +27,13 @@ function ReviewTabs(props: ReviewTabsProps)
         tabEmoij == 1 ? <CommentSection reviewId={props.reviewId} /> : null
       }
       {
-        tabEmoij == 2 ? <Reaction /> : null
+        tabEmoij == 2 ? <Reaction reactionId="1" reviewId={props.reviewId}  /> : null
       }
       {
-        tabEmoij == 3 ? <Reaction /> : null
+        tabEmoij == 3 ? <Reaction reactionId="3" reviewId={props.reviewId} /> : null
       }
       {
-        tabEmoij == 4 ? <Reaction /> : null
+        tabEmoij == 4 ? <Reaction reactionId="2" reviewId={props.reviewId}/> : null
       }
   </View>
   )

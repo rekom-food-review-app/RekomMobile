@@ -146,7 +146,7 @@ function ReviewCard(props: ReviewCardProps) {
             </View>
             <View style={{marginHorizontal: 20, paddingTop: 10}}>
                <TouchableOpacity disabled={props.textTouchingDisable}
-                                 onPress={() => nav.navigate("ReviewCardDetailScreen", props)}><CsText
+                                 onPress={() => nav.push("ReviewCardDetailScreen", props)}><CsText
                   numberOfLines={props.numberOfLines}>{props.content}</CsText></TouchableOpacity>
                <View style={{flexDirection: 'row', gap: 5, marginVertical: 10}}>
                   <Icon name='map-pin' size={20}/>

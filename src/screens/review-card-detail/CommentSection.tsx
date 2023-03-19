@@ -6,6 +6,7 @@ import { UserActionInfo } from '../../components'
 import * as signalR from '@microsoft/signalr';
 import { WS_COMMENT_HUB } from '../../constant/api'
 import { emitter } from '../../app/emitter'
+import { useNavigation } from '@react-navigation/native'
 
 interface CommentSectionProps 
 {
@@ -19,6 +20,8 @@ const CommentSection = (props: CommentSectionProps) =>
   const [commentList, setCommentList] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const size = 8
+
+  const nav = useNavigation<any>()
 
   useEffect(() => {
     let currentLastComment = commentList[commentList.length - 1]
@@ -67,6 +70,7 @@ const CommentSection = (props: CommentSectionProps) =>
         data={commentList}
         renderItem = {({item}) => 
           <UserActionInfo 
+            onPressUser={() => nav.push('OtherProfileScreen', {rekomerId: item.rekomerId})}
             id={item.id}
             avtSize={'xs'} 
             avatarUrl={item.rekomerAvatarUrl} 

@@ -1,35 +1,48 @@
-import { View} from 'react-native'
+import { useEffect, useState } from 'react'
+import { FlatList, View} from 'react-native'
+import RekomAxios from '../../api/axios'
 import { Colors } from '../../assets/colors'
 import { UserActionInfo } from '../../components'
 
-const Reaction = () => {
+interface ReactionProps
+{
+  reviewId: string
+  reactionId: string
+}
+
+const Reaction = (props: ReactionProps) => {
+  const [reactionList, setReactionList] = useState<any[]>([])
+  const [page, setPage] = useState(1);
+  const size = 8
+
+  useEffect(() => {
+    RekomAxios({
+      url: `reviews/${props.reviewId}/reactions/${props.reactionId}?page=${page}&size=${size}`
+    })
+    .then((res) => {
+      setReactionList(pre => [...pre, ...res.data.reactionList])
+    })
+  }, [page])
+
+  const handleEndReached = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
   return(
-    <View>
-      <UserActionInfo 
-        id={''}
+    <FlatList 
+      data={reactionList}
+      renderItem = {({item}) => 
+        <UserActionInfo 
+        id={item.rekomerId}
         avtSize={'xs'} 
-        avatarUrl={"https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"}
-        fullName={"linh vo tri"}
-        wrapperStyle={{borderWidth: 0.5, padding: 15, color: Colors.C, borderRadius: 20, borderStyle: 'dashed', marginBottom: 10}}/>
-      <UserActionInfo 
-        id={''}
-        avtSize={'xs'} 
-        avatarUrl={"https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"}
-        fullName={"linh vo tri"}
-        wrapperStyle={{borderWidth: 0.5, padding: 15, color: Colors.C, borderRadius: 20, borderStyle: 'dashed', marginBottom: 10}}/>
-      <UserActionInfo 
-        id={''}
-        avtSize={'xs'} 
-        avatarUrl={"https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"}
-        fullName={"linh vo tri"}
-        wrapperStyle={{borderWidth: 0.5, padding: 15, color: Colors.C, borderRadius: 20, borderStyle: 'dashed', marginBottom: 10}}/>
-      <UserActionInfo 
-        id={''}
-        avtSize={'xs'} 
-        avatarUrl={"https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"}
-        fullName={"linh vo tri"}
-        wrapperStyle={{borderWidth: 0.5, padding: 15, color: Colors.C, borderRadius: 20, borderStyle: 'dashed', marginBottom: 10}}/>
-    </View>
+        avatarUrl={item.rekomerAvatarUrl}
+        fullName={item.rekomerName}
+        createdAt={item.createdAt}
+        wrapperStyle={{borderWidth: 0.5, padding: 10, color: Colors.C, borderRadius: 20, borderStyle: 'dashed', marginBottom: 10}}/>}
+      keyExtractor={(item) => item.id}
+      onEndReached={handleEndReached}
+      onEndReachedThreshold={4}
+    />
   )
 }
 export {Reaction}
