@@ -18,7 +18,7 @@ export const SelectedRestaurantReviewListSlice = createSlice({
       state.reviewList = action.payload
     }, 
     addReviewList(state, action: PayloadAction<ReviewCardType[]>){
-      state.reviewList = state.reviewList.concat(action.payload)
+      state.reviewList = [...state.reviewList, ...action.payload]
     },
     addReviewToTop(state, action: PayloadAction<ReviewCardType>){
       state.reviewList.unshift(action.payload)

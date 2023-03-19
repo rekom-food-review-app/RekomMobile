@@ -5,6 +5,7 @@ import { Colors } from '../../assets/colors'
 import { UserActionInfo } from '../../components'
 import * as signalR from '@microsoft/signalr';
 import { WS_COMMENT_HUB } from '../../constant/api'
+import { emitter } from '../../app/emitter'
 
 interface CommentSectionProps 
 {
@@ -20,18 +21,16 @@ const CommentSection = (props: CommentSectionProps) =>
   const size = 8
 
   useEffect(() => {
-    const commentListLength = commentList.length
-    console.log("yeah")
+    let currentLastComment = commentList[commentList.length - 1]
+    console.log("yeah") 
     RekomAxios({
        method: 'get',
-       url: `reviews/${props.reviewId}/comments?page=${page}&size=${size}&lastTimestamp=${commentListLength > 0 ? commentList[commentListLength-1].createdAt : ''}`,
+       url: `reviews/${props.reviewId}/comments?page=${page}&size=${size}&lastTimestamp=${currentLastComment ? currentLastComment.createdAt : ''}`,
        responseType: 'json'
     })
     .then(res => {
        let commentList = res.data.commentList
-       setCommentList((pre) => {
-          return pre.concat(commentList)
-       })
+       setCommentList((pre) => [...pre, ...commentList])
     })
   },[page])
 
@@ -41,12 +40,12 @@ const CommentSection = (props: CommentSectionProps) =>
         .build();
 
     connection.on("ReceiveComment", (comment: any) => {
-        console.log(comment)
         setCommentList((pre) => {
           // pre.push(comment)
           // return pre
           return [comment, ...pre]
         })
+        emitter.emit(`NewComment-${props.reviewId}`)
     });
 
     connection.start()

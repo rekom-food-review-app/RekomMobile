@@ -1,10 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
-import {Image, Text, TouchableOpacity, View} from 'react-native'
+import {Image, TouchableOpacity, View} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { FavoriteResApiType } from '../../@types/FavoriteResApiType'
 import { Colors } from '../../assets/colors'
 import { CsText } from '..'
-import { RestaurantApiType } from '../../@types/RestaurantApiType'
 import { RestaurantCardApiType } from '../../@types/RestaurantCardApiType'
 
 interface RestaurantCardProps extends RestaurantCardApiType
@@ -14,6 +12,9 @@ interface RestaurantCardProps extends RestaurantCardApiType
 
 const RestaurantCard = (props: RestaurantCardProps) => {
   const nav = useNavigation<any>()
+
+  // const [commentListLength, setCommentListLength]
+
   return(
     <View style={props.wrapperStyle}>
       <TouchableOpacity style={[{position: 'relative'}]} onPress={() => nav.navigate('RestaurantScreen', {id: props.id})}>

@@ -3,11 +3,12 @@ import {CsText, UserActionInfo} from "./index";
 import {Colors} from "../../assets/colors";
 import Icon from 'react-native-vector-icons/Feather'
 import {IconButton} from "../index";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {ReviewCardType} from "../../@types/ReviewCardType";
 import RekomAxios from "../../api/axios";
 import { ImageSlider } from "react-native-image-slider-banner";
+import { emitter } from "../../app/emitter";
 
 interface ReviewCardProps extends ReviewCardType {
    numberOfLines?: number
@@ -47,7 +48,29 @@ function ReviewCard(props: ReviewCardProps) {
       "1": props.amountAgree,
       "2": props.amountDisagree,
       "3": props.amountUseful,
+      "4": props.amountReply
    })
+
+   useEffect(() => {
+      var token = emitter.addListener(`NewComment-${props.id}`, () => {
+         console.log("you right")
+         setReaction((pre) => {
+            pre["4"] = pre["4"] + 1
+            return {...pre}
+         })
+      });
+       
+      return () => {
+        token.remove();
+      }
+   }, [])
+
+   useEffect(() => {
+      props.amountAgree = reaction["1"]
+      props.amountDisagree = reaction["2"]
+      props.amountUseful = reaction["3"]
+      props.amountReply = reaction["4"]
+   }, [reaction["1"], reaction["2"], reaction["3"], reaction["4"]])
 
    const handleReact = (id: string) => {
       console.log(props.id)
@@ -150,7 +173,7 @@ function ReviewCard(props: ReviewCardProps) {
                               </View>
                               <IconButton onPress={() => nav.navigate("ReviewCardDetailScreen", props)} size={'sm'}
                                           typeBtn={'inactive'}
-                                          source={require('../../assets/image/cmt.png')}>{props.amountReply}</IconButton>
+                                          source={require('../../assets/image/cmt.png')}>{reaction["4"]}</IconButton>
                            </View>
                            <View style={defaultStyle.dashedLine}></View>
                         </>
