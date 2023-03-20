@@ -28,7 +28,7 @@ function RestaurantTabs(props: RestaurantTabsProps)
           tabRes == 3 ? <RestaurantGallery restaurantId={props.id}/> : null
       }
       {
-          tabRes == 4 ? <RestaurantInfo/> : null
+          tabRes == 4 ? <RestaurantInfo restaurantId={props.id}/> : null
       }
     </>
   )

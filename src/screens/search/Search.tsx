@@ -163,7 +163,6 @@ const Search = () => {
 
         <View style={{paddingHorizontal: 20}}>
           <Title onPressSeeMore={() => nav.navigate("RekomerSearch", {keyword: search.value})} titleName='Rekomers' wrapperStyle={{paddingHorizontal: 4}} />
-
           {
             searchResult!.rekomerList.length > 0
             ? (
@@ -172,7 +171,7 @@ const Search = () => {
                 renderItem = {({item}) => 
                   <UserActionInfo 
                     onPressUser={() => nav.navigate('OtherProfileScreen', {rekomerId: item.id})}
-                    wrapperStyle={{gap: 10, padding: 10, borderWidth: 0.5, borderColor: Colors.C, borderRadius: 20, marginBottom: 100, borderStyle: 'dashed'}} 
+                    wrapperStyle={{gap: 10, padding: 10, borderWidth: 0.5, borderColor: Colors.C, borderRadius: 20, marginBottom: 10, borderStyle: 'dashed'}} 
                     {...item}
                     createdAt={item.description}
                   />}

@@ -112,6 +112,7 @@ const type = {
       borderColor: Colors.B,
     },
   }),
+  
 };
 
 export {Button};
