@@ -21,9 +21,12 @@ function MyReviewList(props: ReviewListProps)
   const size = 5
 
   useEffect(() => {
+    let currentLastReview = reviews[reviews.length - 1]
+    console.log(page)
+    console.log(currentLastReview)
     RekomAxios({
        method: 'get',
-       url: `rekomers/me/reviews?page=${page}&size=${size}`
+       url: `rekomers/me/reviews?page=${page}&size=${size}&lastTimestamp=${currentLastReview ? currentLastReview.createdAt.split('+')[0] : ''}`
     })
     .then(res => {
       dispatch(pushListMyReviewList(res.data.reviews))
@@ -35,7 +38,7 @@ function MyReviewList(props: ReviewListProps)
   }, [page])
 
   const handleEndReached = () => {
-    setPage((pre) => pre + 1)
+    setPage(page + 1)
   }
 
   return (

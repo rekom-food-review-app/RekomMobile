@@ -35,6 +35,11 @@ const Home = () =>
 			})
 	}
 
+	const renderedItem = ({item}: any) => <Feed {...item} />
+	const getFeedCount = () => feedList.length
+	const onEndReached = () => {
+		setPage(pre => pre + 1)
+	}
 	return (
 		<ScrollView style={{backgroundColor: Colors.B}}>
 			<HeaderBack type={'secondary'} iconRight='map-pin' title="REKOM" wrapperStyle={{marginTop: 30, marginBottom: 20,paddingHorizontal: 20}}/> 
@@ -44,14 +49,12 @@ const Home = () =>
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{gap: 1, justifyContent: "space-between", paddingLeft: 20}}
           data={feedList}
-          renderItem={({item}) => <Feed {...item} />}
+          renderItem={renderedItem}
           getItem={getFeeds}
-          getItemCount={() => feedList.length}
-          keyExtractor={(item, index) => uuidv4()}
+          getItemCount={getFeedCount}
+          keyExtractor={(item, index) => index.toString() + item.restaurant.id}
 					onEndReachedThreshold={6}
-					onEndReached={() => {
-						setPage(pre => pre + 1)
-					}}
+					onEndReached={onEndReached}
         />
 			{
 				isLoading 

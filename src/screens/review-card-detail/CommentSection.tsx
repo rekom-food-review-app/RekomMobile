@@ -25,7 +25,7 @@ const CommentSection = (props: CommentSectionProps) =>
 
   useEffect(() => {
     let currentLastComment = commentList[commentList.length - 1]
-    console.log("yeah") 
+    
     RekomAxios({
        method: 'get',
        url: `reviews/${props.reviewId}/comments?page=${page}&size=${size}&lastTimestamp=${currentLastComment ? currentLastComment.createdAt : ''}`,
