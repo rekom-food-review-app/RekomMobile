@@ -119,6 +119,7 @@ function ReviewCard(props: ReviewCardProps) {
          console.log(e)
       })
    }
+   
    const images = props.images
    return (
       <View style={props.wrapperStyle}>
@@ -148,10 +149,10 @@ function ReviewCard(props: ReviewCardProps) {
                <TouchableOpacity disabled={props.textTouchingDisable}
                                  onPress={() => nav.push("ReviewCardDetailScreen", props)}><CsText
                   numberOfLines={props.numberOfLines}>{props.content}</CsText></TouchableOpacity>
-               <View style={{flexDirection: 'row', gap: 5, marginVertical: 10}}>
+               <TouchableOpacity onPress={() => nav.push('RestaurantScreen', {id: props.restaurantId})} style={{flexDirection: 'row', gap: 5, marginVertical: 10}}>
                   <Icon name='map-pin' size={20}/>
                   <CsText weight={600}>{props.restaurantName} - 5kms</CsText>
-               </View>
+               </TouchableOpacity>
                {
                   props.isEmojiDisplay === undefined || props.isEmojiDisplay
                      ? (

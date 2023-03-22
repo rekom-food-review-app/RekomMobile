@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { FlatList } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { ReviewCardType } from "../../@types/ReviewCardType";
 import RekomAxios from "../../api/axios";
+import { RootState } from "../../app/store";
 import { ReviewCard } from "../../components";
+import { pushListMyReviewList } from "../../global-states";
 
 interface ReviewListProps
 {
@@ -11,7 +14,9 @@ interface ReviewListProps
 
 function MyReviewList(props: ReviewListProps) 
 {
-  const [reviews, setReviews] = useState<ReviewCardType[]>([])
+  const dispatch = useDispatch()
+  const reviews = useSelector((state: RootState) => state.myReviewList.reviewList)
+  // const [reviews, setReviews] = useState<ReviewCardType[]>([])
   const [page, setPage] = useState(1);
   const size = 5
 
@@ -21,7 +26,8 @@ function MyReviewList(props: ReviewListProps)
        url: `rekomers/me/reviews?page=${page}&size=${size}`
     })
     .then(res => {
-       setReviews(pre => pre.concat(res.data.reviews))
+      dispatch(pushListMyReviewList(res.data.reviews))
+      //  setReviews(pre => [...pre, ...res.data.reviews])
     })
     .catch(e => {
        console.log(e)

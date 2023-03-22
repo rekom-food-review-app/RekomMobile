@@ -17,7 +17,7 @@ const RestaurantCard = (props: RestaurantCardProps) => {
 
   return(
     <View style={props.wrapperStyle}>
-      <TouchableOpacity style={[{position: 'relative'}]} onPress={() => nav.navigate('RestaurantScreen', {id: props.id})}>
+      <TouchableOpacity style={[{position: 'relative'}]} onPress={() => nav.push('RestaurantScreen', {id: props.id})}>
       <Image source={{uri: props.coverImageUrl}} style={{width: '100%', height: 200, borderRadius: 20}}/>
       <View style={{position: 'absolute', bottom: 15, left: 15}}>
         <View style={{flexDirection: 'column', gap: 7}}>

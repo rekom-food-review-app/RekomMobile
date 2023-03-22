@@ -1,11 +1,12 @@
-import { Image, Text, View, VirtualizedList } from "react-native"
+import { Image, Text, View, VirtualizedList, FlatList } from "react-native"
 import { Feed, FeedProps, HeaderBack,} from "../../components"
 import { useState, useEffect } from "react"
 import RekomAxios from "../../api/axios";
 import { ScrollView } from "react-native-virtualized-view";
 import { Colors } from "../../assets/colors";
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = () =>
 {
@@ -13,7 +14,7 @@ const Home = () =>
   const getFeeds = (feeds: FeedProps[], index: number) => feedList[index];
   const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [page, setPage] = useState<number>(1)
-	const size = 10
+	const size = 20
 
 	useEffect(() => {
 		loadFeed()
@@ -26,7 +27,7 @@ const Home = () =>
 			url: `feeds?Location.Latitude=10.0252955&Location.Longitude=105.0312475&Page=${page}&Size=${size}`,
 		})
 			.then(res => {
-				setFeedList((pre) => pre.concat(res.data.feedList)) 
+				setFeedList([...feedList, ...res.data.feedList]) 
 				setIsLoading(false)
 			})
 			.catch(e => {
@@ -39,13 +40,14 @@ const Home = () =>
 			<HeaderBack type={'secondary'} iconRight='map-pin' title="REKOM" wrapperStyle={{marginTop: 30, marginBottom: 20,paddingHorizontal: 20}}/> 
 			<VirtualizedList 
 					windowSize={5}
+					style={{gap: 20}}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{gap: 1, justifyContent: "space-between", paddingLeft: 20}}
           data={feedList}
           renderItem={({item}) => <Feed {...item} />}
           getItem={getFeeds}
           getItemCount={() => feedList.length}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => uuidv4()}
 					onEndReachedThreshold={6}
 					onEndReached={() => {
 						setPage(pre => pre + 1)

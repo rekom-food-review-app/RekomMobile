@@ -22,7 +22,7 @@ function OtherReviewList(props: OtherReviewListProps)
         url: `rekomers/${props.rekomerId}/reviews?page=${page}&size=${size}`
      })
      .then(res => {
-        setReviews(pre => pre.concat(res.data.reviews))
+        setReviews(pre => [...pre, ...res.data.reviews])
      })
      .catch(e => {
         console.log(e)

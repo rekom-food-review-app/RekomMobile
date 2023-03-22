@@ -7,6 +7,8 @@ import { ReviewCardType } from "../../@types/ReviewCardType";
 import { DishInfo } from "./DishInfo";
 import { RestaurantCard } from "./RestaurantCard";
 import { ReviewCard } from "./ReviewCard";
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 interface FeedProps
 {
@@ -21,9 +23,12 @@ const Feed = (props: FeedProps) => {
   const getFoodCount = () => props.foodList.length
   const getFoods = (foods: DishInfoApiType[], index: number) => props.foodList[index];
   return(
-    <View style={{gap: 20, marginBottom: 20}}>
+    <View style={{gap: 20}}>
       <RestaurantCard {...props.restaurant} wrapperStyle={{marginHorizontal: 20}}/>
-      <VirtualizedList 
+      {
+        props.foodList.length > 0 
+        ? (
+          <VirtualizedList 
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{gap: 13, justifyContent: "space-between", paddingLeft: 20}}
           data={props.foodList}
@@ -31,10 +36,13 @@ const Feed = (props: FeedProps) => {
           renderItem={({item}) => <DishInfo {...props.foodList} wrapperStyle={{width: (width - 50)*0.48}} {...item} />}
           getItem={getFoods}
           getItemCount={getFoodCount}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => item.id}
         />
+        )
+        : null
+      }
       {
-        (props.standardReview ? <ReviewCard {...props.standardReview}/> : <></>)
+        (props.standardReview ? <ReviewCard {...props.standardReview}/> : null)
       }
     </View>
   )

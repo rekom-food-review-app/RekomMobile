@@ -47,7 +47,7 @@ const MyProfileHeader = (props: MyProfileHeaderProps) =>
             wrapperStyle={{ paddingHorizontal: 20, marginBottom: 20}}/>
          <Avatar
             imgUrl={`${myProfile.avatarUrl}`} 
-            wrapperStyle={{marginBottom: 20}} size={'lg'}/>
+            wrapperStyle={{marginBottom: 20}} size={'xl'}/>
 
          <CsText
             style={{alignSelf: 'center', marginBottom: 5}}

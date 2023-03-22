@@ -44,8 +44,6 @@ const CommentSection = (props: CommentSectionProps) =>
 
     connection.on("ReceiveComment", (comment: any) => {
         setCommentList((pre) => {
-          // pre.push(comment)
-          // return pre
           return [comment, ...pre]
         })
         emitter.emit(`NewComment-${props.reviewId}`)

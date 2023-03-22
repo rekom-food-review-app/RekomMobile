@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit'
-import {AuthReducer, RegisterTabReducer, RestaurantTabReducer, MyProfileReducer, FavoriteReducer, SelectedRestaurantReducer, SelectedRestaurantReviewListReducer} from "../global-states"
+import {AuthReducer, RegisterTabReducer, RestaurantTabReducer, MyReviewListReducer, MyProfileReducer, FavoriteReducer, SelectedRestaurantReducer, SelectedRestaurantReviewListReducer} from "../global-states"
 
 export const store = configureStore({
   reducer: {
@@ -7,6 +7,7 @@ export const store = configureStore({
     registerTab: RegisterTabReducer,
     restaurantTab: RestaurantTabReducer,
     myProfile: MyProfileReducer,
+    myReviewList: MyReviewListReducer,
     favorite: FavoriteReducer,
     selectedRestaurant: SelectedRestaurantReducer,
     selectedRestaurantReviewList: SelectedRestaurantReviewListReducer,

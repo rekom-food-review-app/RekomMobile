@@ -3,6 +3,7 @@ import {Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { resetAuthSlice } from "../../global-states";
+// import { v4 as uuidv4 } from 'uuid';
 
 interface MyProfileMenuProps
 {

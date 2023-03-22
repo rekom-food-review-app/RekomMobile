@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View, Platform} from 'react-native';
 import ImagePicker,{ImageOrVideo} from 'react-native-image-crop-picker';
 import {Colors} from '../../assets/colors';
@@ -29,6 +29,18 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
   const [dobInput, setdobInput] = useState<InputStateType>(inputInitState)
   const [descriptionInput, setDescriptionInput] = useState<InputStateType>(inputInitState)
   
+  const [submitButtonStatus, setSubmitButtonStatus] = useState({label: "submit", type: "disable"});
+
+  useEffect(() => {
+    if(descriptionInput.value.toString().trim().length > 0 && fullNameInput.value.toString().trim().length > 0)
+    {
+      setSubmitButtonStatus({
+        ...submitButtonStatus,
+        type: "primary"
+      })
+    }
+  }, [descriptionInput.value, fullNameInput.value])
+
   const onChange = (selectedDate?: Date) => {
     setDate((pre) => {
       const currentDate = selectedDate || date;
@@ -56,6 +68,10 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
   };
 
   const submit = async() => {
+    setSubmitButtonStatus({
+      label: "loading...",
+      type: "disable"
+    })
     var data = new FormData();
 
     data.append('avatar', {
@@ -140,9 +156,9 @@ const UpdateProfileForm = (props: UpdateProfileFormProps) => {
         <Button
           onPress={submit}
           wrapperStyle={{width: '100%', zIndex: -1}}
-          type={'primary'}
+          type={submitButtonStatus.type as never}
           size={'lg'}
-          label={"Let's go babe"}
+          label={submitButtonStatus.label}
         />
 
     </View>

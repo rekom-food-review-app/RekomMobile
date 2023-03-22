@@ -10,7 +10,7 @@ import { InputStateType } from '../../@types/InputStateType';
 import { inputInitState } from '../../constant/inputInitState';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { addReviewToTop, setCanReview } from '../../global-states';
+import { addReviewToTop, setCanReview, addToTopMyReviewList } from '../../global-states';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 
@@ -84,10 +84,12 @@ const ReviewForm = () => {
         data: reviewData
       })
       .then(res => {
-        dispatch(addReviewToTop({
+        const newReview = {
           ...res.data.review,
           images: reviewImgs.map((value, index) => value.path)
-        }))
+        }
+        dispatch(addReviewToTop(newReview))
+        dispatch(addToTopMyReviewList(newReview))
         dispatch(setCanReview(res.data.canReview))
         nav.goBack()
       })
