@@ -20,19 +20,19 @@ interface ReviewCardProps extends ReviewCardType {
 const ratings = {
    "1" : {
       icon: require('../../assets/image/face-vomiting.png'),
-      label: "che che che"
+      label: "chê chê chê"
    },
    "2" : {
       icon: require('../../assets/image/unamused-face.png'),
-      label: "2"
+      label: "không nuốt nổi"
    },
    "3" : {
       icon: require('../../assets/image/relieved-face.png'),
-      label: "3"
+      label: "tạm được"
    },
    "4" : {
       icon: require('../../assets/image/face-savoring-food.png'),
-      label: "4"
+      label: "cũng ngon á"
    },
    "5" : {
       icon: require('../../assets/image/smiling-face-with-heart-eyes.png'),

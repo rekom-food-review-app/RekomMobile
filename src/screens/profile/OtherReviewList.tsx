@@ -12,7 +12,6 @@ interface OtherReviewListProps
 function OtherReviewList(props: OtherReviewListProps)
 {
   const [reviews, setReviews] = useState<ReviewCardType[]>([])
-
   const [page, setPage] = useState(1);
   const size = 5
   
@@ -22,15 +21,15 @@ function OtherReviewList(props: OtherReviewListProps)
         url: `rekomers/${props.rekomerId}/reviews?page=${page}&size=${size}`
      })
      .then(res => {
-        setReviews(pre => [...pre, ...res.data.reviews])
+        setReviews([...reviews, ...res.data.reviews])
      })
      .catch(e => {
         console.log(e)
      })
-  }, [size])
+  }, [page])
 
   const handleEndReach = () => {
-    setPage(pre => pre + 1)
+    setPage(page + 1)
   }
 
   return (
@@ -39,8 +38,8 @@ function OtherReviewList(props: OtherReviewListProps)
       windowSize={5}
       style={{marginBottom: 50, gap: 20}}
       renderItem = {({item}) => <ReviewCard key={item.id} {...item}/>}
-      onEndReached={handleEndReach}
       onEndReachedThreshold={3}
+      onEndReached={handleEndReach}
       keyExtractor={(item, index) => index.toString()}
     />
   )
