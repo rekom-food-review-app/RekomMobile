@@ -161,7 +161,7 @@ const Search = () => {
           }
         </View>
 
-        <View style={{paddingHorizontal: 20}}>
+        <View style={{paddingHorizontal: 20, marginBottom: 200}}>
           <Title onPressSeeMore={() => nav.navigate("RekomerSearch", {keyword: search.value})} titleName='Rekomers' wrapperStyle={{paddingHorizontal: 4}} />
           {
             searchResult!.rekomerList.length > 0
