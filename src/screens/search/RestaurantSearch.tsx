@@ -60,7 +60,7 @@ function RestaurantSearch ()
         inputValue={search.value as any}
         onBack={() => nav.goBack()} 
         onSubmit={() => handleSearch(1)} 
-        onChangeText={(text: string) => setSearch({value: text.trim(), error: ''})} 
+        onChangeText={(text: string) => setSearch({value: text, error: ''})} 
         ref={searchRef} placeholder='Search ...'
         wrapperStyle={{paddingHorizontal: 20, zIndex: 100, paddingTop: 30, paddingBottom: 20, position: "absolute"}}/>
       <ScrollView style={{paddingTop: 100}}>

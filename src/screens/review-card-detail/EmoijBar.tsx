@@ -14,11 +14,11 @@ interface EmoijBarProps
   amountAgree: number,
   amountUseful: number,
   amountReply: number,
-  reviewId: string
+  reviewId: string,
+  onChangeTab: (tab: number) => void
 }
 
 const EmoijBar = (props: EmoijBarProps) => {
-
   const [index, setIndex] = useState<number>(props.tab);
   const dispatch = useDispatch()
 
@@ -55,20 +55,20 @@ const EmoijBar = (props: EmoijBarProps) => {
   return(
     <View style={{flexDirection: 'row', gap: 10, marginBottom: 20}}>
       <IconButton 
-        onPress={() => {dispatch(setResTab(1)); react('D')}} size={'sm'}
-        typeBtn={index == 1 ? 'active' : 'inactive'}
+        onPress={() => {props.onChangeTab(1); react('D')}} size={'sm'}
+        typeBtn={props.tab == 1 ? 'active' : 'inactive'}
         source={require('../../assets/image/cmt.png')}>{reaction["4"]}</IconButton>
       <IconButton
-        onPress={() => {dispatch(setResTab(2)); react('A')}} size={'sm'}
-        typeBtn={index == 2 ? 'active' : 'inactive'}
+        onPress={() => {props.onChangeTab(2); react('A')}} size={'sm'}
+        typeBtn={props.tab == 2 ? 'active' : 'inactive'}
         source={require('../../assets/image/like.png')}>{props.amountAgree}</IconButton>
       <IconButton 
-        onPress={() => {dispatch(setResTab(3)); react('B')}} size={'sm'}
-        typeBtn={index == 3 ? 'active' : 'inactive'}
+        onPress={() => {props.onChangeTab(3); react('B')}} size={'sm'}
+        typeBtn={props.tab == 3 ? 'active' : 'inactive'}
         source={require('../../assets/image/soso.png')}>{props.amountUseful}</IconButton>
       <IconButton
-        onPress={() => {dispatch(setResTab(4)); react('C')}} size={'sm'}
-        typeBtn={index == 4 ? 'active' : 'inactive'}
+        onPress={() => {props.onChangeTab(4); react('C')}} size={'sm'}
+        typeBtn={props.tab == 4 ? 'active' : 'inactive'}
         source={require('../../assets/image/dislike.png')}>{props.amountDisagree}</IconButton>
     </View>
   )

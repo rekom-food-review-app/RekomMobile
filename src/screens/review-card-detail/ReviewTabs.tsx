@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { View } from "react-native"
 import { useSelector } from "react-redux"
 import { RootState } from "../../app/store"
@@ -16,11 +17,12 @@ interface ReviewTabsProps
 
 function ReviewTabs(props: ReviewTabsProps) 
 {
-  const tabEmoij = useSelector((state: RootState) => state.restaurantTab.tabRes)
+  // const tabEmoij = 
+  const [tabEmoij, setTabEmoij] = useState<number>(1);
 
   return (
     <View style={{paddingHorizontal: 20, marginBottom: 70}}>
-      <EmoijBar {...props} tab={tabEmoij}
+      <EmoijBar onChangeTab={setTabEmoij} {...props} tab={tabEmoij}
         // restaurantCoordinates={review.restaurantCoordinates}
       />
       {
